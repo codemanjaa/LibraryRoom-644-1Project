@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RoomDBDemo</string>
+    <string name="app_name">Library Manager</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -100,6 +100,7 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_test">TestActivity</string>
 
 
 </resources>

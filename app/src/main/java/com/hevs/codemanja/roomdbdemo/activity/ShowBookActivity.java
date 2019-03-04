@@ -30,7 +30,7 @@ public class ShowBookActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_book_show);
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -110,9 +110,10 @@ public class ShowBookActivity extends AppCompatActivity {
         bookAdapter = new BookAdapter(this, bookList );
         recyclerView.setAdapter(bookAdapter);
 
-/*
+
         buttonEdit = findViewById(R.id.buttonEdit);
-        buttonEdit.setOnClickListener(new View.OnClickListener() {
+
+/*        buttonEdit.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {

@@ -2,6 +2,7 @@ package com.hevs.codemanja.roomdbdemo.Adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -69,6 +70,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
         ImageView imageView;
         TextView textViewTitle, textViewCategory, textViewId;
+        Button buttonEdit;
 
 
 
@@ -79,6 +81,21 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             textViewCategory = itemView.findViewById(R.id.textViewCategory);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewId = itemView.findViewById(R.id.textViewId);
+            buttonEdit = itemView.findViewById(R.id.buttonEdit);
+
+            buttonEdit.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+
+
+                  // Intent intent = new Intent(mContext, TestActivity.class);
+
+                    //startActivity(new Intent(AddBookActivity.class, mContext));
+
+                }
+            });
+
            // imageView = itemView.findViewById(R.id.imageView);
         }
     }
