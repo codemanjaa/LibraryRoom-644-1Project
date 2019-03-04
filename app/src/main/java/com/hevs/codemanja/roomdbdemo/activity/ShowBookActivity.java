@@ -79,7 +79,7 @@ public class ShowBookActivity extends AppCompatActivity {
                 ));
         bookList.add(
                 new Book(
-                        "200",
+                        "400",
                         "Business Fundamentals",
                         "Business",
                         R.drawable.a
@@ -87,14 +87,14 @@ public class ShowBookActivity extends AppCompatActivity {
 
         bookList.add(
                 new Book(
-                        "300",
+                        "500",
                         "Cooking Fundamentals",
                         "Health",
                         R.drawable.a
                 ));
         bookList.add(
                 new Book(
-                        "200",
+                        "600",
                         "Business Fundamentals",
                         "Business",
                         R.drawable.a
@@ -102,16 +102,41 @@ public class ShowBookActivity extends AppCompatActivity {
 
         bookList.add(
                 new Book(
-                        "300",
+                        "700",
                         "Cooking Fundamentals",
                         "Health",
                         R.drawable.a
                 ));
+        bookList.add(
+                new Book(
+                        "800",
+                        "Cooking Fundamentals",
+                        "Health",
+                        R.drawable.a
+                ));
+        bookList.add(
+                new Book(
+                        "900",
+                        "Business Fundamentals",
+                        "Business",
+                        R.drawable.a
+                ));
+
+        bookList.add(
+                new Book(
+                        "1000",
+                        "Cooking Fundamentals",
+                        "Health",
+                        R.drawable.a
+                ));
+
         bookAdapter = new BookAdapter(this, bookList );
         recyclerView.setAdapter(bookAdapter);
 
 
         buttonEdit = findViewById(R.id.buttonEdit);
+
+
 
 /*        buttonEdit.setOnClickListener(new View.OnClickListener() {
 
@@ -125,6 +150,10 @@ public class ShowBookActivity extends AppCompatActivity {
 
 */
 
+
+
     }
+
+
 
 }

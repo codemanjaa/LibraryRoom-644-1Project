@@ -4,6 +4,7 @@ package com.hevs.codemanja.roomdbdemo.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.R;
+import com.hevs.codemanja.roomdbdemo.activity.AddBookActivity;
+import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
 
 import java.util.List;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 // RecycleView
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
@@ -27,6 +33,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     // Testing the book edit button
 
     private Button buttonEdit;
+
 
 
 
@@ -70,7 +77,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
         ImageView imageView;
         TextView textViewTitle, textViewCategory, textViewId;
-        Button buttonEdit;
+        Button buttonEdit, buttonDelete;
 
 
 
@@ -82,12 +89,25 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewId = itemView.findViewById(R.id.textViewId);
             buttonEdit = itemView.findViewById(R.id.buttonEdit);
+            buttonDelete = itemView.findViewById(R.id.buttonDelete);
+
 
             buttonEdit.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View view) {
 
+                    int position = getAdapterPosition();
+
+                    Snackbar.make(view, "Click detected on item " + position,
+                            Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                    // To modify the book
+                    Intent intent = new Intent(view.getContext(),AddBookActivity.class);
+                    view.getContext().startActivity(intent);
+
+                  //  showAddBookActivity();
 
                   // Intent intent = new Intent(mContext, TestActivity.class);
 
@@ -96,8 +116,38 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                 }
             });
 
+
+            buttonDelete.setOnClickListener(new View.OnClickListener(){
+
+
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+
+                    Snackbar.make(view, "Click detected on item " + position,
+                            Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                    // To Remove the book
+                    Intent intent = new Intent(view.getContext(),MainActivity.class);
+                    view.getContext().startActivity(intent);
+                }
+            });
+
+
+
            // imageView = itemView.findViewById(R.id.imageView);
         }
+
+
+
+
+    }
+
+    private void showAddBookActivity() {
+
+
+
     }
 
 }
