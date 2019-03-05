@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_main"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Search Book"/>
+        <item
+            android:id="@+id/nav_addBook"
+            android:icon="@android:drawable/ic_input_add"
+            android:title="Add Book" />
+        <item
+            android:id="@+id/nav_updateBook"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:title="Edit Book" />
+
+        <item
+            android:id="@+id/nav_deleteBook"
+            android:icon="@android:drawable/ic_input_delete"
+            android:title="Delete Book" />
+
+        <item
+            android:id="@+id/nav_ShelfManagment"
+            android:icon="@drawable/ic_local_library_black_24dp"
+            android:title="Shelf management" />
+    </group>
+
+    <item android:title="More information">
+        <menu>
+            <item
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/ic_contact_phone_black_24dp"
+                android:title="Contact us" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="About us" />
+        </menu>
+    </item>
+</menu>

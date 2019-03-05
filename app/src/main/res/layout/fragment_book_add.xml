@@ -16,7 +16,6 @@
         app:layout_constraintTop_toTopOf="@+id/linearLayout"
         tools:layout_editor_absoluteX="16dp">
 
-
         <EditText
             android:id="@+id/editTextTitle"
             android:layout_width="374dp"
@@ -27,7 +26,8 @@
             android:hint="Title"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="34dp" />
+            tools:layout_editor_absoluteY="34dp"
+            android:autofillHints="" />
 
 
         <EditText
