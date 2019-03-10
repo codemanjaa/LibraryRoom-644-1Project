@@ -2,13 +2,19 @@ package com.hevs.codemanja.roomdbdemo.dao;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Query;
 
 import com.hevs.codemanja.roomdbdemo.entity.Book;
+
+import java.util.List;
 
 @Dao
 public interface BookDao {
 
     @Insert
-    public void addBook(Book book);
+     void addBook(Book book);
+
+    @Query("SELECT * FROM books")
+     List<Book> getAllBooks();
 
 }

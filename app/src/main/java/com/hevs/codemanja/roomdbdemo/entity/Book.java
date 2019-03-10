@@ -2,10 +2,11 @@ package com.hevs.codemanja.roomdbdemo.entity;
 
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity
+@Entity(tableName = "books")
 public class Book {
 
     @PrimaryKey
@@ -13,17 +14,28 @@ public class Book {
     private String bid;
     private String title;
     private String category;
+    @Ignore
     private int image;
 
 
+    @Ignore
     public Book(){
 
     }
+
+    public Book(@NonNull String bid, String title, String category) {
+        this.bid = bid;
+        this.title = title;
+        this.category = category;
+
+    }
+
 
     public Book(@NonNull String bid, String title, String category, int image) {
         this.bid = bid;
         this.title = title;
         this.category = category;
+
         this.image = image;
     }
 

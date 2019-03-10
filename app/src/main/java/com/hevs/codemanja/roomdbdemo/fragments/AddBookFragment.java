@@ -1,6 +1,7 @@
 package com.hevs.codemanja.roomdbdemo.fragments;
 
 
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
@@ -27,7 +29,7 @@ public class AddBookFragment extends Fragment {
     private EditText editTextBid, editTextTitle, editTextCategory;
     private Button buttonAdd;
 
-
+    LibraryDB libraryDB;
 
 
     public AddBookFragment() {
@@ -58,6 +60,9 @@ public class AddBookFragment extends Fragment {
         buttonAdd = view.findViewById(R.id.buttonAddBook);
         buttonAdd.setEnabled(false);
         editTextBid.requestFocus();
+
+
+
 
 
         editTextBid.addTextChangedListener(new TextWatcher() {
@@ -100,7 +105,9 @@ public class AddBookFragment extends Fragment {
                book.setTitle(title);
                book.setCategory(category);
 
-               MainActivity.libraryDB.bookDao().addBook(book);
+
+
+             MainActivity.libraryDB.bookDao().addBook(book);
                Toast.makeText(getActivity(), "Book added to the shelf", Toast.LENGTH_SHORT).show();
 
                editTextBid.setText("");

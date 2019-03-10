@@ -1,5 +1,6 @@
 package com.hevs.codemanja.roomdbdemo.activity;
 
+import android.arch.persistence.room.Room;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,7 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
 
@@ -20,6 +23,7 @@ public class AddBookActivity extends AppCompatActivity {
     private EditText editTextBid, editTextTitle, editTextCategory;
     private Button buttonAdd;
     private Spinner spinnerCategory, spinnerLocation;
+    LibraryDB libraryDB;
 
 
     public AddBookActivity(){
@@ -63,6 +67,8 @@ public class AddBookActivity extends AppCompatActivity {
         buttonAdd.setEnabled(false);
         editTextBid.requestFocus();
 
+        libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books").allowMainThreadQueries().build();
+
 
         editTextBid.addTextChangedListener(new TextWatcher() {
             @Override
@@ -103,9 +109,11 @@ public class AddBookActivity extends AppCompatActivity {
                 book.setBid(bookId);
                 book.setTitle(title);
                 book.setCategory(category);
+                // This is the testing data
+                //book.setImage(1);
 
-                MainActivity.libraryDB.bookDao().addBook(book);
-              //  Toast.makeText(getActivity(), "Book added to the shelf", Toast.LENGTH_SHORT).show();
+               libraryDB.bookDao().addBook(book);
+               Toast.makeText(AddBookActivity.this, "Book added to the shelf", Toast.LENGTH_SHORT).show();
 
                 editTextBid.setText("");
                 editTextTitle.setText("");

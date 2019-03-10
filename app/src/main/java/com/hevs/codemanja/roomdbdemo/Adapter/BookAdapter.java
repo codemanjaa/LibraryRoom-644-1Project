@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.activity.AddBookActivity;
 import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
+import com.hevs.codemanja.roomdbdemo.dao.BookDao;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
 
 import java.util.List;
@@ -42,6 +43,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     public BookAdapter(Context mContext, List<Book> bookList) {
         this.mContext = mContext;
         this.bookList = bookList;
+
+
     }
 
     @NonNull

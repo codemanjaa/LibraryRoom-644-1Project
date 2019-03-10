@@ -1,16 +1,19 @@
 package com.hevs.codemanja.roomdbdemo.activity;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.hevs.codemanja.roomdbdemo.Adapter.BookAdapter;
 import com.hevs.codemanja.roomdbdemo.R;
+import com.hevs.codemanja.roomdbdemo.dao.BookDao;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
 
 import java.util.ArrayList;
@@ -49,9 +52,16 @@ public class ShowBookActivity extends AppCompatActivity {
         });
 
         bookList = new ArrayList<>();
+
+         // bookList =  libraryDB.bookDao().getAllBooks();
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
 
 
         bookList.add(
@@ -129,6 +139,8 @@ public class ShowBookActivity extends AppCompatActivity {
                         "Health",
                         R.drawable.a
                 ));
+
+
 
         bookAdapter = new BookAdapter(this, bookList );
         recyclerView.setAdapter(bookAdapter);
