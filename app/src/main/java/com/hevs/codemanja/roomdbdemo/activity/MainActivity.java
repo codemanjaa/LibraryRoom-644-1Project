@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Database operation reference
 
-    public static LibraryDB libraryDB;
+    public static LibraryDB libraryDB, shelfDB;
 
 
     @Override
@@ -36,9 +36,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         fragmentManager = getSupportFragmentManager();
-        libraryDB = Room.databaseBuilder(getApplicationContext(),LibraryDB.class, "librarydb")
+        libraryDB = Room.databaseBuilder(getApplicationContext(),LibraryDB.class, "books")
                 .allowMainThreadQueries()
                 .build();
+
+        shelfDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "shelves")
+                .allowMainThreadQueries().build();
 
 
         if(findViewById(R.id.fragment_container) != null){

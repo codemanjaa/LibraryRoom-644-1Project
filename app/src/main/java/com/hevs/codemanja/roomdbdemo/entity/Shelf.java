@@ -7,12 +7,12 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.view.ViewDebug;
 
-@Entity
+@Entity(tableName = "shelf")
 public class Shelf {
 
     @PrimaryKey
     @NonNull
-    String spotId;
+    String spotid;
     String desc;
 
     @Ignore
@@ -20,18 +20,18 @@ public class Shelf {
 
     }
 
-    public Shelf(String spotId, String desc ){
-        this.spotId = spotId;
+    public Shelf(String spotid, String desc ){
+        this.spotid = spotid;
         this.desc = desc;
     }
 
     @NonNull
-    public String getSpotId() {
-        return spotId;
+    public String getSpotid() {
+        return spotid;
     }
 
-    public void setSpotId(@NonNull String spotId) {
-        this.spotId = spotId;
+    public void setSpotid(@NonNull String spotid) {
+        this.spotid = spotid;
     }
 
     public String getDesc() {
@@ -49,6 +49,6 @@ public class Shelf {
         if (!(o instanceof Shelf)) return false;
 
         Shelf shelf = (Shelf) o;
-        return shelf.getSpotId().equals(this.getSpotId());
+        return shelf.getSpotid().equals(this.getSpotid());
     }
 }

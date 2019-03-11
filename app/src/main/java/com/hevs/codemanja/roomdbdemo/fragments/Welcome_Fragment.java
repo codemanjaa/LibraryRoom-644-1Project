@@ -51,7 +51,7 @@ public class Welcome_Fragment extends Fragment implements View.OnClickListener {
             case R.id.buttonAdd:
 
                 MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,
-                        new AddBookFragment()).addToBackStack(null).commit();
+                        new Add_Shelf_Fragment()).addToBackStack(null).commit();
 
                 break;
 

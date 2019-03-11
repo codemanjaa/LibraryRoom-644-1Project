@@ -9,25 +9,45 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="177dp"
-        android:layout_marginTop="70dp"
+        android:layout_height="320dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
-        tools:layout_editor_absoluteX="16dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="73dp">
+
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="50dp"
+            tools:layout_editor_absoluteX="7dp" />
 
         <EditText
-            android:id="@+id/editTextTitle"
+            android:id="@+id/editTextSpotId"
+            android:layout_width="369dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Spot ID"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="13dp"
+            tools:layout_editor_absoluteY="220dp" />
+
+
+        <EditText
+            android:id="@+id/editTextDesc"
             android:layout_width="374dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
+            android:autofillHints=""
             android:ems="10"
-            android:hint="Title"
+            android:hint="Desc"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="34dp"
-            android:autofillHints="" />
+            tools:layout_editor_absoluteY="34dp" />
 
 
         <EditText
@@ -47,45 +67,15 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <EditText
-            android:id="@+id/editTextBid"
-            android:layout_width="369dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="Book ID"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="13dp"
-            tools:layout_editor_absoluteY="220dp" />
-
-        <ListView
-            android:id="@+id/book_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"></ListView>
-
-
-    </LinearLayout>
-
     <Button
-        android:id="@+id/buttonAddBook"
+        android:id="@+id/buttonAddSpot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="352dp"
+        android:layout_marginTop="440dp"
         android:layout_marginEnd="8dp"
         android:text="@string/add"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

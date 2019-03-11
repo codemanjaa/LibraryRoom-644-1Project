@@ -30,6 +30,7 @@ public class ShelfRepo {
         return instance;
     }
 
+    /*
     public LiveData<Shelf> getShelf(final String spotId, Context context){
         return LibraryDB.getInstance(context).shelfDao().getBySpotId(spotId);
     }
@@ -37,7 +38,7 @@ public class ShelfRepo {
     public LiveData<List<Shelf>> getAllShlf(Context context){
         return LibraryDB.getInstance(context).shelfDao().getAll();
     }
-
+*/
     public void insert(final Shelf shelf, OnAsyncEventListener callback, Context context){
 
         new CreateShelf(context, callback).execute(shelf);

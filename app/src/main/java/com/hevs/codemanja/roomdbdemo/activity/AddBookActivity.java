@@ -67,7 +67,8 @@ public class AddBookActivity extends AppCompatActivity {
         buttonAdd.setEnabled(false);
         editTextBid.requestFocus();
 
-        libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books").allowMainThreadQueries().build();
+        libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "book")
+                .allowMainThreadQueries().build();
 
 
         editTextBid.addTextChangedListener(new TextWatcher() {

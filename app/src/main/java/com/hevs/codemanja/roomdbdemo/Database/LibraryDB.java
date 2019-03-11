@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 
 import static android.content.ContentValues.TAG;
 
-@Database(entities = {Book.class, Shelf.class}, version = 1)
+@Database(entities = {Book.class, Shelf.class}, version = 1, exportSchema = false)
 
 public abstract class LibraryDB extends RoomDatabase {
 
