@@ -1,6 +1,5 @@
 package com.hevs.codemanja.roomdbdemo.dao;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -9,8 +8,6 @@ import android.arch.persistence.room.Update;
 
 
 import com.hevs.codemanja.roomdbdemo.entity.Shelf;
-
-import java.util.List;
 
 @Dao
 public interface ShelfDao {
@@ -28,6 +25,23 @@ public interface ShelfDao {
 
     @Query("SELECT spotid FROM shelf")
     String[] getAllSpots();
+
+    /*
+
+    @Query('SELECT spotid FROM shelf WHERE spotid LIKE "spot%"')
+    String[] getAllSpots(String spot);
+
+@Query("SELECT * FROM hamster WHERE name LIKE :arg0")
+fun loadHamsters(search: String?): Flowable<List<Hamster>>
+
+ @Query("SELECT * FROM user WHERE first_name LIKE :first AND "
+           + "last_name LIKE :last LIMIT 1")
+    User findByName(String first, String last);
+
+*/
+
+    @Query("SELECT spotid FROM shelf WHERE spotid like :spot")
+    String[] getAllSpotsList(String spot);
 
     @Insert
     void insert(Shelf shelf);
