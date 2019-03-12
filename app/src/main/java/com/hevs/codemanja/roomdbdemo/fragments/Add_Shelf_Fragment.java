@@ -16,14 +16,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
 import com.hevs.codemanja.roomdbdemo.entity.Shelf;
 
-import static com.hevs.codemanja.roomdbdemo.activity.MainActivity.libraryDB;
-import static com.hevs.codemanja.roomdbdemo.activity.MainActivity.shelfDB;
 
 
 /**
@@ -36,7 +33,8 @@ public class Add_Shelf_Fragment extends Fragment {
     private EditText editTextSpotId, editTextDesc, editTextCategory;
     private Button buttonAddSpot;
     Spinner spinnerCategory;
-    LibraryDB shelfDB;
+
+
 
 
 
@@ -81,8 +79,8 @@ public class Add_Shelf_Fragment extends Fragment {
         editTextSpotId.requestFocus();
 
 
-        shelfDB = Room.databaseBuilder(getContext(), LibraryDB.class, "shelf")
-                .allowMainThreadQueries().build();
+       // shelfDB = Room.databaseBuilder(getContext(), LibraryDB.class, "books")
+         //       .allowMainThreadQueries().build();
 
 
         editTextSpotId.addTextChangedListener(new TextWatcher() {
@@ -94,7 +92,7 @@ public class Add_Shelf_Fragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(editTextSpotId.getText().toString().length() == 6){
+                if(editTextSpotId.getText().toString().length() == 1){
                     buttonAddSpot.setEnabled(true);
                 }
 
@@ -103,7 +101,7 @@ public class Add_Shelf_Fragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(editTextSpotId.getText().toString().length() != 6){
+                if(editTextSpotId.getText().toString().length() != 1){
                     buttonAddSpot.setEnabled(false);
                 }
 
@@ -131,7 +129,7 @@ public class Add_Shelf_Fragment extends Fragment {
 
 
 
-              MainActivity.shelfDB.shelfDao().insert(shelf);
+              MainActivity.libraryDB.shelfDao().insert(shelf);
                Toast.makeText(getActivity(), "Spot reserved ot the shelf", Toast.LENGTH_SHORT).show();
 
                editTextSpotId.setText("");

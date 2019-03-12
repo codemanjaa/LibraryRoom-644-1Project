@@ -23,7 +23,10 @@ public interface ShelfDao {
     LiveData<List<Shelf>> getAll();
 
 */
-    @Query("SELECT spotId FROM shelf")
+
+
+
+    @Query("SELECT spotid FROM shelf")
     String[] getAllSpots();
 
     @Insert

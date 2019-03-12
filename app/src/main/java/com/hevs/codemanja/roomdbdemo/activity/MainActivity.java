@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Database operation reference
 
-    public static LibraryDB libraryDB, shelfDB;
+    public static LibraryDB libraryDB;
 
 
     @Override
@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .allowMainThreadQueries()
                 .build();
 
-        shelfDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "shelves")
-                .allowMainThreadQueries().build();
 
 
         if(findViewById(R.id.fragment_container) != null){

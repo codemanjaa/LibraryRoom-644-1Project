@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,9 +21,10 @@ import static android.app.PendingIntent.getActivity;
 
 public class AddBookActivity extends AppCompatActivity {
 
-    private EditText editTextBid, editTextTitle, editTextCategory;
+    private EditText editTextBid, editTextTitle, editTextSpotId;
     private Button buttonAdd;
     private Spinner spinnerCategory, spinnerLocation;
+    private String category;
     LibraryDB libraryDB;
 
 
@@ -48,7 +50,7 @@ public class AddBookActivity extends AppCompatActivity {
 
         editTextBid = findViewById(R.id.editTextBid);
         editTextTitle = findViewById(R.id.editTextTitle);
-        editTextCategory = findViewById(R.id.editTextCategory);
+        editTextSpotId = findViewById(R.id.editTextSpotId);
         buttonAdd = findViewById(R.id.buttonAddBook);
         spinnerCategory = findViewById(R.id.spinnerCategory);
         spinnerLocation = findViewById(R.id.spinnerLocation);
@@ -61,14 +63,40 @@ public class AddBookActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
         spinnerCategory.setAdapter(adapter);
 
+
+
         spinnerLocation.setAdapter(adapter);
 
 
-        buttonAdd.setEnabled(false);
+        buttonAdd.setEnabled(true);
         editTextBid.requestFocus();
 
-        libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "book")
+        libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books")
                 .allowMainThreadQueries().build();
+
+
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                category = parent.getItemAtPosition(position).toString(); //this is your selected item
+
+
+                String spot[] = MainActivity.libraryDB.shelfDao().getAllSpots();
+                if(spot.length >0) {
+                    editTextSpotId.setText(spot[0]);
+                }
+
+
+
+
+
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
 
 
         editTextBid.addTextChangedListener(new TextWatcher() {
@@ -80,19 +108,21 @@ public class AddBookActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(editTextBid.getText().toString().length() == 3){
+                // Check the book length should be minumum 3
+            /*    if(editTextBid.getText().toString().length() == 1){
                     buttonAdd.setEnabled(true);
                 }
+            */
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(editTextBid.getText().toString().length() != 3){
+             /*   if(editTextBid.getText().toString().length() != 1){
                     buttonAdd.setEnabled(false);
                 }
-
+            */
 
             }
         });
@@ -103,13 +133,16 @@ public class AddBookActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String bookId = editTextBid.getText().toString();
                 String title = editTextTitle.getText().toString();
-                String category = editTextCategory.getText().toString();
+                //String category = this.category;
 
+                String spotId = editTextSpotId.getText().toString();
 
                 Book book = new Book();
-                book.setBid(bookId);
+                //book.setBid(bookId);
                 book.setTitle(title);
                 book.setCategory(category);
+                book.setF_spotid(spotId);
+
                 // This is the testing data
                 //book.setImage(1);
 
@@ -118,7 +151,7 @@ public class AddBookActivity extends AppCompatActivity {
 
                 editTextBid.setText("");
                 editTextTitle.setText("");
-                editTextCategory.setText("");
+                editTextSpotId.setText("");
 
                 editTextBid.requestFocus();
             }

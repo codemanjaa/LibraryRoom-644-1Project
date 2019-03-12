@@ -12,11 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="375dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -48,17 +47,25 @@
             tools:layout_editor_absoluteY="34dp" />
 
 
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="50dp"
+            tools:layout_editor_absoluteX="7dp" />
+
         <EditText
 
 
-            android:id="@+id/editTextCategory"
+            android:id="@+id/editTextSpotId"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
             android:ems="10"
-            android:hint="Category"
+            android:hint="Spot ID"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="129dp" />
@@ -74,15 +81,8 @@
             android:textColorHint="@color/colorPrimary" />
 
         <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            tools:layout_editor_absoluteX="7dp" />
-
-        <Spinner
             android:id="@+id/spinnerLocation"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             tools:layout_editor_absoluteX="7dp" />
@@ -113,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="444dp"
+        android:layout_marginTop="468dp"
         android:layout_marginEnd="8dp"
         android:text="@string/add"
         app:layout_constraintEnd_toEndOf="parent"

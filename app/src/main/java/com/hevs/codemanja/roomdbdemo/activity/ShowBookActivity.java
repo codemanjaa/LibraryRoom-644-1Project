@@ -64,81 +64,81 @@ public class ShowBookActivity extends AppCompatActivity {
 
 
 
-        bookList.add(
-                new Book(
-                        "100",
-                        "Android Fundamentals",
-                        "Computer",
-                        R.drawable.a
-                       ));
-
-        bookList.add(
-                new Book(
-                        "200",
-                        "Business Fundamentals",
-                        "Business",
-                        R.drawable.a
-                ));
-
-        bookList.add(
-                new Book(
-                        "300",
-                        "Cooking Fundamentals",
-                        "Health",
-                        R.drawable.a
-                ));
-        bookList.add(
-                new Book(
-                        "400",
-                        "Business Fundamentals",
-                        "Business",
-                        R.drawable.a
-                ));
-
-        bookList.add(
-                new Book(
-                        "500",
-                        "Cooking Fundamentals",
-                        "Health",
-                        R.drawable.a
-                ));
-        bookList.add(
-                new Book(
-                        "600",
-                        "Business Fundamentals",
-                        "Business",
-                        R.drawable.a
-                ));
-
-        bookList.add(
-                new Book(
-                        "700",
-                        "Cooking Fundamentals",
-                        "Health",
-                        R.drawable.a
-                ));
-        bookList.add(
-                new Book(
-                        "800",
-                        "Cooking Fundamentals",
-                        "Health",
-                        R.drawable.a
-                ));
-        bookList.add(
-                new Book(
-                        "900",
-                        "Business Fundamentals",
-                        "Business",
-                        R.drawable.a
-                ));
-
-        bookList.add(
-                new Book(
-                        "1000",
-                        "Cooking Fundamentals",
-                        "Health",
-                        R.drawable.a
-                ));
+//        bookList.add(
+//                new Book(
+//                        100,
+//                        "Android Fundamentals",
+//                        "Computer",
+//                        R.drawable.a
+//                       ));
+//
+//        bookList.add(
+//                new Book(
+//                        200,
+//                        "Business Fundamentals",
+//                        "Business",
+//                        R.drawable.a
+//                ));
+//
+//        bookList.add(
+//                new Book(
+//                        "300",
+//                        "Cooking Fundamentals",
+//                        "Health",
+//                        R.drawable.a
+//                ));
+//        bookList.add(
+//                new Book(
+//                        400",
+//                        "Business Fundamentals",
+//                        "Business",
+//                        R.drawable.a
+//                ));
+//
+//        bookList.add(
+//                new Book(
+//                        "500",
+//                        "Cooking Fundamentals",
+//                        "Health",
+//                        R.drawable.a
+//                ));
+//        bookList.add(
+//                new Book(
+//                        "600",
+//                        "Business Fundamentals",
+//                        "Business",
+//                        R.drawable.a
+//                ));
+//
+//        bookList.add(
+//                new Book(
+//                        "700",
+//                        "Cooking Fundamentals",
+//                        "Health",
+//                        R.drawable.a
+//                ));
+//        bookList.add(
+//                new Book(
+//                        "800",
+//                        "Cooking Fundamentals",
+//                        "Health",
+//                        R.drawable.a
+//                ));
+//        bookList.add(
+//                new Book(
+//                        "900",
+//                        "Business Fundamentals",
+//                        "Business",
+//                        R.drawable.a
+//                ));
+//
+//        bookList.add(
+//                new Book(
+//                        "1000",
+//                        "Cooking Fundamentals",
+//                        "Health",
+//                        R.drawable.a
+//                ));
 
 
 

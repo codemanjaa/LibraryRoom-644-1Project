@@ -5,12 +5,11 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
-import android.view.ViewDebug;
 
-@Entity(tableName = "shelf")
+
+@Entity(tableName = "shelf", primaryKeys = {"spotid"})
 public class Shelf {
 
-    @PrimaryKey
     @NonNull
     String spotid;
     String desc;

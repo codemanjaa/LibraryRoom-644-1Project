@@ -2,18 +2,34 @@ package com.hevs.codemanja.roomdbdemo.entity;
 
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "books")
+@Entity(tableName = "books", foreignKeys = @ForeignKey(entity = Shelf.class,
+        parentColumns = "spotid",
+        childColumns = "f_spotid"
+        ),
+        indices = {@Index("f_spotid")}
+        )
 public class Book {
 
-    @PrimaryKey
-    @NonNull
-    private String bid;
+    @PrimaryKey(autoGenerate = true)
+    private int bid;
     private String title;
     private String category;
+
+    @ForeignKey(entity = Shelf.class,
+            parentColumns = "spotid",
+            childColumns = "f_spotid"
+    )
+    private String f_spotid;
+
+
+
+
     @Ignore
     private int image;
 
@@ -23,15 +39,24 @@ public class Book {
 
     }
 
-    public Book(@NonNull String bid, String title, String category) {
+    public Book(@NonNull int bid, String title, String category, String f_spotid) {
+
         this.bid = bid;
         this.title = title;
         this.category = category;
+        this.f_spotid = f_spotid;
 
     }
 
+    public String getF_spotid() {
+        return f_spotid;
+    }
 
-    public Book(@NonNull String bid, String title, String category, int image) {
+    public void setF_spotid(String f_spotid) {
+        this.f_spotid = f_spotid;
+    }
+
+    public Book(@NonNull int bid, String title, String category, int image) {
         this.bid = bid;
         this.title = title;
         this.category = category;
@@ -39,13 +64,13 @@ public class Book {
         this.image = image;
     }
 
-    public String getBid() {
+    public int getBid() {
         return bid;
     }
 
     public int getImage(){ return image;}
     public void setImage(int image){this.image = image;}
-    public void setBid(String bid) {
+    public void setBid(int bid) {
         this.bid = bid;
     }
 
