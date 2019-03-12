@@ -65,7 +65,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         Book book = bookList.get(i);
         bookViewHolder.textViewTitle.setText((book.getTitle()));
         bookViewHolder.textViewCategory.setText((book.getCategory()));
-        bookViewHolder.textViewId.setText(("ID:"+book.getBid()));
+        bookViewHolder.textViewId.setText(("ID:"+book.getF_spotid()));
+       // bookViewHolder.textViewCategory.setText((book.getF_spotid()));
         bookViewHolder.imageView.setImageDrawable(mContext.getResources().getDrawable(book.getImage(), null));
 
 

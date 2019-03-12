@@ -28,9 +28,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/imageView"
-                android:text=" MacBook Sync"
+                android:text=" MayuraBook"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -63,11 +64,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewId"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="-1dp"
                 android:layout_toRightOf="@id/imageView"
-                android:text="Author"
+                android:text="Spot:"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <Button

@@ -1,6 +1,5 @@
 package com.hevs.codemanja.roomdbdemo.activity;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +12,6 @@ import android.widget.Button;
 
 import com.hevs.codemanja.roomdbdemo.Adapter.BookAdapter;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.dao.BookDao;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
 
 import java.util.ArrayList;
@@ -64,12 +62,27 @@ public class ShowBookActivity extends AppCompatActivity {
 
         for(int i=0; i<bookList.size(); i++){
 
-            if(bookList.get(i).getCategory().equals("Arts")){
-                bookList.get(i).setImage(R.drawable.a);
+            String img = bookList.get(i).getCategory().substring(0,1);
+
+            switch (img){
+
+                case "A":
+                    bookList.get(i).setImage(R.drawable.ab);
+                    break;
+
+                case "B":
+                    bookList.get(i).setImage(R.drawable.b);
+                    break;
+
+                case "K":
+                    bookList.get(i).setImage(R.drawable.k);
+                    break;
+
+                    default:bookList.get(i).setImage(R.drawable.c);
+
             }
-            else{
-                bookList.get(i).setImage(R.drawable.a);
-            }
+
+
         }
 
 
@@ -82,7 +95,7 @@ public class ShowBookActivity extends AppCompatActivity {
 //                        100,
 //                        "Android Fundamentals",
 //                        "Computer",
-//                        R.drawable.a
+//                        R.drawable.c
 //                       ));
 //
 //        bookList.add(
@@ -90,7 +103,7 @@ public class ShowBookActivity extends AppCompatActivity {
 //                        200,
 //                        "Business Fundamentals",
 //                        "Business",
-//                        R.drawable.a
+//                        R.drawable.c
 //                ));
 //
 //        bookList.add(
@@ -98,14 +111,14 @@ public class ShowBookActivity extends AppCompatActivity {
 //                        "300",
 //                        "Cooking Fundamentals",
 //                        "Health",
-//                        R.drawable.a
+//                        R.drawable.c
 //                ));
 //        bookList.add(
 //                new Book(
 //                        400",
 //                        "Business Fundamentals",
 //                        "Business",
-//                        R.drawable.a
+//                        R.drawable.c
 //                ));
 //
 //        bookList.add(
@@ -113,14 +126,14 @@ public class ShowBookActivity extends AppCompatActivity {
 //                        "500",
 //                        "Cooking Fundamentals",
 //                        "Health",
-//                        R.drawable.a
+//                        R.drawable.c
 //                ));
 //        bookList.add(
 //                new Book(
 //                        "600",
 //                        "Business Fundamentals",
 //                        "Business",
-//                        R.drawable.a
+//                        R.drawable.c
 //                ));
 //
 //        bookList.add(
@@ -128,21 +141,21 @@ public class ShowBookActivity extends AppCompatActivity {
 //                        "700",
 //                        "Cooking Fundamentals",
 //                        "Health",
-//                        R.drawable.a
+//                        R.drawable.c
 //                ));
 //        bookList.add(
 //                new Book(
 //                        "800",
 //                        "Cooking Fundamentals",
 //                        "Health",
-//                        R.drawable.a
+//                        R.drawable.c
 //                ));
 //        bookList.add(
 //                new Book(
 //                        "900",
 //                        "Business Fundamentals",
 //                        "Business",
-//                        R.drawable.a
+//                        R.drawable.c
 //                ));
 //
 //        bookList.add(
@@ -150,7 +163,7 @@ public class ShowBookActivity extends AppCompatActivity {
 //                        "1000",
 //                        "Cooking Fundamentals",
 //                        "Health",
-//                        R.drawable.a
+//                        R.drawable.c
 //                ));
 
 
