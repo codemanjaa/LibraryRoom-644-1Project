@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,9 @@ import android.widget.Toast;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
 import com.hevs.codemanja.roomdbdemo.entity.Shelf;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -71,8 +75,59 @@ public class Add_Shelf_Fragment extends Fragment {
         spinnerCategory.setAdapter(adapter);
 
 
-        buttonAddSpot.setEnabled(false);
+        buttonAddSpot.setEnabled(true);
         editTextSpotId.requestFocus();
+
+
+
+        //Generate the Spot ID
+
+
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                String spot = parent.getItemAtPosition(position).toString().toUpperCase().substring(0,1); //this is your selected item
+                String query = spot+"%";
+                String spots[] = MainActivity.libraryDB.shelfDao().getAllSpotsList(query);
+
+                if(spots.length > 0){
+
+                    String temp = spots[spots.length - 1];
+
+                    String arr[] = temp.split("-");
+                    String c = arr[0];
+                    String r= arr[1];
+                    String co= arr[2];
+
+                    if( Integer.parseInt(arr[2]) > 14){
+                        Integer.parseInt(arr[1] + 1 );
+
+                    }
+                    else {
+
+                       int col =  Integer.parseInt(arr[2] + 1);
+
+                    }
+                    editTextCategory.setText( c+"-"+r+"-"+co.toString());
+                }
+
+
+
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+
+
+
+
+
+
+
+            //
+
 
 
 
@@ -85,18 +140,22 @@ public class Add_Shelf_Fragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                /*
                 if(editTextSpotId.getText().toString().length() == 1){
                     buttonAddSpot.setEnabled(true);
                 }
+                */
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
+                /*
                 if(editTextSpotId.getText().toString().length() != 1){
                     buttonAddSpot.setEnabled(false);
                 }
+                */
 
 
             }

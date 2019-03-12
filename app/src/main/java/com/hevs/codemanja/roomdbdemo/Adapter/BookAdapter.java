@@ -65,7 +65,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         Book book = bookList.get(i);
         bookViewHolder.textViewTitle.setText((book.getTitle()));
         bookViewHolder.textViewCategory.setText((book.getCategory()));
-        bookViewHolder.textViewId.setText(("ID:"+book.getF_spotid()));
+        bookViewHolder.textViewId.setText(("Spot: "+book.getF_spotid()));
+
+
        // bookViewHolder.textViewCategory.setText((book.getF_spotid()));
         bookViewHolder.imageView.setImageDrawable(mContext.getResources().getDrawable(book.getImage(), null));
 
@@ -80,7 +82,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     class BookViewHolder extends RecyclerView.ViewHolder{
 
         ImageView imageView;
-        TextView textViewTitle, textViewCategory, textViewId;
+        TextView textViewTitle, textViewCategory, textViewId, textViewSpotId;
         Button buttonEdit, buttonDelete;
 
 
@@ -92,6 +94,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             textViewCategory = itemView.findViewById(R.id.textViewCategory);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewId = itemView.findViewById(R.id.textViewId);
+
+            textViewSpotId = itemView.findViewById(R.id.editTextSpotId);
+
             buttonEdit = itemView.findViewById(R.id.buttonEdit);
             buttonDelete = itemView.findViewById(R.id.buttonDelete);
 
