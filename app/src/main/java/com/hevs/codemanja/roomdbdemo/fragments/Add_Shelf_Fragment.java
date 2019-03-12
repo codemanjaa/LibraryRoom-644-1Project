@@ -1,12 +1,10 @@
 package com.hevs.codemanja.roomdbdemo.fragments;
 
 
-import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +16,7 @@ import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
-import com.hevs.codemanja.roomdbdemo.entity.Book;
 import com.hevs.codemanja.roomdbdemo.entity.Shelf;
-
 
 
 /**
@@ -78,9 +74,6 @@ public class Add_Shelf_Fragment extends Fragment {
         buttonAddSpot.setEnabled(false);
         editTextSpotId.requestFocus();
 
-
-       // shelfDB = Room.databaseBuilder(getContext(), LibraryDB.class, "books")
-         //       .allowMainThreadQueries().build();
 
 
         editTextSpotId.addTextChangedListener(new TextWatcher() {

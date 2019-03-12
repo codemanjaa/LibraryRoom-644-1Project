@@ -24,7 +24,7 @@ public class AddBookActivity extends AppCompatActivity {
     private EditText editTextBid, editTextTitle, editTextSpotId;
     private Button buttonAdd;
     private Spinner spinnerCategory, spinnerLocation;
-    private String category;
+    private String category, spotid;
     LibraryDB libraryDB;
 
 
@@ -84,11 +84,12 @@ public class AddBookActivity extends AppCompatActivity {
                 String spot[] = MainActivity.libraryDB.shelfDao().getAllSpots();
                 if(spot.length >0) {
                     editTextSpotId.setText(spot[0]);
+
+                    ArrayAdapter<String> spotArray= new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, spot);
+                    spotArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerLocation.setAdapter(spotArray);
+
                 }
-
-
-
-
 
             }
             public void onNothingSelected(AdapterView<?> parent)
@@ -96,6 +97,23 @@ public class AddBookActivity extends AppCompatActivity {
 
             }
         });
+
+        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spotid = parent.getItemAtPosition(position).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+
+        });
+
+
 
 
 
@@ -141,7 +159,7 @@ public class AddBookActivity extends AppCompatActivity {
                 //book.setBid(bookId);
                 book.setTitle(title);
                 book.setCategory(category);
-                book.setF_spotid(spotId);
+                book.setF_spotid(spotid);
 
                 // This is the testing data
                 //book.setImage(1);

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.PendingIntent.getActivity;
+import static com.hevs.codemanja.roomdbdemo.activity.MainActivity.libraryDB;
 
 public class ShowBookActivity extends AppCompatActivity {
 
@@ -53,11 +54,23 @@ public class ShowBookActivity extends AppCompatActivity {
 
         bookList = new ArrayList<>();
 
-         // bookList =  libraryDB.bookDao().getAllBooks();
+         bookList =  libraryDB.bookDao().getAllBooks();
 
+         Log.d("TAG", bookList.toString());
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        for(int i=0; i<bookList.size(); i++){
+
+            if(bookList.get(i).getCategory().equals("Arts")){
+                bookList.get(i).setImage(R.drawable.a);
+            }
+            else{
+                bookList.get(i).setImage(R.drawable.a);
+            }
+        }
 
 
 
