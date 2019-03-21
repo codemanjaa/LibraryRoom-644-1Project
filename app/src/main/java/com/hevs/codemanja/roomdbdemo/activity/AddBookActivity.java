@@ -64,6 +64,7 @@ public class AddBookActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(adapter);
 
 
+        editTextSpotId.setVisibility(View.INVISIBLE);
 
         spinnerLocation.setAdapter(adapter);
 
@@ -152,6 +153,7 @@ public class AddBookActivity extends AppCompatActivity {
                 String bookId = editTextBid.getText().toString();
                 String title = editTextTitle.getText().toString();
                 //String category = this.category;
+
 
                 String spotId = editTextSpotId.getText().toString();
 

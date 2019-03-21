@@ -1,0 +1,99 @@
+package com.hevs.codemanja.roomdbdemo.activity;
+
+import android.arch.persistence.room.Room;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
+import com.hevs.codemanja.roomdbdemo.R;
+import com.hevs.codemanja.roomdbdemo.async.UpdateBook;
+import com.hevs.codemanja.roomdbdemo.entity.Book;
+
+public class UpdateBookActivity extends AppCompatActivity {
+
+    private EditText editTextBid, editTextTitle, editTextSpotId;
+    private Button buttonUpdate;
+    private Spinner spinnerCategory, spinnerLocation;
+    LibraryDB libraryDB;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_book_update);
+
+        editTextBid = findViewById(R.id.editTextBid);
+        editTextTitle = findViewById(R.id.editTextTitle);
+        editTextSpotId = findViewById(R.id.editTextSpotId);
+        buttonUpdate = findViewById(R.id.buttonUpdateBook);
+        spinnerCategory = findViewById(R.id.spinnerCategory);
+        spinnerLocation = findViewById(R.id.spinnerLocation);
+
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category_array, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+        spinnerCategory.setAdapter(adapter);
+
+
+        String spot[] = MainActivity.libraryDB.shelfDao().getAllSpots();
+        if (spot.length > 0) {
+            editTextSpotId.setText(spot[0]);
+
+            ArrayAdapter<String> spotArray = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, spot);
+            spotArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerLocation.setAdapter(spotArray);
+
+            //spinnerLocation.setAdapter(adapter);
+
+
+            libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books")
+                    .allowMainThreadQueries().build();
+
+
+            Intent intent = getIntent();
+            String bookId = intent.getStringExtra("bookId");
+            String title = intent.getStringExtra("title");
+            String category = intent.getStringExtra("category");
+            int postion = intent.getIntExtra("position", 1);
+            String spotId = intent.getStringExtra("spotId");
+            editTextTitle.setText(title);
+            editTextBid.setText(bookId);
+            editTextBid.setEnabled(false);
+            spinnerCategory.setSelection(postion);
+
+
+            if (spotId != null) {
+                int spinnerPosition = spotArray.getPosition(spotId);
+                spinnerLocation.setSelection(spinnerPosition);
+            }
+
+        }
+
+
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String title = editTextTitle.getText().toString();
+                String category = spinnerCategory.getSelectedItem().toString();
+                String spotId = editTextSpotId.getText().toString();
+
+
+
+
+            }
+
+        });
+
+
+
+    }
+}

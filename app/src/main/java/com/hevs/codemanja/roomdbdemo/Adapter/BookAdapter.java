@@ -17,9 +17,11 @@ import android.widget.Toast;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.activity.AddBookActivity;
 import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
+import com.hevs.codemanja.roomdbdemo.activity.UpdateBookActivity;
 import com.hevs.codemanja.roomdbdemo.dao.BookDao;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static android.support.v4.content.ContextCompat.startActivity;
@@ -113,7 +115,17 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                             .setAction("Action", null).show();
 
                     // To modify the book
-                    Intent intent = new Intent(view.getContext(),AddBookActivity.class);
+                    Intent intent = new Intent(view.getContext(),UpdateBookActivity.class);
+
+                    String title = bookList.get(position).getTitle().toString();
+                    int bookId = bookList.get(position).getBid();
+                    String spotId = bookList.get(position).getF_spotid();
+                    String category = bookList.get(position).getCategory();
+                    intent.putExtra("bookId", String.valueOf(bookId));
+                    intent.putExtra("title", title);
+                    intent.putExtra("category", category);
+                    intent.putExtra("position", position);
+                    intent.putExtra("spotId", spotId);
                     view.getContext().startActivity(intent);
 
                   //  showAddBookActivity();

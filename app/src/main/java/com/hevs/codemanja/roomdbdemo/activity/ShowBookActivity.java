@@ -67,15 +67,15 @@ public class ShowBookActivity extends AppCompatActivity {
             switch (img){
 
                 case "A":
-                   // bookList.get(i).setImage(R.drawable.ab);
+                    bookList.get(i).setImage(R.drawable.ab);
                     break;
 
                 case "B":
-                   // bookList.get(i).setImage(R.drawable.b);
+                    bookList.get(i).setImage(R.drawable.b);
                     break;
 
                 case "K":
-                    //bookList.get(i).setImage(R.drawable.k);
+                    bookList.get(i).setImage(R.drawable.k);
                     break;
 
                     default:bookList.get(i).setImage(R.drawable.c);
