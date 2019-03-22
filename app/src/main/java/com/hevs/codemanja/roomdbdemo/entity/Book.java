@@ -6,6 +6,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "books", foreignKeys = @ForeignKey(entity = Shelf.class,
@@ -14,7 +16,8 @@ import android.support.annotation.NonNull;
         ),
         indices = {@Index("f_spotid")}
         )
-public class Book {
+
+public class Book implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private int bid;
@@ -27,12 +30,8 @@ public class Book {
     )
     private String f_spotid;
 
-
-
-
     @Ignore
     private int image;
-
 
     @Ignore
     public Book(){
@@ -47,6 +46,8 @@ public class Book {
         this.f_spotid = f_spotid;
 
     }
+
+
 
     public String getF_spotid() {
         return f_spotid;
@@ -89,4 +90,45 @@ public class Book {
     public void setCategory(String category) {
         this.category = category;
     }
+
+
+
+
+
+    public Book(Parcel in) {
+        bid = in.readInt();
+        title = in.readString();
+        category = in.readString();
+        f_spotid = in.readString();
+       // image = in.readInt();
+    }
+
+    public static final Creator<Book> CREATOR = new Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel in) {
+            return new Book(in);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return hashCode();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(bid);
+        dest.writeString(title);
+        dest.writeString(category);
+        dest.writeString(f_spotid);
+       // dest.writeInt(image);
+    }
+
+
 }

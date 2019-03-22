@@ -172,7 +172,6 @@ public class AddBookActivity extends AppCompatActivity {
                 editTextBid.setText("");
                 editTextTitle.setText("");
                 editTextSpotId.setText("");
-
                 editTextBid.requestFocus();
             }
         });
