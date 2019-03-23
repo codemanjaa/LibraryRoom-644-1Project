@@ -93,7 +93,7 @@
                 android:layout_alignTop="@+id/textViewCategory"
                 android:layout_marginTop="0dp"
                 android:layout_toStartOf="@+id/buttonDelete"
-                android:background="@drawable/ic_create_black_24dp" />
+                android:background="@drawable/edit" />
 
         </RelativeLayout>
 

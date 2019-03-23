@@ -2,14 +2,10 @@ package com.hevs.codemanja.roomdbdemo.activity;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,7 +17,6 @@ import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.async.UpdateBook;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
-import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 
 public class UpdateBookActivity extends AppCompatActivity {
 
@@ -30,8 +25,7 @@ public class UpdateBookActivity extends AppCompatActivity {
     private Spinner spinnerCategory, spinnerLocation;
     LibraryDB libraryDB;
     private Book book;
-    private UpdateBook updateBook;
-    ViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +55,6 @@ public class UpdateBookActivity extends AppCompatActivity {
             spotArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerLocation.setAdapter(spotArray);
 
-            //spinnerLocation.setAdapter(adapter);
-
 
             libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books")
                     .allowMainThreadQueries().build();
@@ -77,12 +69,6 @@ public class UpdateBookActivity extends AppCompatActivity {
             int bookId = book.getBid();
             String title = book.getTitle();
             String category = book.getCategory();
-
-/*
-            String bookId = intent.getStringExtra("bookId");
-            String title = intent.getStringExtra("title");
-            String category = intent.getStringExtra("category");
-*/
 
 
             int postion = intent.getIntExtra("position", 1);
@@ -101,6 +87,12 @@ public class UpdateBookActivity extends AppCompatActivity {
                 spinnerLocation.setSelection(spinnerPosition);
             }
 
+            if(category != null){
+                int spinPos = adapter.getPosition(category);
+                spinnerCategory.setSelection(spinPos);
+
+            }
+
         }
 
 
@@ -110,27 +102,44 @@ public class UpdateBookActivity extends AppCompatActivity {
 
                 String title = editTextTitle.getText().toString();
                 String category = spinnerCategory.getSelectedItem().toString();
-                String spotId = editTextSpotId.getText().toString();
-
-
-
-                Toast.makeText(UpdateBookActivity.this, "Book updated 0.1", Toast.LENGTH_SHORT).show();
+                String spotId =  spinnerLocation.getSelectedItem().toString();
 
 
                 book.setTitle(title);
                 book.setCategory(category);
                 book.setF_spotid(spotId);
 
-
+                String s = category.substring(0,1).toLowerCase();
 
 
                libraryDB.bookDao().update(book);
 
+               /*
+                Toast toast = Toast.makeText(getApplicationContext(), "Book Updated", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                LinearLayout toastContentView = (LinearLayout) toast.getView();
+                ImageView imageView = new ImageView(getApplicationContext());
+                imageView.setImageResource(R.drawable.edit);
+                toastContentView.addView(imageView, 0);
+                toast.show();
+*/
+
+                // Get the custom layout view.
+                View toastView = getLayoutInflater().inflate(R.layout.activity_toast_book_update_custom, null);
+
+                // Initiate the Toast instance.
+                Toast toast = new Toast(getApplicationContext());
+                // Set custom view in toast.
 
 
+                toast.setView(toastView);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0,0);
+                toast.show();
 
-                Toast.makeText(UpdateBookActivity.this, "Book updated.", Toast.LENGTH_SHORT).show();
 
+                //Toast.makeText(UpdateBookActivity.this, "Book updated.", Toast.LENGTH_SHORT).show();
+                finish();
                //
 
 

@@ -105,6 +105,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="Catalog" />
+    <string name="remove">Remove</string>
 
 
 </resources>

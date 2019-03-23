@@ -25,6 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.AddBookActivity" />
         <activity android:name=".activity.UpdateBookActivity"></activity>
+        <activity android:name=".activity.DeleteBookActivity"></activity>
     </application>
 
 </manifest>

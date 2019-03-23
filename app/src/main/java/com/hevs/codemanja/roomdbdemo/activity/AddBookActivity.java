@@ -1,16 +1,22 @@
 package com.hevs.codemanja.roomdbdemo.activity;
 
 import android.arch.persistence.room.Room;
+import android.content.Intent;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
@@ -63,7 +69,7 @@ public class AddBookActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
         spinnerCategory.setAdapter(adapter);
 
-
+        editTextBid.setVisibility(View.INVISIBLE);
         editTextSpotId.setVisibility(View.INVISIBLE);
 
         spinnerLocation.setAdapter(adapter);
@@ -167,12 +173,35 @@ public class AddBookActivity extends AppCompatActivity {
                 //book.setImage(1);
 
                libraryDB.bookDao().addBook(book);
-               Toast.makeText(AddBookActivity.this, "Book added to the shelf", Toast.LENGTH_SHORT).show();
 
-                editTextBid.setText("");
+
+                Toast toast = Toast.makeText(getApplicationContext(), title+" Book Added on the spot "+spotId, Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                LinearLayout toastContentView = (LinearLayout) toast.getView();
+                ImageView imageView = new ImageView(getApplicationContext());
+                imageView.setImageResource(R.drawable.add);
+                toastContentView.addView(imageView, 0);
+                toast.show();
+
+
+
+
+
                 editTextTitle.setText("");
                 editTextSpotId.setText("");
                 editTextBid.requestFocus();
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+
+                //Toast.makeText(AddBookActivity.this, "Book added to the shelf", Toast.LENGTH_SHORT).show();
+
+
+
+
+
             }
         });
 

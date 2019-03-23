@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddBookActivity">
+    tools:context=".activity.DeleteBookActivity">
 
 
     <LinearLayout
@@ -18,6 +18,12 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <TextView
+            android:id="@+id/textViewWarning"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:text="The Following Article will be removed from the shelf." />
 
         <EditText
             android:id="@+id/editTextBid"
@@ -47,14 +53,6 @@
             tools:layout_editor_absoluteY="34dp" />
 
 
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="50dp"
-            tools:layout_editor_absoluteX="7dp" />
-
         <EditText
 
 
@@ -69,23 +67,6 @@
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="129dp" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="15dp"
-            android:hint="Pick Category"
-            android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorPrimary" />
-
-        <Spinner
-            android:id="@+id/spinnerLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            tools:layout_editor_absoluteX="7dp" />
 
 
     </LinearLayout>
@@ -105,23 +86,21 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonUpdateBook"
-        android:layout_width="345dp"
+        android:id="@+id/buttonDeleteteBook"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="468dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorAccent"
-        android:drawableTop="@drawable/edit"
-        android:text="@string/update"
+        android:drawableBottom="@drawable/delete"
+        android:text="@string/remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
 </android.support.constraint.ConstraintLayout>

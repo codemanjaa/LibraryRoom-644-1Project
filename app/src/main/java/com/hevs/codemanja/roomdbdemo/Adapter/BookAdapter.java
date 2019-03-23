@@ -3,9 +3,6 @@ package com.hevs.codemanja.roomdbdemo.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -17,21 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.activity.AddBookActivity;
-import com.hevs.codemanja.roomdbdemo.activity.Constants;
+import com.hevs.codemanja.roomdbdemo.activity.DeleteBookActivity;
 import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
 import com.hevs.codemanja.roomdbdemo.activity.UpdateBookActivity;
-import com.hevs.codemanja.roomdbdemo.dao.BookDao;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
-import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 
-import java.io.Serializable;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
-import static android.support.v4.content.ContextCompat.startActivity;
 
 // RecycleView
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
@@ -125,27 +114,28 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                     Intent intent = new Intent(view.getContext(),UpdateBookActivity.class);
                     Book book = bookList.get(position);
 
-
-
                     intent.putExtra("book",book);
 
-                    Toast.makeText(view.getContext(), "Book updated.", Toast.LENGTH_SHORT).show();
 
+                    Toast.makeText(view.getContext(), "Book update.", Toast.LENGTH_SHORT).show();
+                    view.getContext().startActivity(intent);
 
+                    /*
 
                     String title = bookList.get(position).getTitle().toString();
                     int bookId = bookList.get(position).getBid();
                     String spotId = bookList.get(position).getF_spotid();
                     String category = bookList.get(position).getCategory();
+                    */
 
                    //intent.putExtra("bookparcel", book);
 
-                    intent.putExtra("bookId", String.valueOf(bookId));
-                    intent.putExtra("title", title);
-                    intent.putExtra("category", category);
+                  //  intent.putExtra("bookId", String.valueOf(bookId));
+                    //intent.putExtra("title", title);
+                    //intent.putExtra("category", category);
                     intent.putExtra("position", position);
-                    intent.putExtra("spotId", spotId);
-                    view.getContext().startActivity(intent);
+                    //intent.putExtra("spotId", spotId);
+
 
                   //  showAddBookActivity();
 
@@ -169,7 +159,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                             .setAction("Action", null).show();
 
                     // To Remove the book
-                    Intent intent = new Intent(view.getContext(),MainActivity.class);
+
+
+                    Intent intent = new Intent(view.getContext(),DeleteBookActivity.class);
+                    Book book = bookList.get(position);
+
+                    intent.putExtra("book",book);
+
+
+                    Toast.makeText(view.getContext(), "Book Removed from the shelf.", Toast.LENGTH_SHORT).show();
                     view.getContext().startActivity(intent);
                 }
             });
