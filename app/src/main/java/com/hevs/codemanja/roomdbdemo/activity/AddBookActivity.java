@@ -75,7 +75,7 @@ public class AddBookActivity extends AppCompatActivity {
         spinnerLocation.setAdapter(adapter);
 
 
-        buttonAdd.setEnabled(true);
+        buttonAdd.setEnabled(false);
         editTextBid.requestFocus();
 
         libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books")
@@ -124,7 +124,7 @@ public class AddBookActivity extends AppCompatActivity {
 
 
 
-        editTextBid.addTextChangedListener(new TextWatcher() {
+        editTextTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -133,11 +133,11 @@ public class AddBookActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                // Check the book length should be minumum 3
-            /*    if(editTextBid.getText().toString().length() == 1){
+                // Check the book title length should be minumum 3
+              if(editTextTitle.getText().toString().length() >5){
                     buttonAdd.setEnabled(true);
                 }
-            */
+
 
             }
 

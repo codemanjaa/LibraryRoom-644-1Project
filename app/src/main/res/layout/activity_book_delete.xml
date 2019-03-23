@@ -23,7 +23,11 @@
             android:id="@+id/textViewWarning"
             android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:text="The Following Article will be removed from the shelf." />
+            android:drawableTop="@drawable/warning"
+            android:text="The Following Article will be removed from the shelf."
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
 
         <EditText
             android:id="@+id/editTextBid"

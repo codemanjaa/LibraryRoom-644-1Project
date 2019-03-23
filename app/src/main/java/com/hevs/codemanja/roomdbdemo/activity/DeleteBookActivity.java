@@ -93,6 +93,11 @@ public class DeleteBookActivity extends AppCompatActivity {
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
 
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+
 
                 //Toast.makeText(UpdateBookActivity.this, "Book updated.", Toast.LENGTH_SHORT).show();
 
