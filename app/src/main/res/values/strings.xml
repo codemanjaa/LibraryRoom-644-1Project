@@ -106,6 +106,7 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="Catalog" />
     <string name="remove">Remove</string>
+    <string name="reserve">Reserve Spot</string>
 
 
 </resources>

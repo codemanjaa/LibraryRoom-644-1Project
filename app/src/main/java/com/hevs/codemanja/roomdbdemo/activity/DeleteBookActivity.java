@@ -8,11 +8,8 @@ import android.view.View;
 
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
 import com.hevs.codemanja.roomdbdemo.R;
 
 import com.hevs.codemanja.roomdbdemo.entity.Book;
@@ -23,7 +20,7 @@ public class DeleteBookActivity extends AppCompatActivity {
     private EditText editTextBid, editTextTitle, editTextSpotId;
     private Button buttonDelete;
 
-    LibraryDB libraryDB;
+  //  LibraryDB libraryDB;
     private Book book;
 
 
@@ -38,8 +35,8 @@ public class DeleteBookActivity extends AppCompatActivity {
         buttonDelete = findViewById(R.id.buttonDeleteteBook);
 
 
-        libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books")
-                .allowMainThreadQueries().build();
+       // libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books")
+         //       .allowMainThreadQueries().build();
 
 
         Intent intent = getIntent();
@@ -63,7 +60,7 @@ public class DeleteBookActivity extends AppCompatActivity {
                 String title = editTextTitle.getText().toString();
 
 
-                libraryDB.bookDao().delete(book);
+               MainActivity.libraryDB.bookDao().delete(book);
 
                 /*
 
@@ -99,9 +96,7 @@ public class DeleteBookActivity extends AppCompatActivity {
                 finish();
 
 
-                //Toast.makeText(UpdateBookActivity.this, "Book updated.", Toast.LENGTH_SHORT).show();
 
-                //
 
 
             }

@@ -13,15 +13,17 @@ public class Shelf {
     @NonNull
     String spotid;
     String desc;
+    String category;
 
     @Ignore
     public Shelf(){
 
     }
 
-    public Shelf(String spotid, String desc ){
+    public Shelf(String spotid, String desc, String category ){
         this.spotid = spotid;
         this.desc = desc;
+        this.category = category;
     }
 
     @NonNull
@@ -40,6 +42,10 @@ public class Shelf {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
+    public void setCategory(String category){this.category = category;}
+
+    public String getCategory(){return this.category;}
 
     @Override
     public  boolean equals(Object o){

@@ -5,17 +5,18 @@
     android:id="@+id/fragment_book"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="25dp"
     tools:context=".activity.MainActivity">
 
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="327dp"
-        android:layout_marginTop="80dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="136dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="16dp">
+        tools:layout_editor_absoluteX="0dp">
 
         <Spinner
             android:id="@+id/spinnerCategory"
@@ -45,7 +46,7 @@
             android:layout_marginTop="30dp"
             android:autofillHints=""
             android:ems="10"
-            android:hint="Desc"
+            android:hint="Description"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="34dp" />
@@ -70,14 +71,36 @@
 
     <Button
         android:id="@+id/buttonAddSpot"
-        android:layout_width="wrap_content"
+        android:layout_width="331dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="480dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/add"
+        android:drawableLeft="@drawable/shelf"
+        android:text="@string/reserve"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewMessage"
+        android:layout_width="331dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:drawableTop="@drawable/message"
+        android:gravity="center_horizontal"
+        android:text="Please select the article  category for Automatically generate the Spot ID. "
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08" />
 
 </android.support.constraint.ConstraintLayout>

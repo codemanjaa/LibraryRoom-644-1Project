@@ -1,6 +1,8 @@
 package com.hevs.codemanja.roomdbdemo.fragments;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -16,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.R;
+import com.hevs.codemanja.roomdbdemo.activity.AddBookActivity;
 import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
 import com.hevs.codemanja.roomdbdemo.entity.Shelf;
 
@@ -32,8 +35,8 @@ public class Add_Shelf_Fragment extends Fragment {
 
     private EditText editTextSpotId, editTextDesc, editTextCategory;
     private Button buttonAddSpot;
-    Spinner spinnerCategory;
-
+    private Spinner spinnerCategory;
+    private String category;
 
 
 
@@ -75,8 +78,8 @@ public class Add_Shelf_Fragment extends Fragment {
         spinnerCategory.setAdapter(adapter);
 
 
-        buttonAddSpot.setEnabled(true);
-        editTextSpotId.requestFocus();
+        buttonAddSpot.setEnabled(false);
+        editTextSpotId.setEnabled(false);
 
 
 
@@ -86,7 +89,8 @@ public class Add_Shelf_Fragment extends Fragment {
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
-                String spot = parent.getItemAtPosition(position).toString().toUpperCase().substring(0,1); //this is your selected item
+                category = parent.getItemAtPosition(position).toString().toUpperCase();
+                String spot = category.substring(0,1); //this is your selected item
                 String query = spot+"%";
                 String spots[] = MainActivity.libraryDB.shelfDao().getAllSpotsList(query);
 
@@ -105,10 +109,32 @@ public class Add_Shelf_Fragment extends Fragment {
                     }
                     else {
 
-                       int col =  Integer.parseInt(arr[2] + 1);
-
+                       int col =  (Integer.parseInt(arr[2]) + 1);
+                           temp =  c+"-"+r+"-"+String.valueOf(col);
                     }
-                    editTextCategory.setText( c+"-"+r+"-"+co.toString());
+                    //editTextCategory.setText( temp);
+                    editTextCategory.setVisibility(View.INVISIBLE);
+                    editTextSpotId.setText(temp);
+
+                }
+
+                else {
+
+                    String temp = spot+"-1-1";
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                    alertDialog.setTitle("Alert");
+                    alertDialog.setMessage("This is your new shelf "+ temp);
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                    editTextSpotId.setText(temp);
+
+
+
                 }
 
 
@@ -122,6 +148,28 @@ public class Add_Shelf_Fragment extends Fragment {
 
 
 
+
+
+        editTextDesc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(editTextDesc.getText().toString().length() > 1){
+                    buttonAddSpot.setEnabled(true);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
 
 
@@ -167,28 +215,28 @@ public class Add_Shelf_Fragment extends Fragment {
            public void onClick(View view) {
                String spotid = editTextSpotId.getText().toString();
                String desc = editTextDesc.getText().toString();
-               String category = editTextCategory.getText().toString();
+              // String category = editTextCategory.getText().toString();
 
 
 
               Shelf shelf = new Shelf();
               shelf.setSpotid(spotid);
               shelf.setDesc(desc);
-
+              shelf.setCategory(category);
 
               System.out.println(shelf.getSpotid() + " " + shelf.getDesc());
 
-
-
-
-              MainActivity.libraryDB.shelfDao().insert(shelf);
-               Toast.makeText(getActivity(), "Spot reserved ot the shelf", Toast.LENGTH_SHORT).show();
 
                editTextSpotId.setText("");
                editTextDesc.setText("");
                editTextCategory.setText("");
 
-               editTextSpotId.requestFocus();
+
+              MainActivity.libraryDB.shelfDao().insert(shelf);
+               Toast.makeText(getActivity(), "Spot reserved ot the shelf", Toast.LENGTH_SHORT).show();
+
+
+
            }
        });
 

@@ -1,6 +1,8 @@
 package com.hevs.codemanja.roomdbdemo.activity;
 
+import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -31,7 +33,7 @@ public class AddBookActivity extends AppCompatActivity {
     private Button buttonAdd;
     private Spinner spinnerCategory, spinnerLocation;
     private String category, spotid;
-    LibraryDB libraryDB;
+
 
 
     public AddBookActivity(){
@@ -54,7 +56,7 @@ public class AddBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_add);
 
-        editTextBid = findViewById(R.id.editTextBid);
+
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextSpotId = findViewById(R.id.editTextSpotId);
         buttonAdd = findViewById(R.id.buttonAddBook);
@@ -69,17 +71,13 @@ public class AddBookActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
         spinnerCategory.setAdapter(adapter);
 
-        editTextBid.setVisibility(View.INVISIBLE);
+
         editTextSpotId.setVisibility(View.INVISIBLE);
 
         spinnerLocation.setAdapter(adapter);
 
 
-        buttonAdd.setEnabled(false);
-        editTextBid.requestFocus();
 
-        libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books")
-                .allowMainThreadQueries().build();
 
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -88,13 +86,34 @@ public class AddBookActivity extends AppCompatActivity {
                 category = parent.getItemAtPosition(position).toString(); //this is your selected item
 
 
-                String spot[] = MainActivity.libraryDB.shelfDao().getAllSpots();
+
+
+                String spot[] = MainActivity.libraryDB.shelfDao().getCategorySpot(category);
                 if(spot.length >0) {
                     editTextSpotId.setText(spot[0]);
 
                     ArrayAdapter<String> spotArray= new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, spot);
                     spotArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerLocation.setAdapter(spotArray);
+                    spinnerLocation.setEnabled(true);
+
+                }
+
+                else{
+
+                    AlertDialog alertDialog = new AlertDialog.Builder(AddBookActivity.this).create();
+                    alertDialog.setTitle("Alert");
+                    alertDialog.setMessage("Please reserve the Spot in the Shelf");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                        spinnerLocation.setEnabled(false);
+                    alertDialog.show();
+
+
 
                 }
 
@@ -134,9 +153,9 @@ public class AddBookActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 // Check the book title length should be minumum 3
-              if(editTextTitle.getText().toString().length() >5){
-                    buttonAdd.setEnabled(true);
-                }
+           //   if(editTextTitle.getText().toString().length() >1){
+             //       buttonAdd.setEnabled(true);
+               // }
 
 
             }
@@ -156,51 +175,65 @@ public class AddBookActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String bookId = editTextBid.getText().toString();
+
                 String title = editTextTitle.getText().toString();
                 //String category = this.category;
 
-
                 String spotId = editTextSpotId.getText().toString();
 
-                Book book = new Book();
-                //book.setBid(bookId);
-                book.setTitle(title);
-                book.setCategory(category);
-                book.setF_spotid(spotid);
-
-                // This is the testing data
-                //book.setImage(1);
-
-               libraryDB.bookDao().addBook(book);
-
-
-                Toast toast = Toast.makeText(getApplicationContext(), title+" Book Added on the spot "+spotId, Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                LinearLayout toastContentView = (LinearLayout) toast.getView();
-                ImageView imageView = new ImageView(getApplicationContext());
-                imageView.setImageResource(R.drawable.add);
-                toastContentView.addView(imageView, 0);
-                toast.show();
+                if(title.equals("")){
+                    AlertDialog alertDialog = new AlertDialog.Builder(AddBookActivity.this).create();
+                    alertDialog.setTitle("Alert");
+                    alertDialog.setMessage("Please enter the Title");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                    editTextTitle.requestFocus();
+                }
 
 
+                else {
+
+                    // Validation pass , book instance created
+                    Book book = new Book();
+                    //book.setBid(bookId);
+                    book.setTitle(title);
+                    book.setCategory(category);
+                    book.setF_spotid(spotid);
+
+                    // Call the static instance of the libraryDB to Add book
+                    MainActivity.libraryDB.bookDao().addBook(book);
+
+                    // Display the confirmation to the user.
+
+                    Toast toast = Toast.makeText(getApplicationContext(), title + " Book Added on the spot " + spotId, Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    LinearLayout toastContentView = (LinearLayout) toast.getView();
+                    ImageView imageView = new ImageView(getApplicationContext());
+                    imageView.setImageResource(R.drawable.add);
+                    toastContentView.addView(imageView, 0);
+                    toast.show();
 
 
+                    // Clear the elements
 
-                editTextTitle.setText("");
-                editTextSpotId.setText("");
-                editTextBid.requestFocus();
-
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
-
-                //Toast.makeText(AddBookActivity.this, "Book added to the shelf", Toast.LENGTH_SHORT).show();
+                    editTextTitle.setText("");
+                    editTextSpotId.setText("");
 
 
+                    // call the next activity and finish the current activity.
+
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
 
 
+                }
 
             }
         });

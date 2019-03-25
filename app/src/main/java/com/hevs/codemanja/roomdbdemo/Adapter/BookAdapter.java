@@ -29,13 +29,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
     private List<Book> bookList;
 
 
-    // Testing the book edit button
-
-    private Button buttonEdit;
-
-
-
-
     //
 
     public BookAdapter(Context mContext, List<Book> bookList) {
@@ -167,7 +160,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                     intent.putExtra("book",book);
 
 
-                    Toast.makeText(view.getContext(), "Book Removed from the shelf.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(), "Book Will be Removed from the shelf.", Toast.LENGTH_SHORT).show();
                     view.getContext().startActivity(intent);
                 }
             });

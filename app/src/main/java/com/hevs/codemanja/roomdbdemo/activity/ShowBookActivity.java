@@ -9,16 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import com.hevs.codemanja.roomdbdemo.Adapter.BookAdapter;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.app.PendingIntent.getActivity;
 import static com.hevs.codemanja.roomdbdemo.activity.MainActivity.libraryDB;
+
+
 
 public class ShowBookActivity extends AppCompatActivity {
 

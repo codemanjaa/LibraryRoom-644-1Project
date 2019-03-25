@@ -1,12 +1,15 @@
 package com.hevs.codemanja.roomdbdemo.activity;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModel;
 import android.arch.persistence.room.Room;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +26,6 @@ public class UpdateBookActivity extends AppCompatActivity {
     private EditText editTextBid, editTextTitle, editTextSpotId;
     private Button buttonUpdate;
     private Spinner spinnerCategory, spinnerLocation;
-    LibraryDB libraryDB;
     private Book book;
 
 
@@ -40,6 +42,9 @@ public class UpdateBookActivity extends AppCompatActivity {
         spinnerLocation = findViewById(R.id.spinnerLocation);
 
 
+
+        spinnerLocation.setEnabled(false);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);
 
@@ -47,53 +52,90 @@ public class UpdateBookActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(adapter);
 
 
-        String spot[] = MainActivity.libraryDB.shelfDao().getAllSpots();
-        if (spot.length > 0) {
-            editTextSpotId.setText(spot[0]);
-
-            ArrayAdapter<String> spotArray = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, spot);
-            spotArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerLocation.setAdapter(spotArray);
-
-
-            libraryDB = Room.databaseBuilder(getApplicationContext(), LibraryDB.class, "books")
-                    .allowMainThreadQueries().build();
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                String category = parent.getItemAtPosition(position).toString(); //this is your selected item
 
 
 
 
+                String spot[] = MainActivity.libraryDB.shelfDao().getCategorySpot(category);
 
-            Intent intent = getIntent();
-            book = intent.getParcelableExtra("book");
+                if(spot.length == 0){
 
-            int bookId = book.getBid();
-            String title = book.getTitle();
-            String category = book.getCategory();
+                    AlertDialog alertDialog = new AlertDialog.Builder(UpdateBookActivity.this).create();
+                    alertDialog.setTitle("Spot Alert");
+                    alertDialog.setMessage("Reserve the spot for "+ category.toUpperCase() + " shelf");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    spinnerLocation.setEnabled(false);
+                    alertDialog.show();
+
+                }
+
+                else if(spot.length >0) {
+                    editTextSpotId.setText(spot[0]);
+
+                    ArrayAdapter<String> spotArray = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, spot);
+                    spotArray.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerLocation.setAdapter(spotArray);
+                    spinnerLocation.setEnabled(true);
 
 
-            int postion = intent.getIntExtra("position", 1);
-            String spotId = intent.getStringExtra("spotId");
 
 
 
-            editTextTitle.setText(title);
-            editTextBid.setText(String.valueOf(bookId));
-            editTextBid.setEnabled(false);
-            spinnerCategory.setSelection(postion);
+
+                    Intent intent = getIntent();
+                    book = intent.getParcelableExtra("book");
+
+                   int bookId = book.getBid();
+                   String title = book.getTitle();
+                   category = book.getCategory();
 
 
-            if (spotId != null) {
-                int spinnerPosition = spotArray.getPosition(spotId);
-                spinnerLocation.setSelection(spinnerPosition);
+                   int postion = intent.getIntExtra("position", 1);
+                   String spotId = intent.getStringExtra("spotId");
+
+
+
+                   editTextTitle.setText(title);
+                   editTextBid.setText(String.valueOf(bookId));
+                   editTextBid.setEnabled(false);
+                   spinnerCategory.setSelection(postion);
+
+
+                   if (spotId != null) {
+                       int spinnerPosition = spotArray.getPosition(spotId);
+                       spinnerLocation.setSelection(spinnerPosition);
+                   }
+
+                   if(category != null){
+                       int spinPos = adapter.getPosition(category);
+                       spinnerCategory.setSelection(spinPos);
+
+                   }
+
+               }
+
+           }
+
+
+
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
             }
+       });
 
-            if(category != null){
-                int spinPos = adapter.getPosition(category);
-                spinnerCategory.setSelection(spinPos);
 
-            }
 
-        }
+
 
 
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +154,7 @@ public class UpdateBookActivity extends AppCompatActivity {
                 String s = category.substring(0,1).toLowerCase();
 
 
-               libraryDB.bookDao().update(book);
+              MainActivity.libraryDB.bookDao().update(book);
 
                /*
                 Toast toast = Toast.makeText(getApplicationContext(), "Book Updated", Toast.LENGTH_SHORT);

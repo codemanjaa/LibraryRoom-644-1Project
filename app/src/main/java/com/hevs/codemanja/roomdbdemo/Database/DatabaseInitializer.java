@@ -19,19 +19,19 @@ public class DatabaseInitializer {
         task.execute();
     }
 
-    private static void addShelf(final LibraryDB db, final String spotId, final String desc
+    private static void addShelf(final LibraryDB db, final String spotId, final String desc, final String category
     ) {
-        Shelf shelf = new Shelf(spotId, desc);
+        Shelf shelf = new Shelf(spotId, desc, category );
         db.shelfDao().insert(shelf);
     }
 
     private static void populateWithTestData(LibraryDB db) {
         db.shelfDao().deleteAll();
 
-        addShelf(db, "IT-A-1", "Computer Section shelf A @ spot number 1");
-        addShelf(db, "IT-A-2", "Computer Section shelf A @ spot number 2");
-        addShelf(db, "BU-B-1", "Business Section shelf B @ spot number 1");
-        addShelf(db, "BU-B-2", "Business Section shelf B @ spot number 2");
+        addShelf(db, "IT-A-1", "Computer Section shelf A @ spot number 1", "Computer");
+        addShelf(db, "IT-A-2", "Computer Section shelf A @ spot number 2", "Computer");
+        addShelf(db, "BU-B-1", "Business Section shelf B @ spot number 1", "Business");
+        addShelf(db, "BU-B-2", "Business Section shelf B @ spot number 2","Business");
     }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {

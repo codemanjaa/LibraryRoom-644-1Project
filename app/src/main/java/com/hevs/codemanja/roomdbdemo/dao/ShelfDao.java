@@ -43,6 +43,11 @@ fun loadHamsters(search: String?): Flowable<List<Hamster>>
     @Query("SELECT spotid FROM shelf WHERE spotid like :spot")
     String[] getAllSpotsList(String spot);
 
+
+
+    @Query ("SELECT spotid FROM shelf WHERE category like :category")
+    String[] getCategorySpot(String category);
+
     @Insert
     void insert(Shelf shelf);
 
