@@ -11,25 +11,27 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 
-import com.hevs.codemanja.roomdbdemo.Database.repo.BookRepo;
-import com.hevs.codemanja.roomdbdemo.entity.Book;
+import com.hevs.codemanja.roomdbdemo.Database.repo.ClientRepository;
+import com.hevs.codemanja.roomdbdemo.entity.ClientEntity;
 import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 
 
-public class BookViewModel extends AndroidViewModel {
 
-    private BookRepo repository;
+
+public class ClientViewModel extends AndroidViewModel {
+
+    private ClientRepository repository;
 
     private Context applicationContext;
 
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
-    private final MediatorLiveData<Book> observableClient;
+    private final MediatorLiveData<ClientEntity> observableClient;
 
-    public BookViewModel(@NonNull Application application,
-                           final String title, BookRepo bookRepo) {
+    public ClientViewModel(@NonNull Application application,
+                           final String email, ClientRepository clientRepository) {
         super(application);
 
-        repository = bookRepo;
+        repository = clientRepository;
 
         applicationContext = getApplication().getApplicationContext();
 
@@ -37,10 +39,10 @@ public class BookViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableClient.setValue(null);
 
-        LiveData<Book> book = repository.getBook(title, applicationContext);
+        LiveData<ClientEntity> client = repository.getClient(email, applicationContext);
 
         // observe the changes of the client entity from the database and forward them
-        observableClient.addSource(book, observableClient::setValue);
+        observableClient.addSource(client, observableClient::setValue);
     }
 
     /**
@@ -51,41 +53,39 @@ public class BookViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final String title;
+        private final String email;
 
-        private final BookRepo repository;
+        private final ClientRepository repository;
 
-        public Factory(@NonNull Application application, String bookTitle) {
+        public Factory(@NonNull Application application, String clientEmail) {
             this.application = application;
-            this.title = bookTitle;
-            repository = BookRepo.getInstance();
+            this.email = clientEmail;
+            repository = ClientRepository.getInstance();
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new BookViewModel(application, title, repository);
+            return (T) new ClientViewModel(application, email, repository);
         }
     }
 
     /**
-     * Expose the LiveData BookEntity query so the UI can observe it.
+     * Expose the LiveData ClientEntity query so the UI can observe it.
      */
-    public LiveData<Book> getCBook() {
+    public LiveData<ClientEntity> getClient() {
         return observableClient;
     }
 
-    public void createBooke(Book book, OnAsyncEventListener callback) {
-        repository.insert(book, callback, applicationContext);
+    public void createClient(ClientEntity client, OnAsyncEventListener callback) {
+        repository.insert(client, callback, applicationContext);
     }
 
-    public void updateBook(Book book, OnAsyncEventListener callback) {
-        repository.update(book, callback, applicationContext);
+    public void updateClient(ClientEntity client, OnAsyncEventListener callback) {
+        repository.update(client, callback, applicationContext);
     }
 
-    public void deleteBook(Book client, OnAsyncEventListener callback) {
+    public void deleteClient(ClientEntity client, OnAsyncEventListener callback) {
         repository.delete(client, callback, applicationContext);
     }
-
 }
-

@@ -1,6 +1,5 @@
 package com.hevs.codemanja.roomdbdemo.entity;
 
-
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
@@ -9,6 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+
 
 @Entity(tableName = "books", foreignKeys = @ForeignKey(entity = Shelf.class,
         parentColumns = "spotid",

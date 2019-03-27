@@ -4,6 +4,7 @@ package com.hevs.codemanja.roomdbdemo.fragments;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,12 +19,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.activity.AddBookActivity;
 import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
 import com.hevs.codemanja.roomdbdemo.entity.Shelf;
 
-import java.util.Arrays;
-import java.util.List;
+
 
 
 /**

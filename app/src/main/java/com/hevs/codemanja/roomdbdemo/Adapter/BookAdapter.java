@@ -14,13 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.activity.DeleteBookActivity;
-import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
 import com.hevs.codemanja.roomdbdemo.activity.UpdateBookActivity;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
 
 import java.util.List;
+
+
 
 // RecycleView
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
@@ -113,28 +115,6 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
                     Toast.makeText(view.getContext(), "Book update.", Toast.LENGTH_SHORT).show();
                     view.getContext().startActivity(intent);
 
-                    /*
-
-                    String title = bookList.get(position).getTitle().toString();
-                    int bookId = bookList.get(position).getBid();
-                    String spotId = bookList.get(position).getF_spotid();
-                    String category = bookList.get(position).getCategory();
-                    */
-
-                   //intent.putExtra("bookparcel", book);
-
-                  //  intent.putExtra("bookId", String.valueOf(bookId));
-                    //intent.putExtra("title", title);
-                    //intent.putExtra("category", category);
-                    intent.putExtra("position", position);
-                    //intent.putExtra("spotId", spotId);
-
-
-                  //  showAddBookActivity();
-
-                  // Intent intent = new Intent(mContext, TestActivity.class);
-
-                    //startActivity(new Intent(AddBookActivity.class, mContext));
 
                 }
             });
@@ -175,10 +155,5 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
     }
 
-    private void showAddBookActivity() {
-
-
-
-    }
 
 }

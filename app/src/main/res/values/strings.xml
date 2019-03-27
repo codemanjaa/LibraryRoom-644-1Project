@@ -107,6 +107,19 @@
     <string name="Catalog" />
     <string name="remove">Remove</string>
     <string name="reserve">Reserve Spot</string>
+    <string name="client_firstName">Mayura</string>
+    <string name="client_lastName">Android</string>
+    <string name="prompt_email">i@android.com</string>
+    <string name="title_activity_details">Client Activity</string>
+    <string name="title_activity_create">Create Client</string>
+    <string name="action_delete">Delete</string>
+    <string name="delete_msg">Are you sure to delete?</string>
+    <string name="error_invalid_email">invalid email</string>
+    <string name="client_edited">edit client</string>
+    <string name="action_error">error</string>
+    <string name="action_cancel">cancel</string>
+    <string name="action_edit">Edit Client</string>
+    <string name="action_create">Create Client</string>
 
 
 </resources>

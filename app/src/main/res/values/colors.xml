@@ -3,4 +3,5 @@
     <color name="colorPrimary">#dcdada</color>
     <color name="colorPrimaryDark">#e03704</color>
     <color name="colorAccent">#379505</color>
+    <color name="design_default_color_background">#e03704</color>
 </resources>

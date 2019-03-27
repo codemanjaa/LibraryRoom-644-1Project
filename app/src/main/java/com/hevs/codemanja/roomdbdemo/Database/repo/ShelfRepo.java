@@ -1,14 +1,19 @@
 package com.hevs.codemanja.roomdbdemo.Database.repo;
 
+
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
-import com.hevs.codemanja.roomdbdemo.async.CreateShelf;
-import com.hevs.codemanja.roomdbdemo.util.*;
 import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
+import com.hevs.codemanja.roomdbdemo.async.CreateShelf;
+import com.hevs.codemanja.roomdbdemo.async.DeleteClient;
+import com.hevs.codemanja.roomdbdemo.util.*;
+
 import com.hevs.codemanja.roomdbdemo.entity.Shelf;
 
 import java.util.List;
+
+
 
 public class ShelfRepo {
 
@@ -34,18 +39,21 @@ public class ShelfRepo {
     public LiveData<Shelf> getShelf(final String spotId, Context context){
         return LibraryDB.getInstance(context).shelfDao().getBySpotId(spotId);
     }
-
+*/
     public LiveData<List<Shelf>> getAllShlf(Context context){
         return LibraryDB.getInstance(context).shelfDao().getAll();
     }
-*/
+
     public void insert(final Shelf shelf, OnAsyncEventListener callback, Context context){
 
         new CreateShelf(context, callback).execute(shelf);
     }
 
 
-
+  /*  public void delete(final Shelf shelf, OnAsyncEventListener callback, Context context) {
+        new DeleteCShelf(context, callback).execute(shelf);
+    }
+*/
 
 
 

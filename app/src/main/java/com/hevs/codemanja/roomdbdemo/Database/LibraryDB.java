@@ -1,5 +1,6 @@
 package com.hevs.codemanja.roomdbdemo.Database;
 
+
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.db.SupportSQLiteDatabase;
@@ -7,24 +8,30 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.hevs.codemanja.roomdbdemo.dao.BookDao;
+import com.hevs.codemanja.roomdbdemo.dao.ClientDao;
 import com.hevs.codemanja.roomdbdemo.dao.ShelfDao;
 import com.hevs.codemanja.roomdbdemo.entity.Book;
+import com.hevs.codemanja.roomdbdemo.entity.ClientEntity;
 import com.hevs.codemanja.roomdbdemo.entity.Shelf;
 
 import java.util.concurrent.Executors;
 
+
+
 import static android.content.ContentValues.TAG;
 
-@Database(entities = {Book.class, Shelf.class}, version = 1, exportSchema = false)
+@Database(entities = {Book.class, Shelf.class, ClientEntity.class}, version = 1, exportSchema = false)
 
 public abstract class LibraryDB extends RoomDatabase {
 
     public abstract BookDao bookDao();
     public abstract ShelfDao shelfDao();
+    public abstract ClientDao clientDao();
 
     private static LibraryDB instance;
     private static final String DATABASE_NAME = "library-database";

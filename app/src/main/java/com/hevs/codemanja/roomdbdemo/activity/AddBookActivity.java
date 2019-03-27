@@ -1,12 +1,12 @@
 package com.hevs.codemanja.roomdbdemo.activity;
 
 import android.app.AlertDialog;
-import android.arch.persistence.room.Room;
+
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.content.IntentCompat;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
