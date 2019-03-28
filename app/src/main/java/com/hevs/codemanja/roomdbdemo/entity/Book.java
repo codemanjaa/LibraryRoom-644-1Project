@@ -10,7 +10,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 
-@Entity(tableName = "books", foreignKeys = @ForeignKey(entity = Shelf.class,
+@Entity(tableName = "books", foreignKeys = @ForeignKey(entity = Shelf.class, onDelete= ForeignKey.CASCADE,
         parentColumns = "spotid",
         childColumns = "f_spotid"
         ),

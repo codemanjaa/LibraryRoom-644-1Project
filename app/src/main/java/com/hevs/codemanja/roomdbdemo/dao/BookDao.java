@@ -22,7 +22,7 @@ public interface BookDao {
 
 
     @Query("SELECT * FROM books")
-     List<Book> getAllBooks();
+    List<Book> getAllBooks();
 
 
     @Update

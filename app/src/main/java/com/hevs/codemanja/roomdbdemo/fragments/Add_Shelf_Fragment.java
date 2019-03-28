@@ -65,7 +65,7 @@ public class Add_Shelf_Fragment extends Fragment {
 
         editTextSpotId = view.findViewById(R.id.editTextSpotId);
         editTextDesc = view.findViewById(R.id.editTextDesc);
-        editTextCategory = view.findViewById(R.id.editTextCategory);
+        //editTextCategory = view.findViewById(R.id.editTextCategory);
         buttonAddSpot = view.findViewById(R.id.buttonAddSpot);
 
         spinnerCategory = view.findViewById(R.id.spinnerCategory);
@@ -112,7 +112,7 @@ public class Add_Shelf_Fragment extends Fragment {
                            temp =  c+"-"+r+"-"+String.valueOf(col);
                     }
                     //editTextCategory.setText( temp);
-                    editTextCategory.setVisibility(View.INVISIBLE);
+                    //editTextCategory.setVisibility(View.INVISIBLE);
                     editTextSpotId.setText(temp);
 
                 }
@@ -228,7 +228,7 @@ public class Add_Shelf_Fragment extends Fragment {
 
                editTextSpotId.setText("");
                editTextDesc.setText("");
-               editTextCategory.setText("");
+              // editTextCategory.setText("");
 
 
               MainActivity.libraryDB.shelfDao().insert(shelf);
