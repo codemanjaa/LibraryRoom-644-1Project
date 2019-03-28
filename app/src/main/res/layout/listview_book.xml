@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:padding="8dp">
 
             <ImageView
@@ -28,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/imageView"
-                android:text=" MayuraBook"
+                android:text=" Title"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textColor="#000000"
                 android:textSize="18sp"
@@ -45,7 +40,7 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
             <TextView
-                android:id="@+id/textViewId"
+                android:id="@+id/textViewSpot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewCategory"
@@ -65,7 +60,7 @@
                 android:id="@+id/textViewIdStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewId"
+                android:layout_below="@id/textViewSpot"
                 android:layout_marginLeft="7dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/imageView"
@@ -97,6 +92,5 @@
 
         </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>

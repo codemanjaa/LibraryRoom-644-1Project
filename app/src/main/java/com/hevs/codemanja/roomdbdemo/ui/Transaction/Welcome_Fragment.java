@@ -1,4 +1,4 @@
-package com.hevs.codemanja.roomdbdemo.fragments;
+package com.hevs.codemanja.roomdbdemo.ui.Transaction;
 
 
 import android.content.Intent;
@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
-import com.hevs.codemanja.roomdbdemo.activity.ShowBookActivity;
+import com.hevs.codemanja.roomdbdemo.ui.Book.ShowBookActivity;
+import com.hevs.codemanja.roomdbdemo.ui.shelf.Add_Shelf_Fragment;
 
 /**
  * A simple {@link Fragment} subclass.

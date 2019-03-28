@@ -8,13 +8,42 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.Database.repo.BookRepo;
-import com.hevs.codemanja.roomdbdemo.entity.Book;
+
+
+import java.util.List;
 
 public class BookViewModel extends AndroidViewModel {
 
-    private BookRepo repository;
+   private BookRepo repository;
+   private LiveData<List<BookEntity>> allBooks;
 
+
+    public BookViewModel(@NonNull Application application) {
+        super(application);
+        repository = new BookRepo(application);
+        allBooks = repository.getAllBooks();
+    }
+
+    public void insert(BookEntity book) {
+        repository.insert(book);
+    }
+
+    public void update(BookEntity book){
+        repository.update(book);
+    }
+
+    public void delete(BookEntity book){
+        repository.delete(book);
+    }
+
+    public LiveData<List<BookEntity>> getAllBooks(){
+        return allBooks;
+    }
+
+
+/**
     private Context applicationContext;
 
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
@@ -42,21 +71,21 @@ public class BookViewModel extends AndroidViewModel {
     /**
      * A creator is used to inject the account id into the ViewModel
      */
-    public static class Factory extends ViewModelProvider.NewInstanceFactory {
+   /** public static class Factory extends ViewModelProvider.NewInstanceFactory {
 
         @NonNull
-        private final Application application;
+        private final Application application;**/
 
         //  private final String title;
 
         //   private final BookRepo repository;
 
 
-        public Factory(@NonNull Application application, String title) {
-            this.application = application;
+       // public Factory(@NonNull Application application, String title) {
+       //     this.application = application;
             //  this.title = clientEmail;
             //   repository = ClientRepository.getInstance();
-        }
+     //   }
 /*
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
@@ -89,5 +118,5 @@ public class BookViewModel extends AndroidViewModel {
     */
     }
 
-}
+
 

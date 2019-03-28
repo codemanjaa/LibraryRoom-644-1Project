@@ -1,52 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddBookActivity">
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.Book.AddBookActivity">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="34dp" />
+
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
         android:layout_width="match_parent"
-        android:layout_height="375dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-
-        <EditText
-            android:id="@+id/editTextTitle"
-            android:layout_width="365dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:hint="Title"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="34dp" />
-
-
-        <Spinner
-            android:id="@+id/spinnerCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_marginTop="50dp"
-            tools:layout_editor_absoluteX="7dp" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        tools:layout_editor_absoluteX="7dp" />
 
         <EditText
 
 
             android:id="@+id/editTextSpotId"
-            android:layout_width="350dp"
+            android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
@@ -57,51 +45,34 @@
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="129dp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="346dp"
-            android:layout_height="32dp"
-            android:layout_margin="10dp"
-            android:layout_marginTop="15dp"
-            android:hint="Pick the Spot"
-            android:textColorHint="@color/colorAccent"
-            android:textSize="18sp"
-            tools:textColorHint="@color/colorAccent" />
-
-        <Spinner
-            android:id="@+id/spinnerLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            tools:layout_editor_absoluteX="7dp" />
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <EditText
+        android:id="@+id/textViewG"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_margin="20dp"
+        android:layout_marginTop="15dp"
+        android:hint="Pick the Spot"
+        android:textColorHint="@color/colorAccent"
+        android:textSize="18sp"
+        tools:textColorHint="@color/colorAccent" />
 
+    <Spinner
+        android:id="@+id/spinnerLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        tools:layout_editor_absoluteX="7dp" />
 
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/buttonAddBook"
-        android:layout_width="355dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_margin="32dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="468dp"
+        android:layout_marginTop="668dp"
         android:layout_marginEnd="8dp"
         android:background="@color/colorPrimary"
         android:drawableTop="@drawable/add"
@@ -112,4 +83,4 @@
 
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

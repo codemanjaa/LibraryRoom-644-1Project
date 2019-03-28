@@ -1,8 +1,6 @@
-package com.hevs.codemanja.roomdbdemo.activity;
+package com.hevs.codemanja.roomdbdemo.ui.Book;
 
 import android.app.AlertDialog;
-import android.arch.lifecycle.ViewModel;
-import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -16,17 +14,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
+import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.async.UpdateBook;
-import com.hevs.codemanja.roomdbdemo.entity.Book;
+
+
 
 public class UpdateBookActivity extends AppCompatActivity {
 
     private EditText editTextBid, editTextTitle, editTextSpotId;
     private Button buttonUpdate;
     private Spinner spinnerCategory, spinnerLocation;
-    private Book book;
+    private BookEntity book;
 
 
     @Override
@@ -34,7 +32,7 @@ public class UpdateBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_update);
 
-        editTextBid = findViewById(R.id.editTextBid);
+       /* editTextBid = findViewById(R.id.editTextBid);
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextSpotId = findViewById(R.id.editTextSpotId);
         buttonUpdate = findViewById(R.id.buttonUpdateBook);
@@ -94,7 +92,7 @@ public class UpdateBookActivity extends AppCompatActivity {
                     Intent intent = getIntent();
                     book = intent.getParcelableExtra("book");
 
-                   int bookId = book.getBid();
+                 //  int bookId = book.getBid();
                    String title = book.getTitle();
                    category = book.getCategory();
 
@@ -105,7 +103,7 @@ public class UpdateBookActivity extends AppCompatActivity {
 
 
                    editTextTitle.setText(title);
-                   editTextBid.setText(String.valueOf(bookId));
+
                    editTextBid.setEnabled(false);
                    spinnerCategory.setSelection(postion);
 
@@ -166,7 +164,7 @@ public class UpdateBookActivity extends AppCompatActivity {
                 toast.show();
 */
 
-                // Get the custom layout view.
+            /*    // Get the custom layout view.
                 View toastView = getLayoutInflater().inflate(R.layout.activity_toast_book_update_custom, null);
 
                 // Initiate the Toast instance.
@@ -190,7 +188,6 @@ public class UpdateBookActivity extends AppCompatActivity {
 
         });
 
-
-
+*/
     }
 }

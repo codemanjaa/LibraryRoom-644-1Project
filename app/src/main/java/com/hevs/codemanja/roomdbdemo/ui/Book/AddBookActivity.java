@@ -1,15 +1,14 @@
-package com.hevs.codemanja.roomdbdemo.activity;
+package com.hevs.codemanja.roomdbdemo.ui.Book;
 
 import android.app.AlertDialog;
-import android.arch.persistence.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,21 +17,30 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
+import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.entity.Book;
+import com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity;
 
 import static android.app.PendingIntent.getActivity;
 
 public class AddBookActivity extends AppCompatActivity {
 
+    public static final String EXTRA_TITLE =
+            "com.hevs.codemanja.roomdbdemo.ui.Book.EXTRA_TITLE";
+
+    public static final String EXTRA_CATEGORY =
+            "com.hevs.codemanja.roomdbdemo.ui.Book.EXTRA_CATEGORY";
+
+    public static final String EXTRA_SPOTID =
+            "com.hevs.codemanja.roomdbdemo.ui.Book.EXTRA_SPOTID";
+
+
     private EditText editTextBid, editTextTitle, editTextSpotId;
     private Button buttonAdd;
     private Spinner spinnerCategory, spinnerLocation;
-    private String category, spotid;
+   // private String category, spotid;
 
 
 
@@ -56,6 +64,24 @@ public class AddBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_add);
 
+        editTextTitle = findViewById(R.id.editTextTitle);
+        editTextSpotId = findViewById(R.id.editTextSpotId);
+        editTextBid = findViewById(R.id.textViewG);
+        spinnerCategory = findViewById(R.id.spinnerCategory);
+
+        buttonAdd = findViewById(R.id.buttonAddBook);
+
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveBook();
+
+            }
+
+        });
+
+
 
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextSpotId = findViewById(R.id.editTextSpotId);
@@ -78,10 +104,10 @@ public class AddBookActivity extends AppCompatActivity {
 
 
 
-
+/**
 
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+          public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
             {
                 category = parent.getItemAtPosition(position).toString(); //this is your selected item
 
@@ -163,15 +189,15 @@ public class AddBookActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
 
-             /*   if(editTextBid.getText().toString().length() != 1){
+                if(editTextBid.getText().toString().length() != 1){
                     buttonAdd.setEnabled(false);
                 }
-            */
+
 
             }
-        });
+        });*/
 
-
+/*
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -199,14 +225,14 @@ public class AddBookActivity extends AppCompatActivity {
                 else {
 
                     // Validation pass , book instance created
-                    Book book = new Book();
+                    BookEntity book = new BookEntity();
                     //book.setBid(bookId);
                     book.setTitle(title);
                     book.setCategory(category);
                     book.setF_spotid(spotid);
 
                     // Call the static instance of the libraryDB to Add book
-                    MainActivity.libraryDB.bookDao().addBook(book);
+                    MainActivity.libraryDB.bookDao().insert(book);
 
                     // Display the confirmation to the user.
 
@@ -236,18 +262,61 @@ public class AddBookActivity extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
 
 
 
+}
 
+    private void saveBook() {
 
+        String title = editTextTitle.getText().toString();
+        String catageory =  editTextBid.getText().toString();
+        String spotId = editTextSpotId.getText().toString();
 
+        if(title.trim().isEmpty()|| catageory.trim().isEmpty()){
+            Toast.makeText(this,"please enter values",Toast.LENGTH_SHORT).show();
+         return;
+        }
 
+        Intent data = new Intent();
+        data.putExtra(EXTRA_TITLE,title);
+        data.putExtra(EXTRA_CATEGORY,catageory);
+        data.putExtra(EXTRA_SPOTID, spotId);
 
+        setResult(RESULT_OK,data);
+        finish();
 
-
-
+        //startActivity(new Intent(getApplicationContext(),ShowBookActivity.class));
 
     }
+
+    private void DeleteBook() {
+
+        String title = editTextTitle.getText().toString();
+        String catageory =  editTextBid.getText().toString();
+        String spotId = editTextSpotId.getText().toString();
+
+        if(title.trim().isEmpty()|| catageory.trim().isEmpty()){
+            Toast.makeText(this,"please enter values",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        BookEntity bookEntity=new BookEntity(title, catageory, spotId);
+
+        Intent data = new Intent();
+        data.putExtra(EXTRA_TITLE,title);
+        data.putExtra(EXTRA_CATEGORY,catageory);
+        data.putExtra(EXTRA_SPOTID, spotId);
+
+        setResult(RESULT_OK,data);
+        finish();
+
+        //startActivity(new Intent(getApplicationContext(),ShowBookActivity.class));
+
+    }
+
+
 }
+
+

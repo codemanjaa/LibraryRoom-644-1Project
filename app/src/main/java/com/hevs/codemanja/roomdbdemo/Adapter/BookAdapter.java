@@ -14,171 +14,88 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.activity.DeleteBookActivity;
-import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
-import com.hevs.codemanja.roomdbdemo.activity.UpdateBookActivity;
-import com.hevs.codemanja.roomdbdemo.entity.Book;
+import com.hevs.codemanja.roomdbdemo.ui.Book.DeleteBookActivity;
+import com.hevs.codemanja.roomdbdemo.ui.Book.UpdateBookActivity;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 // RecycleView
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
-
-    private Context mContext;
-    private List<Book> bookList;
-
-
-    //
-
-    public BookAdapter(Context mContext, List<Book> bookList) {
-        this.mContext = mContext;
-        this.bookList = bookList;
-
-
-    }
+public class BookAdapter extends RecyclerView.Adapter<BookAdapter.bookHolder> {
+private  List<BookEntity> books = new ArrayList<>();
+private OnItemClickListner listner;
 
     @NonNull
     @Override
-    public BookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        View view = inflater.inflate(R.layout.listview_book, null);
-        BookViewHolder holder = new BookViewHolder(view);
-        return holder;
+    public bookHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View itemView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.listview_book,viewGroup,false);
+        return new bookHolder(itemView) ;
     }
 
-
-
     @Override
-    public void onBindViewHolder(@NonNull BookViewHolder bookViewHolder, int i) {
+    public void onBindViewHolder(@NonNull bookHolder bookHolder, int i) {
 
-
-        Book book = bookList.get(i);
-        bookViewHolder.textViewTitle.setText((book.getTitle()));
-        bookViewHolder.textViewCategory.setText((book.getCategory()));
-        bookViewHolder.textViewId.setText(("Spot: "+book.getF_spotid()));
-
-
-       // bookViewHolder.textViewCategory.setText((book.getF_spotid()));
-        bookViewHolder.imageView.setImageDrawable(mContext.getResources().getDrawable(book.getImage(), null));
-
+        BookEntity currenbooks = books.get(i);
+        bookHolder.textView.setText(currenbooks.getTitle());
+        bookHolder.textViewCategory.setText(currenbooks.getCategory());
+        bookHolder.textViewSpot.setText(currenbooks.getF_spotid());
+        bookHolder.imageView.setImageResource(currenbooks.getImage());
 
     }
 
     @Override
     public int getItemCount() {
-        return bookList.size();
+        return books.size();
     }
 
-    class BookViewHolder extends RecyclerView.ViewHolder{
+    public void setBooks(List<BookEntity> books){
+        this.books = books;
+        notifyDataSetChanged();
+    }
 
-        ImageView imageView;
-        TextView textViewTitle, textViewCategory, textViewId, textViewSpotId;
-        Button buttonEdit, buttonDelete;
+    public BookEntity getBook(int pos){
+        return books.get(pos);
+    }
 
+    class bookHolder extends RecyclerView.ViewHolder{
+        private TextView textView;
+        private TextView textViewCategory;
+        private TextView textViewSpot;
+        private Button edit;
+        private Button delete;
+        private ImageView imageView;
 
-
-        public BookViewHolder(@NonNull View itemView) {
+        public bookHolder(@NonNull View itemView) {
             super(itemView);
-
-            imageView = itemView.findViewById(R.id.imageView);
+            textView = itemView.findViewById(R.id.textViewTitle);
             textViewCategory = itemView.findViewById(R.id.textViewCategory);
-            textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewId = itemView.findViewById(R.id.textViewId);
+            textViewSpot = itemView.findViewById(R.id.textViewSpot);
+            edit = itemView.findViewById(R.id.buttonEdit);
+            delete = itemView.findViewById(R.id.buttonDelete);
+            imageView = itemView.findViewById(R.id.imageView);
 
-            textViewSpotId = itemView.findViewById(R.id.editTextSpotId);
-
-            buttonEdit = itemView.findViewById(R.id.buttonEdit);
-            buttonDelete = itemView.findViewById(R.id.buttonDelete);
-
-
-            buttonEdit.setOnClickListener(new View.OnClickListener() {
-
+            // selecting a book for edit
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-
-                    int position = getAdapterPosition();
-
-                    Snackbar.make(view, "Click detected on item " + position,
-                            Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-                    // To modify the book
-                    Intent intent = new Intent(view.getContext(),UpdateBookActivity.class);
-                    Book book = bookList.get(position);
-
-                    intent.putExtra("book",book);
-
-
-                    Toast.makeText(view.getContext(), "Book update.", Toast.LENGTH_SHORT).show();
-                    view.getContext().startActivity(intent);
-
-                    /*
-
-                    String title = bookList.get(position).getTitle().toString();
-                    int bookId = bookList.get(position).getBid();
-                    String spotId = bookList.get(position).getF_spotid();
-                    String category = bookList.get(position).getCategory();
-                    */
-
-                   //intent.putExtra("bookparcel", book);
-
-                  //  intent.putExtra("bookId", String.valueOf(bookId));
-                    //intent.putExtra("title", title);
-                    //intent.putExtra("category", category);
-                    intent.putExtra("position", position);
-                    //intent.putExtra("spotId", spotId);
-
-
-                  //  showAddBookActivity();
-
-                  // Intent intent = new Intent(mContext, TestActivity.class);
-
-                    //startActivity(new Intent(AddBookActivity.class, mContext));
-
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (listner != null && pos != RecyclerView.NO_POSITION)
+                    listner.onItemClick(books.get(pos));
                 }
             });
-
-
-            buttonDelete.setOnClickListener(new View.OnClickListener(){
-
-
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-
-                    Snackbar.make(view, "Click detected on item " + position,
-                            Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-
-                    // To Remove the book
-
-
-                    Intent intent = new Intent(view.getContext(),DeleteBookActivity.class);
-                    Book book = bookList.get(position);
-
-                    intent.putExtra("book",book);
-
-
-                    Toast.makeText(view.getContext(), "Book Will be Removed from the shelf.", Toast.LENGTH_SHORT).show();
-                    view.getContext().startActivity(intent);
-                }
-            });
-
-
-
-           // imageView = itemView.findViewById(R.id.imageView);
         }
-
-
-
-
     }
 
-    private void showAddBookActivity() {
+    public interface OnItemClickListner {
+        void onItemClick(BookEntity entity);
+    }
 
-
-
+    public void setOnItemClickListner(OnItemClickListner listner){
+        this.listner = listner;
     }
 
 }

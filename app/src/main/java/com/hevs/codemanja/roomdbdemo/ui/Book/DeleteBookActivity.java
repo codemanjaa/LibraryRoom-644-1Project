@@ -1,5 +1,4 @@
-package com.hevs.codemanja.roomdbdemo.activity;
-import android.arch.persistence.room.Room;
+package com.hevs.codemanja.roomdbdemo.ui.Book;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,9 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
 
-import com.hevs.codemanja.roomdbdemo.entity.Book;
+import com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity;
 
 public class DeleteBookActivity extends AppCompatActivity {
 
@@ -21,7 +21,7 @@ public class DeleteBookActivity extends AppCompatActivity {
     private Button buttonDelete;
 
   //  LibraryDB libraryDB;
-    private Book book;
+    private BookEntity book;
 
 
     @Override
@@ -42,14 +42,14 @@ public class DeleteBookActivity extends AppCompatActivity {
         Intent intent = getIntent();
         book = intent.getParcelableExtra("book");
 
-        int bookId = book.getBid();
+        //int bookId = book.getBid();
         String title = book.getTitle();
         String category = book.getCategory();
         String spotId = book.getF_spotid();
 
 
         editTextTitle.setText(title);
-        editTextBid.setText(String.valueOf(bookId));
+       // editTextBid.setText(String.valueOf(bookId));
         editTextBid.setEnabled(false);
 
 

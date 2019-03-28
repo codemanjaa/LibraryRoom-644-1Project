@@ -1,24 +1,34 @@
-package com.hevs.codemanja.roomdbdemo.activity;
+package com.hevs.codemanja.roomdbdemo.ui.Transaction;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
+import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.fragments.Welcome_Fragment;
+import com.hevs.codemanja.roomdbdemo.ui.Transaction.Welcome_Fragment;
+import com.hevs.codemanja.roomdbdemo.ui.Book.AddBookActivity;
+import com.hevs.codemanja.roomdbdemo.ui.Book.ShowBookActivity;
+import com.hevs.codemanja.roomdbdemo.viewmodel.BookViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private BookViewModel bookViewModel;
 
     private DrawerLayout drawer;
     public static FragmentManager fragmentManager;
@@ -32,13 +42,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         fragmentManager = getSupportFragmentManager();
-        libraryDB = Room.databaseBuilder(getApplicationContext(),LibraryDB.class, "books")
+       /* libraryDB = Room.databaseBuilder(getApplicationContext(),LibraryDB.class, "books")
                 .allowMainThreadQueries()
-                .build();
+                .build();*/
 
 
 
@@ -100,11 +112,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_main) {
 
-            startActivity(intent.setClass(this,ShowBookActivity.class));
+            startActivity(intent.setClass(this, ShowBookActivity.class));
 
         } else if (id == R.id.nav_addBook) {
 
-            startActivity(intent.setClass(this,AddBookActivity.class));
+            startActivity(intent.setClass(this, AddBookActivity.class));
 
         } else if (id == R.id.nav_updateBook) {
 

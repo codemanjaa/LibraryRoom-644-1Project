@@ -1,4 +1,4 @@
-package com.hevs.codemanja.roomdbdemo.fragments;
+package com.hevs.codemanja.roomdbdemo.ui.shelf;
 
 
 import android.app.AlertDialog;
@@ -17,13 +17,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.activity.AddBookActivity;
-import com.hevs.codemanja.roomdbdemo.activity.MainActivity;
-import com.hevs.codemanja.roomdbdemo.entity.Shelf;
-
-import java.util.Arrays;
-import java.util.List;
+import com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity;
 
 
 /**
@@ -57,7 +53,7 @@ public class Add_Shelf_Fragment extends Fragment {
     }
 
 
-
+/*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -194,7 +190,7 @@ public class Add_Shelf_Fragment extends Fragment {
                 }
                 */
 
-            }
+        /*    }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -203,7 +199,7 @@ public class Add_Shelf_Fragment extends Fragment {
                 if(editTextSpotId.getText().toString().length() != 1){
                     buttonAddSpot.setEnabled(false);
                 }
-                */
+
 
 
             }
@@ -219,7 +215,7 @@ public class Add_Shelf_Fragment extends Fragment {
 
 
 
-              Shelf shelf = new Shelf();
+              ShelfEntity shelf = new ShelfEntity();
               shelf.setSpotid(spotid);
               shelf.setDesc(desc);
               shelf.setCategory(category);
@@ -247,6 +243,6 @@ public class Add_Shelf_Fragment extends Fragment {
 
 
         return view;
-    }
+    }*/
 
 }

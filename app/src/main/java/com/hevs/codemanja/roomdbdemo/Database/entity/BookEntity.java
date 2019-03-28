@@ -1,5 +1,4 @@
-package com.hevs.codemanja.roomdbdemo.entity;
-
+package com.hevs.codemanja.roomdbdemo.Database.entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
@@ -10,42 +9,46 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "books", foreignKeys = @ForeignKey(entity = Shelf.class,
-        parentColumns = "spotid",
-        childColumns = "f_spotid"
-        ),
-        indices = {@Index("f_spotid")}
-        )
 
-public class Book implements Parcelable {
+/**@Entity(tableName = "BookEntity", foreignKeys = @ForeignKey(entity = ShelfEntity.class,
+        parentColumns = "spotid",
+        childColumns = "f_spotid",
+        onDelete = ForeignKey.CASCADE
+),
+        indices = {@Index("f_spotid")}
+)**/
+
+@Entity
+public class BookEntity{
 
     @PrimaryKey(autoGenerate = true)
-    private int bid;
+    private Long bid;
     private String title;
     private String category;
+    private String f_spotid;
 
-    @ForeignKey(entity = Shelf.class,
+
+    @ForeignKey(entity = ShelfEntity.class,
             parentColumns = "spotid",
             childColumns = "f_spotid"
     )
-    private String f_spotid;
 
     @Ignore
     private int image;
 
     @Ignore
-    public Book(){
+    public BookEntity(){
 
     }
 
-    public Book(@NonNull int bid, String title, String category, String f_spotid) {
+    public BookEntity( String title, String category, String f_spotid) {
 
-        this.bid = bid;
         this.title = title;
         this.category = category;
         this.f_spotid = f_spotid;
 
     }
+
 
 
 
@@ -56,29 +59,30 @@ public class Book implements Parcelable {
     public void setF_spotid(String f_spotid) {
         this.f_spotid = f_spotid;
     }
-
-    public Book(@NonNull int bid, String title, String category, int image) {
+/*
+    public BookEntity(@NonNull Long bid, String title, String category, int image) {
         this.bid = bid;
         this.title = title;
         this.category = category;
 
         this.image = image;
     }
+*/
 
-    public int getBid() {
+    public Long getBid() {
         return bid;
+    }
+    public void setBid(Long bid) {
+        this.bid = bid;
     }
 
     public int getImage(){ return image;}
     public void setImage(int image){this.image = image;}
-    public void setBid(int bid) {
-        this.bid = bid;
-    }
+
 
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -86,7 +90,6 @@ public class Book implements Parcelable {
     public String getCategory() {
         return category;
     }
-
     public void setCategory(String category) {
         this.category = category;
     }
@@ -95,23 +98,23 @@ public class Book implements Parcelable {
 
 
 
-    public Book(Parcel in) {
-        bid = in.readInt();
+   /* public BookEntity(Parcel in) {
+        bid = in.readLong();
         title = in.readString();
         category = in.readString();
         f_spotid = in.readString();
-       // image = in.readInt();
+        // image = in.readInt();
     }
-
-    public static final Creator<Book> CREATOR = new Creator<Book>() {
+/*
+    public static final Creator<BookEntity> CREATOR = new Creator<BookEntity>() {
         @Override
-        public Book createFromParcel(Parcel in) {
-            return new Book(in);
+        public BookEntity createFromParcel(Parcel in) {
+            return new BookEntity(in);
         }
 
         @Override
-        public Book[] newArray(int size) {
-            return new Book[size];
+        public BookEntity[] newArray(int size) {
+            return new BookEntity[size];
         }
     };
 
@@ -123,12 +126,12 @@ public class Book implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(bid);
+        dest.writeLong(bid);
         dest.writeString(title);
         dest.writeString(category);
         dest.writeString(f_spotid);
-       // dest.writeInt(image);
+        // dest.writeInt(image);
     }
-
+*/
 
 }
