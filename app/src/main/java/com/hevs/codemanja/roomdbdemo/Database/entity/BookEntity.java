@@ -10,33 +10,37 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 
-/**@Entity(tableName = "BookEntity", foreignKeys = @ForeignKey(entity = ShelfEntity.class,
+@Entity(tableName = "BookEntity",
+        foreignKeys =
+        @ForeignKey(
+                entity = ShelfEntity.class,
         parentColumns = "spotid",
         childColumns = "f_spotid",
         onDelete = ForeignKey.CASCADE
 ),
-        indices = {@Index("f_spotid")}
-)**/
-
-@Entity
+        indices = {
+        @Index(
+                value = {"f_spotid"}
+)}
+)
 public class BookEntity{
 
     @PrimaryKey(autoGenerate = true)
-    private Long bid;
+    private int bid;
     private String title;
     private String category;
     private String f_spotid;
 
 
-    @ForeignKey(entity = ShelfEntity.class,
+   /* @ForeignKey(entity = ShelfEntity.class,
             parentColumns = "spotid",
             childColumns = "f_spotid"
-    )
+    )*/
 
     @Ignore
     private int image;
 
-    @Ignore
+
     public BookEntity(){
 
     }
@@ -52,13 +56,7 @@ public class BookEntity{
 
 
 
-    public String getF_spotid() {
-        return f_spotid;
-    }
 
-    public void setF_spotid(String f_spotid) {
-        this.f_spotid = f_spotid;
-    }
 /*
     public BookEntity(@NonNull Long bid, String title, String category, int image) {
         this.bid = bid;
@@ -69,10 +67,10 @@ public class BookEntity{
     }
 */
 
-    public Long getBid() {
+    public int getBid() {
         return bid;
     }
-    public void setBid(Long bid) {
+    public void setBid(int bid) {
         this.bid = bid;
     }
 
@@ -94,7 +92,28 @@ public class BookEntity{
         this.category = category;
     }
 
+    public String getF_spotid() {
+        return f_spotid;
+    }
 
+    public void setF_spotid(String f_spotid) {
+        this.f_spotid = f_spotid;
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        if (!(obj instanceof BookEntity)) return false;
+        BookEntity o = (BookEntity) obj;
+        return o.getBid()==(this.getBid());
+    }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 
 
 

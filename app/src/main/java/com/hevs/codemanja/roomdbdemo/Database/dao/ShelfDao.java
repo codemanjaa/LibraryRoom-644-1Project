@@ -25,9 +25,19 @@ public interface ShelfDao {
 
 */
 
+    @Query("SELECT * FROM shelfentity WHERE spotid = :id")
+    LiveData<ShelfEntity> getById(String id);
 
-    @Query("SELECT spotid FROM shelfEntity")
+    @Query("SELECT * FROM shelfentity")
     LiveData<List<ShelfEntity>> getAllSpots();
+
+
+
+    /*@Query("SELECT spotid FROM shelfEntity WHERE spotid like :spot")
+    LiveData<List<ShelfEntity>> getAllSpotsList(String spot);*/
+
+   // @Query("SELECT spotid FROM ShelfEntity WHERE spotid like :spot")
+  //  LiveData<ShelfEntity> getSpot(String spot);
 
     /*
 
@@ -43,11 +53,17 @@ fun loadHamsters(search: String?): Flowable<List<Hamster>>
 
 */
 
-    @Query("SELECT spotid FROM shelfEntity WHERE spotid like :spot")
+
+    //LiveData<ShelfEntity> getAllSpotsList(String spot);
+   /* @Query("SELECT spotid FROM ShelfEntity WHERE spotid LIKE \"spot%\"")
+    String[] getAllSpots(String spot);*/
+
+    @Query("SELECT spotid FROM shelfentity WHERE spotid like :spot")
+   // LiveData<List<ShelfEntity>> getAllSpotsList(String spot);
     String[] getAllSpotsList(String spot);
 
-    @Query ("SELECT spotid FROM shelfEntity WHERE category like :category")
-    String[] getCategorySpot(String category);
+    @Query ("SELECT spotid FROM shelfentity WHERE category like :category")
+    LiveData<List<ShelfEntity>> getCategorySpot(String category);
 
     @Insert
     void insert(ShelfEntity shelf);

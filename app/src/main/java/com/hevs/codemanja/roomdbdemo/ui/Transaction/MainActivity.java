@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -19,16 +20,20 @@ import android.widget.Toast;
 import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
+import com.hevs.codemanja.roomdbdemo.fragments.About;
 import com.hevs.codemanja.roomdbdemo.ui.Transaction.Welcome_Fragment;
 import com.hevs.codemanja.roomdbdemo.ui.Book.AddBookActivity;
 import com.hevs.codemanja.roomdbdemo.ui.Book.ShowBookActivity;
 import com.hevs.codemanja.roomdbdemo.viewmodel.BookViewModel;
+import com.hevs.codemanja.roomdbdemo.viewmodel.ShelfViewModel;
 
+import java.io.File;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private BookViewModel bookViewModel;
+    private ShelfViewModel shelfViewModel;
 
     private DrawerLayout drawer;
     public static FragmentManager fragmentManager;
@@ -40,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //File dbFile = getDatabasePath("library-database");
+        //Log.i("MainActivity",dbFile.getAbsolutePath());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -126,6 +134,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         else if (id == R.id.nav_ShelfManagment) {
 
+            startActivity(intent.setClass(this,ShowBookActivity.class));
+        }
+        else if (id == R.id.nav_about){
+            this.setTitle(R.string.about_page);
+            fragmentManager.beginTransaction().add(R.id.fragment_container, new About()).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

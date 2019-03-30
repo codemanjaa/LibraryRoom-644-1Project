@@ -86,7 +86,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                 @Override
                 public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
                     if (mData instanceof BookEntity) {
-                        return ((BookEntity) mData.get(oldItemPosition)).getBid().equals(((BookEntity) data.get(newItemPosition)).getBid());
+                        return ((BookEntity) mData.get(oldItemPosition)).getBid()==(((BookEntity) data.get(newItemPosition)).getBid());
                     }
                     if (mData instanceof ShelfEntity) {
                         return ((ShelfEntity) mData.get(oldItemPosition)).getSpotid().equals(
@@ -100,7 +100,7 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
                     if (mData instanceof BookEntity) {
                         BookEntity newBook = (BookEntity) data.get(newItemPosition);
                         BookEntity oldBook = (BookEntity) mData.get(newItemPosition);
-                        return newBook.getBid().equals(oldBook.getBid())
+                        return newBook.getBid()==(oldBook.getBid())
                                 && Objects.equals(newBook.getBid(), oldBook.getBid())
                                 //&& Objects.equals(newBook.getBalance(), oldAccount.getBalance())
                                 && newBook.getF_spotid().equals(oldBook.getF_spotid());

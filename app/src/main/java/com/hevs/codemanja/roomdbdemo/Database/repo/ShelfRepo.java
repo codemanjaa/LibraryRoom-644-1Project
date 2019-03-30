@@ -19,12 +19,13 @@ public class ShelfRepo {
 
     private ShelfDao shelfDao;
     private LiveData<List<ShelfEntity>> allShelf;
+    String category;
 
 
     public ShelfRepo(Application application){
-        ShelfDB database = ShelfDB.getInstance(application);
-        shelfDao = database.shelfDao();
-        allShelf = shelfDao.getAllSpots();
+        LibraryDB databaseshelf = LibraryDB.getInstance(application);
+        shelfDao = databaseshelf.shelfDao();
+        allShelf =   shelfDao.getAllSpots(); //shelfDao.getCategorySpot(category);
     }
 
     public void insert(ShelfEntity shelf){
@@ -41,9 +42,11 @@ public class ShelfRepo {
     public LiveData<List<ShelfEntity>> getAllSpots(){
         return allShelf;
     }
+   // test
+    public LiveData<List<ShelfEntity>> getCategorySpot(String category){
 
-
-
+        return allShelf;
+    }
 
 
     private static class InsertShelfAsyncTask extends AsyncTask<ShelfEntity,Void,Void> {

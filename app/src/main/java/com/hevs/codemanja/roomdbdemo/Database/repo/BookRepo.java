@@ -33,6 +33,7 @@ public class BookRepo {
     public void delete(BookEntity book){
         new DeleteBookAsyncTask(bookDao).execute(book);
     }
+
     public LiveData<List<BookEntity>> getAllBooks(){
          return allBooks;
     }

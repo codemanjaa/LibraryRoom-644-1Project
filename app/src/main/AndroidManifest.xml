@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".ui.shelf.AddSpotActivity"></activity>
+        <activity android:name=".ui.shelf.AddShelfActivity" />
+        <activity android:name=".ui.Transaction.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,12 +22,16 @@
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
-            android:name=".activity.ShowBookActivity"
+            android:name=".ui.Book.ShowBookActivity"
             android:label="@string/title_activity_main2"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.AddBookActivity" />
-        <activity android:name=".activity.UpdateBookActivity"></activity>
-        <activity android:name=".activity.DeleteBookActivity"></activity>
+        <activity
+            android:name=".ui.Book.AddBookActivity"
+            android:parentActivityName=".ui.Book.ShowBookActivity" />
+        <activity android:name=".ui.Book.UpdateBookActivity" />
+        <activity android:name=".ui.Book.DeleteBookActivity" />
+        <activity android:name=".ui.shelf.ShowShelfActivity" />
     </application>
 
 </manifest>

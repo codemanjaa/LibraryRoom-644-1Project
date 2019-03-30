@@ -7,27 +7,25 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
+import com.hevs.codemanja.roomdbdemo.Database.entity.Spot;
 
 import java.util.List;
 
 @Dao
-public interface BookDao {
+public interface SpotDao {
 
     @Insert
-    void insert(BookEntity book);
+    void insert(Spot spot);
 
     @Update
-    void update(BookEntity book);
+    void update(Spot spot);
 
     @Delete
-    void delete(BookEntity book);
+    void delete(Spot spot);
 
-    @Query("SELECT * FROM bookentity")
-    LiveData<List<BookEntity>> getAllBooks();
+    @Query("SELECT * FROM spot")
+    LiveData<List<Spot>> getAllSpots();
 
-    @Query("DELETE FROM bookentity")
-    void deleteAll();
 
 
 }

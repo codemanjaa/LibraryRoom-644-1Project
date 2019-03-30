@@ -3,6 +3,7 @@ package com.hevs.codemanja.roomdbdemo.ui.Book;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -27,6 +28,9 @@ import static android.app.PendingIntent.getActivity;
 
 public class AddBookActivity extends AppCompatActivity {
 
+    public static final String EXTRA_ID =
+            "com.hevs.codemanja.roomdbdemo.ui.Book.EXTRA_ID";
+
     public static final String EXTRA_TITLE =
             "com.hevs.codemanja.roomdbdemo.ui.Book.EXTRA_TITLE";
 
@@ -37,10 +41,10 @@ public class AddBookActivity extends AppCompatActivity {
             "com.hevs.codemanja.roomdbdemo.ui.Book.EXTRA_SPOTID";
 
 
-    private EditText editTextBid, editTextTitle, editTextSpotId;
+    private EditText editTextG, editTextTitle, editTextSpotId;
     private Button buttonAdd;
     private Spinner spinnerCategory, spinnerLocation;
-   // private String category, spotid;
+    private static String category;
 
 
 
@@ -66,11 +70,22 @@ public class AddBookActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextSpotId = findViewById(R.id.editTextSpotId);
-        editTextBid = findViewById(R.id.textViewG);
+        editTextG = findViewById(R.id.textViewG);
         spinnerCategory = findViewById(R.id.spinnerCategory);
 
         buttonAdd = findViewById(R.id.buttonAddBook);
 
+        Intent intent = getIntent();
+        // adding data from selected book
+        if(intent.hasExtra(EXTRA_ID)){
+            setTitle("Edit Book");
+            editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            editTextG.setText(intent.getStringExtra(EXTRA_CATEGORY));
+            editTextSpotId.setText(intent.getStringExtra(EXTRA_SPOTID));
+
+        }else {
+            setTitle("Add Book");
+        }
 
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,9 +113,26 @@ public class AddBookActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(adapter);
 
 
-        editTextSpotId.setVisibility(View.INVISIBLE);
+       // editTextSpotId.setVisibility(View.INVISIBLE);
 
         spinnerLocation.setAdapter(adapter);
+
+
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                category = parent.getItemAtPosition(position).toString(); //this is your selected item
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
 
 
 
@@ -271,18 +303,23 @@ public class AddBookActivity extends AppCompatActivity {
     private void saveBook() {
 
         String title = editTextTitle.getText().toString();
-        String catageory =  editTextBid.getText().toString();
+      //  categeory =   editTextG.getText().toString();
         String spotId = editTextSpotId.getText().toString();
 
-        if(title.trim().isEmpty()|| catageory.trim().isEmpty()){
-            Toast.makeText(this,"please enter values",Toast.LENGTH_SHORT).show();
-         return;
-        }
+      // if(title.trim().isEmpty()|| categeory.trim().isEmpty()){
+       //     Toast.makeText(this,"please enter values",Toast.LENGTH_SHORT).show();
+      //  return;
+        //}
 
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE,title);
-        data.putExtra(EXTRA_CATEGORY,catageory);
+        data.putExtra(EXTRA_CATEGORY,category);
         data.putExtra(EXTRA_SPOTID, spotId);
+
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        if(id != -1){
+            data.putExtra(EXTRA_ID, id);
+        }
 
         setResult(RESULT_OK,data);
         finish();
@@ -294,7 +331,7 @@ public class AddBookActivity extends AppCompatActivity {
     private void DeleteBook() {
 
         String title = editTextTitle.getText().toString();
-        String catageory =  editTextBid.getText().toString();
+        String catageory =  editTextG.getText().toString();
         String spotId = editTextSpotId.getText().toString();
 
         if(title.trim().isEmpty()|| catageory.trim().isEmpty()){

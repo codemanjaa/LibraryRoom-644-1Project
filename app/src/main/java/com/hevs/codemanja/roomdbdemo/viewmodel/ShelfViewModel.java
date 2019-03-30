@@ -10,17 +10,24 @@ import com.hevs.codemanja.roomdbdemo.Database.repo.ShelfRepo;
 
 import java.util.List;
 
+
+
 public class ShelfViewModel extends AndroidViewModel {
 
     private ShelfRepo repository;
     private LiveData<List<ShelfEntity>> allSpots;
 
-    public ShelfViewModel(@NonNull Application application) {
+
+
+    public ShelfViewModel(Application application){
         super(application);
 
         repository = new ShelfRepo(application);
         allSpots = repository.getAllSpots();
     }
+   // public ShelfViewModel(@NonNull Application application) {
+
+  //  }
 
     public void insert(ShelfEntity shelf) {
         repository.insert(shelf);
@@ -34,7 +41,7 @@ public class ShelfViewModel extends AndroidViewModel {
         repository.delete(shelf);
     }
 
-    public LiveData<List<ShelfEntity >> getAllSpots(){
+    public LiveData<List<ShelfEntity>> getAllSpots(){
         return allSpots;
     }
 

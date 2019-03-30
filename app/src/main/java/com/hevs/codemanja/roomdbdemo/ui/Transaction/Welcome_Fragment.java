@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.ui.Book.ShowBookActivity;
+import com.hevs.codemanja.roomdbdemo.ui.shelf.AddSpotActivity;
 import com.hevs.codemanja.roomdbdemo.ui.shelf.Add_Shelf_Fragment;
+import com.hevs.codemanja.roomdbdemo.ui.shelf.ShowShelfActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,8 +52,12 @@ public class Welcome_Fragment extends Fragment implements View.OnClickListener {
 
             case R.id.buttonAdd:
 
-                MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,
-                        new Add_Shelf_Fragment()).addToBackStack(null).commit();
+                Intent shefIntent = new Intent(getActivity(), ShowShelfActivity.class);
+                getActivity().startActivity(shefIntent);
+                Toast.makeText(getActivity(), "Shelf List", Toast.LENGTH_SHORT).show();
+
+               // MainActivity.fragmentManager.beginTransaction().replace(R.id.fragment_container,
+                 //       new Add_Shelf_Fragment()).addToBackStack(null).commit();
 
                 break;
 
