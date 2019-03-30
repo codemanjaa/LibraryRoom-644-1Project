@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.ui.Book.ShowBookActivity;
-import com.hevs.codemanja.roomdbdemo.ui.shelf.AddSpotActivity;
-import com.hevs.codemanja.roomdbdemo.ui.shelf.Add_Shelf_Fragment;
 import com.hevs.codemanja.roomdbdemo.ui.shelf.ShowShelfActivity;
 
 /**

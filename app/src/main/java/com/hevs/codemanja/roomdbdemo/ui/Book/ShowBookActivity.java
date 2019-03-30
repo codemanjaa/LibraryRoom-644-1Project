@@ -8,11 +8,16 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -48,6 +53,18 @@ public class ShowBookActivity extends AppCompatActivity {
        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
+        Toolbar toolbar =
+                (Toolbar) findViewById(R.id.storage_toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        this.setTitle(R.string.bookliste);
+// Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+
+// Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -226,5 +243,23 @@ public class ShowBookActivity extends AppCompatActivity {
     @Override
     public void onActivityReenter(int resultCode, Intent data)  {
         super.onActivityReenter(resultCode, data);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.drawermenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.delBooks:
+                bookViewModel.deleteAllBooks();
+                return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+        }
     }
 }

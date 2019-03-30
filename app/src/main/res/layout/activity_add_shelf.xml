@@ -4,16 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/greenbackground"
     tools:context=".ui.shelf.AddShelfActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/storage_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:visibility="visible"
+        android:background="@color/darkgreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    </android.support.v7.widget.Toolbar>
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="204dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <Spinner
             android:id="@+id/spinnerCategory"
@@ -23,21 +44,8 @@
             tools:layout_editor_absoluteX="7dp" />
 
         <EditText
-            android:id="@+id/editTextSpotId"
-            android:layout_width="369dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:ems="10"
-            android:hint="Spot ID"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="13dp"
-            tools:layout_editor_absoluteY="220dp" />
-
-
-        <EditText
             android:id="@+id/editTextDesc"
-            android:layout_width="374dp"
+            android:layout_width="381dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
@@ -45,20 +53,39 @@
             android:ems="10"
             android:hint="Description"
             android:inputType="textPersonName"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="34dp" />
+
+        <EditText
+            android:id="@+id/editTextSpotId"
+            android:layout_width="381dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Spot ID"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/white"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="13dp"
+            tools:layout_editor_absoluteY="220dp" />
 
 
         <EditText
 
             android:id="@+id/editTextCategory"
-            android:layout_width="371dp"
+            android:layout_width="383dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
             android:ems="10"
             android:hint="Category"
             android:inputType="textPersonName"
+            android:textColorHint="@color/white"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="129dp" />
 
@@ -69,14 +96,13 @@
     <Button
         android:id="@+id/buttonAddSpot"
         android:layout_width="331dp"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="560dp"
         android:layout_marginEnd="8dp"
         android:drawableLeft="@drawable/shelf"
         android:text="@string/reserve"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,17 +114,17 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/colorPrimary"
         android:drawableTop="@drawable/message"
         android:gravity="center_horizontal"
         android:text="Please select the article  category for Automatically generate the Spot ID. "
-        android:textColor="@color/colorAccent"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </android.support.constraint.ConstraintLayout>

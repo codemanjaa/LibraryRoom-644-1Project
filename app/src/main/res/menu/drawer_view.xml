@@ -14,13 +14,13 @@
             android:title="Add Book" />
         <item
             android:id="@+id/nav_updateBook"
-            android:icon="@android:drawable/ic_menu_edit"
-            android:title="Edit Book" />
+            android:icon="@drawable/ic_add_shelf_black_24dp"
+            android:title="Add Shelf" />
 
         <item
             android:id="@+id/nav_deleteBook"
-            android:icon="@android:drawable/ic_input_delete"
-            android:title="Delete Book" />
+            android:icon= "@drawable/ic_library_book_black_24dp"
+            android:title="Book management" />
 
         <item
             android:id="@+id/nav_ShelfManagment"
@@ -30,10 +30,7 @@
 
     <item android:title="More information">
         <menu>
-            <item
-                android:id="@+id/nav_contact"
-                android:icon="@drawable/ic_contact_phone_black_24dp"
-                android:title="Contact us" />
+
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_info_black_24dp"

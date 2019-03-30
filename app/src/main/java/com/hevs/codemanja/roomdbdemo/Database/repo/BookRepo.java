@@ -39,7 +39,9 @@ public class BookRepo {
     }
 
 
-
+   public void deleteAllBooks(){
+        new DeleteAllBooksAsyncTask(bookDao).execute();
+   }
 
 
     private static class InsertBookAsyncTask extends AsyncTask<BookEntity,Void,Void>{
@@ -67,6 +69,21 @@ public class BookRepo {
             return null;
         }
     }
+
+    private static class DeleteAllBooksAsyncTask extends AsyncTask<Void,Void,Void>{
+        private BookDao bookDao;
+
+        private DeleteAllBooksAsyncTask(BookDao bookDao){
+            this.bookDao = bookDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            bookDao.deleteAll();
+            return null;
+        }
+    }
+
 
     private static class DeleteBookAsyncTask extends AsyncTask<BookEntity,Void,Void>{
         private BookDao bookDao;

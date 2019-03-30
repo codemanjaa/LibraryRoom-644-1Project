@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Button;
@@ -42,10 +44,22 @@ public class ShowShelfActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelf_show);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
 
 
+       // my_child_toolbar is defined in the layout file
+        Toolbar toolbar =
+                (Toolbar) findViewById(R.id.storage_toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+
+// Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+// Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+
+        this.setTitle(R.string.shelfliste);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -115,76 +129,6 @@ public class ShowShelfActivity extends AppCompatActivity {
         buttonUpdate = findViewById(R.id.buttonEdit);
         buttonDelete = findViewById(R.id.buttonDelete);
 
-    /*  buttonDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-
-
-
-            }
-        });
-
-       /** bookList = new ArrayList<>();
-
-         bookList = (List<BookEntity>) libraryDB.bookDao().getAllBooks();
-
-         Log.d("TAG", bookList.toString());
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));**/
-
-/**
-       for(int i=0; i<bookList.size(); i++){
-
-            String img = bookList.get(i).getCategory().substring(0,1);
-
-            switch (img){
-
-                case "A":
-                    bookList.get(i).setImage(R.drawable.ab);
-                    break;
-
-                case "B":
-                    bookList.get(i).setImage(R.drawable.b);
-                    break;
-
-                case "K":
-                    bookList.get(i).setImage(R.drawable.k);
-                    break;
-
-                    default:bookList.get(i).setImage(R.drawable.c);
-
-            }
-
-
-        }
-
-**/
-
-
-/**
-        bookAdapter = new BookAdapter(this, bookList );
-        recyclerView.setAdapter(bookAdapter);
-**/
-
-      //  buttonEdit = findViewById(R.id.buttonEdit);
-
-
-
-/*        buttonEdit.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-
-              //startActivity(new Intent(ShowBookActivity.this, AddBookActivity.class));
-
-            }
-        });
-
-*/
-
 
 
     }
@@ -209,9 +153,9 @@ public class ShowShelfActivity extends AppCompatActivity {
                  Toast.makeText(this,"Book is not updated", Toast.LENGTH_SHORT);
                  return;
              }
-            String desc = data.getStringExtra(Add_Shelf_Fragment.EXTRA_DESC);
-            String category = data.getStringExtra(Add_Shelf_Fragment.EXTRA_CATEGORY);
-            String spotId = data.getStringExtra(Add_Shelf_Fragment.EXTRA_SPOTID);
+            String desc = data.getStringExtra(AddShelfActivity.EXTRA_DESC);
+            String category = data.getStringExtra(AddShelfActivity.EXTRA_CATEGORY);
+            String spotId = data.getStringExtra(AddShelfActivity.EXTRA_SPOTID);
 
             System.out.println(""+spotId);
 

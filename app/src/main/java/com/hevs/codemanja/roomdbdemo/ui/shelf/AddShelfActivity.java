@@ -3,8 +3,10 @@ package com.hevs.codemanja.roomdbdemo.ui.shelf;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -83,6 +85,20 @@ public class AddShelfActivity extends AppCompatActivity {
 
         // buttonAddSpot.setEnabled(false);
         editTextSpotId.setEnabled(true);
+
+        // my_child_toolbar is defined in the layout file
+        Toolbar myChildToolbar =
+                (Toolbar) findViewById(R.id.storage_toolbar);
+        setSupportActionBar(myChildToolbar);
+        myChildToolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+
+// Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        this.setTitle("Add Shelf");
+
+// Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
 
         //Generate the Spot ID

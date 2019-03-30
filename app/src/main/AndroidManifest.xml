@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.shelf.AddSpotActivity"></activity>
-        <activity android:name=".ui.shelf.AddShelfActivity" />
+        <activity android:name=".ui.shelf.AddShelfActivity"
+            android:parentActivityName=".ui.shelf.ShowShelfActivity"/>
         <activity android:name=".ui.Transaction.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +23,7 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".ui.Book.ShowBookActivity"
+            android:parentActivityName=".ui.Transaction.MainActivity"
             android:label="@string/title_activity_main2"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -31,7 +32,8 @@
             android:parentActivityName=".ui.Book.ShowBookActivity" />
         <activity android:name=".ui.Book.UpdateBookActivity" />
         <activity android:name=".ui.Book.DeleteBookActivity" />
-        <activity android:name=".ui.shelf.ShowShelfActivity" />
+        <activity android:name=".ui.shelf.ShowShelfActivity"
+            android:parentActivityName=".ui.Transaction.MainActivity"/>
     </application>
 
 </manifest>

@@ -3,6 +3,9 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,17 +28,23 @@ import com.hevs.codemanja.roomdbdemo.fragments.About;
 import com.hevs.codemanja.roomdbdemo.ui.Transaction.Welcome_Fragment;
 import com.hevs.codemanja.roomdbdemo.ui.Book.AddBookActivity;
 import com.hevs.codemanja.roomdbdemo.ui.Book.ShowBookActivity;
+import com.hevs.codemanja.roomdbdemo.ui.shelf.AddShelfActivity;
+import com.hevs.codemanja.roomdbdemo.ui.shelf.ShowShelfActivity;
 import com.hevs.codemanja.roomdbdemo.viewmodel.BookViewModel;
 import com.hevs.codemanja.roomdbdemo.viewmodel.ShelfViewModel;
 
+import org.apache.log4j.chainsaw.Main;
+
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, About.OnFragmentInteractionListener {
 
     private BookViewModel bookViewModel;
     private ShelfViewModel shelfViewModel;
-
+    String currentLang;
+    String currentLanguage;
     private DrawerLayout drawer;
     public static FragmentManager fragmentManager;
 
@@ -46,8 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //File dbFile = getDatabasePath("library-database");
-        //Log.i("MainActivity",dbFile.getAbsolutePath());
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -98,18 +107,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify c parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
 
 
-        return super.onOptionsItemSelected(item);
-    }
 
 
     @Override
@@ -127,14 +126,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent.setClass(this, AddBookActivity.class));
 
         } else if (id == R.id.nav_updateBook) {
+            startActivity(intent.setClass(this, AddShelfActivity.class));
 
         } else if (id == R.id.nav_deleteBook) {
 
+            startActivity(intent.setClass(this, ShowBookActivity.class));
         }
-
         else if (id == R.id.nav_ShelfManagment) {
 
-            startActivity(intent.setClass(this,ShowBookActivity.class));
+            startActivity(intent.setClass(this, ShowShelfActivity.class));
         }
         else if (id == R.id.nav_about){
             this.setTitle(R.string.about_page);
@@ -147,15 +147,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-/*
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+    }
 
-*/
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
+    }
+    public void setLocale(String localeName) {
 
+        if (!localeName.equals(currentLanguage)) {
+            Locale locale = new Locale(localeName);
+            Resources res = getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = locale;
+            res.updateConfiguration(conf, dm);
+            Intent refresh = new Intent(this, MainActivity.class);
+            refresh.putExtra(currentLang, localeName);
+            startActivity(refresh);
+        } else {
+            Toast.makeText(MainActivity.this, "Language already selected!", Toast.LENGTH_SHORT).show();
+        }
     }
 }
