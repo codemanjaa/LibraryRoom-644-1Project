@@ -30,31 +30,30 @@
         android:layout_marginTop="50dp"
         tools:layout_editor_absoluteX="7dp" />
 
-        <EditText
-
-
-            android:id="@+id/editTextSpotId"
-            android:layout_width="370dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="10dp"
-            android:ems="10"
-            android:hint="Spot ID"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="10dp"
-            tools:layout_editor_absoluteY="129dp" />
-
     <EditText
         android:id="@+id/textViewG"
-        android:layout_width="match_parent"
+        android:layout_width="323dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_marginTop="15dp"
-        android:hint="Pick the Spot"
-        android:textColorHint="@color/colorAccent"
-        android:textSize="18sp"
-        tools:textColorHint="@color/colorAccent" />
+        android:hint="Please enter the Valid spot ID"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <EditText
+
+
+        android:id="@+id/editTextSpotId"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="Spot ID"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="10dp"
+        tools:layout_editor_absoluteY="129dp" />
 
     <Spinner
         android:id="@+id/spinnerLocation"

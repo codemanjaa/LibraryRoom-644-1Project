@@ -3,11 +3,13 @@ package com.hevs.codemanja.roomdbdemo.ui.shelf;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -77,6 +79,9 @@ public class ShowShelfActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
+
+
+
                 shelfViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()));
                 Toast.makeText(ShowShelfActivity.this,"Spot deleted",Toast.LENGTH_SHORT).show();
             }
@@ -122,7 +127,6 @@ public class ShowShelfActivity extends AppCompatActivity {
             String spotId = data.getStringExtra(AddShelfActivity.EXTRA_SPOTID);
 
             ShelfEntity shelfEntity = new ShelfEntity(spotId,desc,category);
-            shelfViewModel.insert(shelfEntity);
 
             Toast toast = Toast.makeText(getApplicationContext(), "Spot Reserved on the Shelf", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -131,6 +135,10 @@ public class ShowShelfActivity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.add);
             toastContentView.addView(imageView, 0);
             toast.show();
+
+            shelfViewModel.insert(shelfEntity);
+
+
 
 
         }else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {

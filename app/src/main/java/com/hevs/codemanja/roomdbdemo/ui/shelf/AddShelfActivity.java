@@ -79,7 +79,7 @@ public class AddShelfActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(adapter);
 
 
-        // buttonAddSpot.setEnabled(false);
+         buttonAddSpot.setEnabled(false);
         editTextSpotId.setEnabled(true);
         editTextCategory.setVisibility(View.INVISIBLE);
 
@@ -186,7 +186,7 @@ public class AddShelfActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if (editTextDesc.getText().toString().length() > 1) {
-                    buttonAddSpot.setEnabled(true);
+                    //buttonAddSpot.setEnabled(true);
                 }
 
             }
@@ -198,7 +198,7 @@ public class AddShelfActivity extends AppCompatActivity {
         });
 
 
-        //
+
 
 
         editTextSpotId.addTextChangedListener(new TextWatcher() {
@@ -211,7 +211,7 @@ public class AddShelfActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-                if (editTextSpotId.getText().toString().length() >= 1) {
+                if (editTextSpotId.getText().toString().length() >= 3) {
                     buttonAddSpot.setEnabled(true);
                 }
 
@@ -222,8 +222,8 @@ public class AddShelfActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
 
-                if (editTextSpotId.getText().toString().length() != 1) {
-                    buttonAddSpot.setEnabled(false);
+                if (editTextSpotId.getText().toString().length() >= 3) {
+                    buttonAddSpot.setEnabled(true);
                 }
 
 
