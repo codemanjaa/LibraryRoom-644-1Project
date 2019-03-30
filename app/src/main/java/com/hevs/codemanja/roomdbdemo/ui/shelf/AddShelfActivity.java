@@ -1,6 +1,8 @@
 package com.hevs.codemanja.roomdbdemo.ui.shelf;
 
 import android.app.AlertDialog;
+import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
@@ -19,12 +21,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
-import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
+import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.viewmodel.ShelfViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddShelfActivity extends AppCompatActivity {
 
@@ -38,7 +40,6 @@ public class AddShelfActivity extends AppCompatActivity {
             "com.hevs.codemanja.roomdbdemo.ui.shelf.EXTRA_SPOTID";
 
 
-
     // Init the components
 
     private EditText editTextSpotId, editTextDesc, editTextCategory;
@@ -46,8 +47,6 @@ public class AddShelfActivity extends AppCompatActivity {
     private Spinner spinnerCategory;
     private String category;
     private ShelfViewModel shelfViewModel;
-
-
 
 
     public AddShelfActivity() {
@@ -63,7 +62,6 @@ public class AddShelfActivity extends AppCompatActivity {
         return input.length() == 0;
 
     }
-
 
 
     @Override
@@ -83,8 +81,9 @@ public class AddShelfActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(adapter);
 
 
-        // buttonAddSpot.setEnabled(false);
+         buttonAddSpot.setEnabled(false);
         editTextSpotId.setEnabled(true);
+        editTextCategory.setVisibility(View.INVISIBLE);
 
         // my_child_toolbar is defined in the layout file
         Toolbar myChildToolbar =
@@ -102,6 +101,23 @@ public class AddShelfActivity extends AppCompatActivity {
 
 
         //Generate the Spot ID
+
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                category = parent.getItemAtPosition(position).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
 
 /*
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -186,7 +202,7 @@ public class AddShelfActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if (editTextDesc.getText().toString().length() > 1) {
-                    buttonAddSpot.setEnabled(true);
+                    //buttonAddSpot.setEnabled(true);
                 }
 
             }
@@ -198,7 +214,7 @@ public class AddShelfActivity extends AppCompatActivity {
         });
 
 
-        //
+
 
 
         editTextSpotId.addTextChangedListener(new TextWatcher() {
@@ -211,7 +227,7 @@ public class AddShelfActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 
-                if (editTextSpotId.getText().toString().length() == 1) {
+                if (editTextSpotId.getText().toString().length() >= 3) {
                     buttonAddSpot.setEnabled(true);
                 }
 
@@ -222,8 +238,8 @@ public class AddShelfActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
 
-                if (editTextSpotId.getText().toString().length() != 1) {
-                    buttonAddSpot.setEnabled(false);
+                if (editTextSpotId.getText().toString().length() >= 3) {
+                    buttonAddSpot.setEnabled(true);
                 }
 
 
@@ -235,39 +251,31 @@ public class AddShelfActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String spotid = editTextSpotId.getText().toString();
-                String desc = editTextDesc.getText().toString();
-                String category = editTextCategory.getText().toString();
-                //System.out.println(spotid+ " "+desc+" "+category);
-
-
-
-
-
                 saveShelf();
-
-
-
 
 
             }
         });
 
     }
+
+
         private void saveShelf() {
 
-            String title = editTextDesc.getText().toString();
-           String catageory =  editTextCategory.getText().toString();
-           String spotId = editTextSpotId.getText().toString();
+            String desc = editTextDesc.getText().toString();
+            String spotId = editTextSpotId.getText().toString();
 
+
+           /*
             if(title.trim().isEmpty()|| catageory.trim().isEmpty()){
                 Toast.makeText(this,"please enter values",Toast.LENGTH_SHORT).show();
                 return;
             }
+            */
 
             Intent data = new Intent();
-            data.putExtra(EXTRA_DESC,title);
-            data.putExtra(EXTRA_CATEGORY,catageory);
+            data.putExtra(EXTRA_DESC,desc);
+            data.putExtra(EXTRA_CATEGORY,category);
             data.putExtra(EXTRA_SPOTID, spotId);
 /*
             int id = getIntent().getIntExtra(EXTRA_ID, -1);
@@ -282,8 +290,7 @@ public class AddShelfActivity extends AppCompatActivity {
             editTextCategory.setText("");
 
 
-            Toast.makeText(getApplicationContext(), "Spot reserved ot the shelf", Toast.LENGTH_SHORT).show();
-            //startActivity(new Intent(getApplicationContext(),ShowBookActivity.class));
+            Toast.makeText(getApplicationContext(), "Spot reserved on the shelf", Toast.LENGTH_SHORT).show();
 
         }
 

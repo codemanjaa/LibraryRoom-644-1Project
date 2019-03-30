@@ -32,7 +32,8 @@ public class UpdateBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_update);
 
-       /* editTextBid = findViewById(R.id.editTextBid);
+       /*
+       editTextBid = findViewById(R.id.editTextBid);
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextSpotId = findViewById(R.id.editTextSpotId);
         buttonUpdate = findViewById(R.id.buttonUpdateBook);

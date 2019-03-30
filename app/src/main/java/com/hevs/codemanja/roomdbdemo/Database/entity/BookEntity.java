@@ -7,7 +7,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
+
+
 
 
 @Entity(tableName = "BookEntity",
@@ -23,7 +24,7 @@ import android.support.annotation.NonNull;
                 value = {"f_spotid"}
 )}
 )
-public class BookEntity{
+public class BookEntity implements Parcelable{
 
     @PrimaryKey(autoGenerate = true)
     private int bid;
@@ -32,10 +33,6 @@ public class BookEntity{
     private String f_spotid;
 
 
-   /* @ForeignKey(entity = ShelfEntity.class,
-            parentColumns = "spotid",
-            childColumns = "f_spotid"
-    )*/
 
     @Ignore
     private int image;
@@ -55,17 +52,6 @@ public class BookEntity{
 
 
 
-
-
-/*
-    public BookEntity(@NonNull Long bid, String title, String category, int image) {
-        this.bid = bid;
-        this.title = title;
-        this.category = category;
-
-        this.image = image;
-    }
-*/
 
     public int getBid() {
         return bid;
@@ -117,15 +103,15 @@ public class BookEntity{
 
 
 
-   /* public BookEntity(Parcel in) {
-        bid = in.readLong();
+    public BookEntity(Parcel in) {
+      //  bid = in.readLong();
         title = in.readString();
         category = in.readString();
         f_spotid = in.readString();
         // image = in.readInt();
     }
-/*
-    public static final Creator<BookEntity> CREATOR = new Creator<BookEntity>() {
+
+    public static final Parcelable.Creator<BookEntity> CREATOR = new Parcelable.Creator<BookEntity>() {
         @Override
         public BookEntity createFromParcel(Parcel in) {
             return new BookEntity(in);
@@ -151,6 +137,6 @@ public class BookEntity{
         dest.writeString(f_spotid);
         // dest.writeInt(image);
     }
-*/
+
 
 }

@@ -11,19 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.ui.Book.DeleteBookActivity;
-import com.hevs.codemanja.roomdbdemo.ui.Book.UpdateBookActivity;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 // RecycleView
 
@@ -76,6 +72,7 @@ private OnItemClickListner listner;
 
     class bookHolder extends RecyclerView.ViewHolder{
         private TextView textView;
+        private Spinner spinnerCategory;
         private TextView textViewCategory;
         private TextView textViewSpot;
         private Button edit;
@@ -86,6 +83,7 @@ private OnItemClickListner listner;
             super(itemView);
             textView = itemView.findViewById(R.id.textViewTitle);
             textViewCategory = itemView.findViewById(R.id.textViewCategory);
+            spinnerCategory = itemView.findViewById(R.id.spinnerCategory);
             textViewSpot = itemView.findViewById(R.id.textViewSpot);
             edit = itemView.findViewById(R.id.buttonEdit);
             delete = itemView.findViewById(R.id.buttonDelete);

@@ -1,6 +1,7 @@
 package com.hevs.codemanja.roomdbdemo.ui.Book;
 
 import android.app.AlertDialog;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.ContactsContract;
@@ -17,16 +18,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity;
 
-import static android.app.PendingIntent.getActivity;
 
 public class AddBookActivity extends AppCompatActivity {
 
@@ -104,6 +102,7 @@ public class AddBookActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 saveBook();
 
             }
@@ -120,6 +119,7 @@ public class AddBookActivity extends AppCompatActivity {
         spinnerCategory = findViewById(R.id.spinnerCategory);
         spinnerLocation = findViewById(R.id.spinnerLocation);
 
+        spinnerLocation.setVisibility(View.INVISIBLE);
 
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -129,7 +129,7 @@ public class AddBookActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(adapter);
 
 
-       // editTextSpotId.setVisibility(View.INVISIBLE);
+       buttonAdd.setEnabled(false);
 
         spinnerLocation.setAdapter(adapter);
         spinnerLocation.setVisibility(View.INVISIBLE);
@@ -138,6 +138,9 @@ public class AddBookActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 category = parent.getItemAtPosition(position).toString(); //this is your selected item
+
+
+
 
             }
 
@@ -149,6 +152,46 @@ public class AddBookActivity extends AppCompatActivity {
 
 
 
+        editTextSpotId.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                   if(editTextSpotId.getText().toString().length() >1){
+                       buttonAdd.setEnabled(true);
+                 }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+
+                if(editTextTitle.getText().equals("")){
+                    AlertDialog alertDialog = new AlertDialog.Builder(AddBookActivity.this).create();
+                    alertDialog.setTitle("Alert");
+                    alertDialog.setMessage("Please enter the Title");
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+                    editTextTitle.requestFocus();
+                }
+
+
+            }
+        });
+
+
 
 
 
@@ -157,16 +200,13 @@ public class AddBookActivity extends AppCompatActivity {
 
 }
 
+
+
     private void saveBook() {
 
         String title = editTextTitle.getText().toString();
-      //  categeory =   editTextG.getText().toString();
         String spotId = editTextSpotId.getText().toString();
 
-      // if(title.trim().isEmpty()|| categeory.trim().isEmpty()){
-       //     Toast.makeText(this,"please enter values",Toast.LENGTH_SHORT).show();
-      //  return;
-        //}
 
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE,title);
@@ -181,9 +221,9 @@ public class AddBookActivity extends AppCompatActivity {
         setResult(RESULT_OK,data);
         finish();
 
-        //startActivity(new Intent(getApplicationContext(),ShowBookActivity.class));
-
     }
+
+
 
     private void DeleteBook() {
 
@@ -202,11 +242,8 @@ public class AddBookActivity extends AppCompatActivity {
         data.putExtra(EXTRA_TITLE,title);
         data.putExtra(EXTRA_CATEGORY,catageory);
         data.putExtra(EXTRA_SPOTID, spotId);
-
         setResult(RESULT_OK,data);
         finish();
-
-        //startActivity(new Intent(getApplicationContext(),ShowBookActivity.class));
 
     }
 

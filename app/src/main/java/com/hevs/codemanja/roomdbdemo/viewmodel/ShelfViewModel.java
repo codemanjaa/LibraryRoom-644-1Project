@@ -3,6 +3,7 @@ package com.hevs.codemanja.roomdbdemo.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
@@ -16,6 +17,13 @@ public class ShelfViewModel extends AndroidViewModel {
 
     private ShelfRepo repository;
     private LiveData<List<ShelfEntity>> allSpots;
+    private LiveData<List<String>> allCategorySpots;
+
+    private MutableLiveData<String> spotId;
+
+
+
+
 
 
 
@@ -24,6 +32,7 @@ public class ShelfViewModel extends AndroidViewModel {
 
         repository = new ShelfRepo(application);
         allSpots = repository.getAllSpots();
+
     }
    // public ShelfViewModel(@NonNull Application application) {
 
@@ -44,5 +53,8 @@ public class ShelfViewModel extends AndroidViewModel {
     public LiveData<List<ShelfEntity>> getAllSpots(){
         return allSpots;
     }
+
+    public LiveData<List<String>> getAllCategorySpots(){return allCategorySpots;}
+
 
 }
