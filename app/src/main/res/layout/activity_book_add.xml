@@ -67,7 +67,7 @@
 
     <Button
         android:id="@+id/buttonAddBook"
-        android:layout_width="wrap_content"
+        android:layout_width="336dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="32dp"

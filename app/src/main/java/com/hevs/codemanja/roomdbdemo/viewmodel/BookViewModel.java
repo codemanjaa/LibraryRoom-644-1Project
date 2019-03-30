@@ -47,6 +47,8 @@ public class BookViewModel extends AndroidViewModel {
     private Context applicationContext;
 
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
+
+
     private final MediatorLiveData<Book> observableClient;
 
     public BookViewModel(@NonNull Application application,

@@ -2,15 +2,10 @@ package com.hevs.codemanja.roomdbdemo.Database.repo;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
 import android.os.AsyncTask;
-
 import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
-import com.hevs.codemanja.roomdbdemo.Database.dao.BookDao;
 import com.hevs.codemanja.roomdbdemo.Database.dao.ShelfDao;
-import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
-import com.hevs.codemanja.roomdbdemo.util.*;
 
 import java.util.List;
 
@@ -19,13 +14,14 @@ public class ShelfRepo {
 
     private ShelfDao shelfDao;
     private LiveData<List<ShelfEntity>> allShelf;
-    String category;
+
 
 
     public ShelfRepo(Application application){
         LibraryDB databaseshelf = LibraryDB.getInstance(application);
         shelfDao = databaseshelf.shelfDao();
         allShelf =   shelfDao.getAllSpots(); //shelfDao.getCategorySpot(category);
+
     }
 
     public void insert(ShelfEntity shelf){
@@ -47,6 +43,11 @@ public class ShelfRepo {
 
         return allShelf;
     }
+
+
+
+
+
 
 
     private static class InsertShelfAsyncTask extends AsyncTask<ShelfEntity,Void,Void> {
@@ -88,42 +89,6 @@ public class ShelfRepo {
             return null;
         }
     }
-
-/*
-    private static ShelfRepo instance;
-
-    private ShelfRepo(){
-
-    }
-
-    public static ShelfRepo getInstance(){
-        if(instance == null){
-            synchronized (ShelfRepo.class){
-                if(instance == null){
-                    instance = new ShelfRepo();
-                }
-            }
-        }
-        return instance;
-    }*/
-
-    /*
-    public LiveData<Shelf> getShelf(final String spotId, Context context){
-        return LibraryDB.getInstance(context).shelfDao().getBySpotId(spotId);
-    }
-
-    public LiveData<List<Shelf>> getAllShlf(Context context){
-        return LibraryDB.getInstance(context).shelfDao().getAll();
-    }
-*/
-
-
-
-
-
-
-
-
 
 
 }

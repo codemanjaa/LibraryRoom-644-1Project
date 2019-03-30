@@ -15,16 +15,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity;
 
-import static android.app.PendingIntent.getActivity;
 
 public class AddBookActivity extends AppCompatActivity {
 
@@ -303,13 +300,8 @@ public class AddBookActivity extends AppCompatActivity {
     private void saveBook() {
 
         String title = editTextTitle.getText().toString();
-      //  categeory =   editTextG.getText().toString();
-        String spotId = editTextSpotId.getText().toString();
 
-      // if(title.trim().isEmpty()|| categeory.trim().isEmpty()){
-       //     Toast.makeText(this,"please enter values",Toast.LENGTH_SHORT).show();
-      //  return;
-        //}
+        String spotId = editTextSpotId.getText().toString();
 
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE,title);
@@ -324,9 +316,9 @@ public class AddBookActivity extends AppCompatActivity {
         setResult(RESULT_OK,data);
         finish();
 
-        //startActivity(new Intent(getApplicationContext(),ShowBookActivity.class));
-
     }
+
+
 
     private void DeleteBook() {
 
@@ -345,11 +337,8 @@ public class AddBookActivity extends AppCompatActivity {
         data.putExtra(EXTRA_TITLE,title);
         data.putExtra(EXTRA_CATEGORY,catageory);
         data.putExtra(EXTRA_SPOTID, spotId);
-
         setResult(RESULT_OK,data);
         finish();
-
-        //startActivity(new Intent(getApplicationContext(),ShowBookActivity.class));
 
     }
 

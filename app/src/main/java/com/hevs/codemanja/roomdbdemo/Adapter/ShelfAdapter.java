@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
@@ -42,12 +41,12 @@ public class ShelfAdapter extends ListAdapter<ShelfEntity, ShelfAdapter.shelfHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull shelfHolder bookHolder, int i) {
+    public void onBindViewHolder(@NonNull shelfHolder shelfHolder, int i) {
 
         ShelfEntity currenbooks = getItem(i);
-        bookHolder.textView.setText(currenbooks.getSpotid());
-        bookHolder.textViewCategory.setText(currenbooks.getDesc());
-        bookHolder.textViewSpot.setText(currenbooks.getCategory());
+        shelfHolder.textView.setText(currenbooks.getSpotid());
+        shelfHolder.textViewCategory.setText(currenbooks.getDesc());
+        shelfHolder.textViewSpot.setText(currenbooks.getCategory());
 
     }
 
