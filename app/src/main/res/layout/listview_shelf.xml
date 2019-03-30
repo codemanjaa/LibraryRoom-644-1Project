@@ -7,24 +7,23 @@
     android:layout_marginTop="8dp">
 
 
-
     <RelativeLayout
         android:layout_width="405dp"
-        android:layout_height="135dp"
+        android:layout_height="115dp"
         android:background="@drawable/greenbackground"
         android:padding="8dp">
 
 
         <TextView
             android:id="@+id/textViewTitle"
-            android:layout_width="131dp"
-            android:layout_height="40dp"
+            android:layout_width="217dp"
+            android:layout_height="38dp"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/imageView"
             android:text=" Title"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
-            android:textColor="#000000"
-            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <TextView
@@ -35,23 +34,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="13dp"
             android:layout_toRightOf="@id/imageView"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
-
-        <TextView
-            android:id="@+id/textViewSpot"
-            android:layout_width="129dp"
-            android:layout_height="29dp"
-            android:layout_below="@id/textViewCategory"
-            android:layout_marginLeft="9dp"
-            android:layout_marginTop="15dp"
-            android:layout_toRightOf="@id/imageView"
-            android:paddingLeft="0dp"
-            android:paddingRight="15dp"
-            android:text="Spot"
-            android:textAlignment="textStart"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textColor="@color/colorPrimary" />
 
         <Button
             android:id="@+id/buttonDelete"

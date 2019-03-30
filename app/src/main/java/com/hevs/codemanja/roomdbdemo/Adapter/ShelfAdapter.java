@@ -46,7 +46,7 @@ public class ShelfAdapter extends ListAdapter<ShelfEntity, ShelfAdapter.shelfHol
         ShelfEntity currenbooks = getItem(i);
         shelfHolder.textView.setText(currenbooks.getSpotid());
         shelfHolder.textViewCategory.setText(currenbooks.getDesc());
-        shelfHolder.textViewSpot.setText(currenbooks.getCategory());
+       // shelfHolder.textViewSpot.setText(currenbooks.getCategory());
 
     }
 
