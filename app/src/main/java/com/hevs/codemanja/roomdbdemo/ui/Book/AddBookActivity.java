@@ -1,10 +1,18 @@
 package com.hevs.codemanja.roomdbdemo.ui.Book;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,11 +27,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
+import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
+import com.hevs.codemanja.roomdbdemo.viewmodel.ShelfViewModel;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddBookActivity extends AppCompatActivity {
@@ -39,12 +57,18 @@ public class AddBookActivity extends AppCompatActivity {
 
     public static final String EXTRA_SPOTID =
             "com.hevs.codemanja.roomdbdemo.ui.Book.EXTRA_SPOTID";
+    private static final int GET_FROM_GALLERY = 4;
 
 
     private EditText editTextG, editTextTitle, editTextSpotId;
     private Button buttonAdd;
+    private ImageButton imageButton;
+    ImageView imageView;
     private Spinner spinnerCategory, spinnerLocation;
     private static String category;
+    int requestCode;
+    int resultCode;
+    Intent imageReturnedIntent;
 
 
 
@@ -70,8 +94,9 @@ public class AddBookActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextSpotId = findViewById(R.id.editTextSpotId);
-        editTextG = findViewById(R.id.textViewG);
+       // editTextG = findViewById(R.id.textViewG);
         spinnerCategory = findViewById(R.id.spinnerCategory);
+        imageButton = findViewById(R.id.imageView4);
 
         buttonAdd = findViewById(R.id.buttonAddBook);
 
@@ -92,8 +117,9 @@ public class AddBookActivity extends AppCompatActivity {
         if(intent.hasExtra(EXTRA_ID)){
             setTitle("Edit Book");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-            editTextG.setText(intent.getStringExtra(EXTRA_CATEGORY));
+         //   editTextG.setText(intent.getStringExtra(EXTRA_CATEGORY));
             editTextSpotId.setText(intent.getStringExtra(EXTRA_SPOTID));
+
 
         }else {
             setTitle("Add Book");
@@ -163,7 +189,7 @@ public class AddBookActivity extends AppCompatActivity {
 
 
                    if(editTextSpotId.getText().toString().length() >1){
-                       buttonAdd.setEnabled(true);
+                      buttonAdd.setEnabled(true);
                  }
 
 
@@ -192,13 +218,35 @@ public class AddBookActivity extends AppCompatActivity {
         });
 
 
-
-
-
+         imageButton.setOnClickListener(new View.OnClickListener() {
+             public static final int PICK_PHOTO_FOR_AVATAR = 3;
+             @Override
+             public void onClick(View v) {
+                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                 intent.setType("image/*");
+                 startActivityForResult(intent, PICK_PHOTO_FOR_AVATAR);
+             }
+         });
 
 
 
 }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        if (requestCode == 1) {
+            final Bundle extras = data.getExtras();
+            if (extras != null) {
+                //Get image
+                Bitmap bitmap = extras.getParcelable("data");
+                imageButton.setImageBitmap(null);
+                imageButton.setImageBitmap(bitmap);
+
+            }
+        }
+    }
 
 
 
@@ -208,18 +256,20 @@ public class AddBookActivity extends AppCompatActivity {
         String spotId = editTextSpotId.getText().toString();
 
 
-        Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE,title);
-        data.putExtra(EXTRA_CATEGORY,category);
-        data.putExtra(EXTRA_SPOTID, spotId);
+            Intent data = new Intent();
+            data.putExtra(EXTRA_TITLE, title);
+            data.putExtra(EXTRA_CATEGORY, category);
+            data.putExtra(EXTRA_SPOTID, spotId);
 
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
-        if(id != -1){
-            data.putExtra(EXTRA_ID, id);
-        }
+            int id = getIntent().getIntExtra(EXTRA_ID, -1);
+            if (id != -1) {
+                data.putExtra(EXTRA_ID, id);
+            }
 
-        setResult(RESULT_OK,data);
-        finish();
+            setResult(RESULT_OK, data);
+            finish();
+
+
 
     }
 
@@ -236,7 +286,7 @@ public class AddBookActivity extends AppCompatActivity {
             return;
         }
 
-        BookEntity bookEntity=new BookEntity(title, catageory, spotId);
+        BookEntity bookEntity = new BookEntity(title, catageory, spotId);
 
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE,title);
@@ -246,6 +296,8 @@ public class AddBookActivity extends AppCompatActivity {
         finish();
 
     }
+
+
 
 
 }

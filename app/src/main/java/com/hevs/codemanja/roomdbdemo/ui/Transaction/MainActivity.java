@@ -1,12 +1,8 @@
 package com.hevs.codemanja.roomdbdemo.ui.Transaction;
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -16,27 +12,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
-import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.fragments.About;
-import com.hevs.codemanja.roomdbdemo.ui.Transaction.Welcome_Fragment;
 import com.hevs.codemanja.roomdbdemo.ui.Book.AddBookActivity;
 import com.hevs.codemanja.roomdbdemo.ui.Book.ShowBookActivity;
 import com.hevs.codemanja.roomdbdemo.ui.shelf.AddShelfActivity;
 import com.hevs.codemanja.roomdbdemo.ui.shelf.ShowShelfActivity;
 import com.hevs.codemanja.roomdbdemo.viewmodel.BookViewModel;
 import com.hevs.codemanja.roomdbdemo.viewmodel.ShelfViewModel;
-
-import org.apache.log4j.chainsaw.Main;
-
-import java.io.File;
-import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, About.OnFragmentInteractionListener {

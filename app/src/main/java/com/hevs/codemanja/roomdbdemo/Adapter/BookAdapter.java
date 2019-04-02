@@ -1,25 +1,21 @@
 package com.hevs.codemanja.roomdbdemo.Adapter;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.R;
+
 
 // RecycleView
 
@@ -40,8 +36,8 @@ private OnItemClickListner listner;
         @Override
         public boolean areContentsTheSame(@NonNull BookEntity entity, @NonNull BookEntity t1) {
             return entity.getTitle().equals(t1.getTitle()) &&
-                    entity.getTitle().equals(t1.getCategory()) &&
-                    entity.getTitle().equals(t1.getF_spotid());
+                    entity.getCategory().equals(t1.getCategory()) &&
+                    entity.getF_spotid().equals(t1.getF_spotid());
         }
     };
     @NonNull

@@ -35,5 +35,6 @@
         <activity android:name=".ui.shelf.ShowShelfActivity"
             android:parentActivityName=".ui.Transaction.MainActivity"/>
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

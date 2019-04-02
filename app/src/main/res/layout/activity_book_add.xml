@@ -9,7 +9,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/storage_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="54dp"
         android:background="@color/darkywllow"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
@@ -25,21 +25,31 @@
         android:id="@+id/fab"
         android:layout_width="469dp"
         android:layout_height="1120dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/shelfbackground"
+        android:layout_marginTop="52dp"
         android:orientation="vertical"
+        android:background="@drawable/shelfbackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
+        <ImageButton
+            android:id="@+id/imageView4"
+            android:layout_width="231dp"
+            android:layout_height="168dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="35dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
         <EditText
             android:id="@+id/editTextTitle"
             android:layout_width="391dp"
             android:layout_height="66dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:ems="10"
             android:hint="Title"
@@ -60,12 +70,12 @@
             android:textColorHint="@color/white"
             tools:layout_editor_absoluteX="7dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/textViewG"
             android:layout_width="392dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:hint="Please enter the VALID spot ID"
             android:textColor="@color/white"
@@ -78,7 +88,7 @@
             android:layout_width="387dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:ems="10"
             android:hint="Spot ID"
@@ -90,11 +100,10 @@
             tools:layout_editor_absoluteY="129dp" />
 
 
-
         <Spinner
             android:id="@+id/spinnerLocation"
             android:layout_width="395dp"
-            android:layout_height="43dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:textColorHint="@color/white"
@@ -102,12 +111,12 @@
 
         <Button
             android:id="@+id/buttonAddBook"
-            android:layout_width="337dp"
-            android:layout_height="80dp"
-            android:layout_gravity="top|center"
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
             android:layout_marginLeft="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="40dp"
             android:layout_marginBottom="50dp"
             android:drawableTop="@drawable/add"
             android:text="@string/add"

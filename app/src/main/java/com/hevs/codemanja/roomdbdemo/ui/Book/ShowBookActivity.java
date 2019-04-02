@@ -108,8 +108,8 @@ public class ShowBookActivity extends AppCompatActivity {
                 Intent intent = new Intent(ShowBookActivity.this, AddBookActivity.class);
                 intent.putExtra(AddBookActivity.EXTRA_ID,entity.getBid());
                 intent.putExtra(AddBookActivity.EXTRA_TITLE,entity.getTitle());
-                intent.putExtra(AddBookActivity.EXTRA_CATEGORY,entity.getTitle());
-                intent.putExtra(AddBookActivity.EXTRA_SPOTID,entity.getTitle());
+                intent.putExtra(AddBookActivity.EXTRA_CATEGORY,entity.getCategory());
+                intent.putExtra(AddBookActivity.EXTRA_SPOTID,entity.getF_spotid());
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
             }
         });
@@ -125,6 +125,8 @@ public class ShowBookActivity extends AppCompatActivity {
                // startActivity(new Intent(ShowBookActivity.this, AddBookActivity.class));
 
                 Intent intent = new Intent(ShowBookActivity.this,AddBookActivity.class);
+
+
                 startActivityForResult(intent,ADD_NOTE_REQUEST);
 
             }

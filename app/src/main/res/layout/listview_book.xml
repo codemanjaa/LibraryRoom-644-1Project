@@ -57,20 +57,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textViewIdStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewSpot"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/imageView"
-            android:text="Status"
-            android:textAlignment="textStart"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+
 
         <Button
             android:id="@+id/buttonDelete"

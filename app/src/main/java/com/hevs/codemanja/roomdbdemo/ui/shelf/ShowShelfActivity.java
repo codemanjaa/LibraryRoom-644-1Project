@@ -95,13 +95,14 @@ public class ShowShelfActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
-        //edit book
+        //edit shelf
         adapter.setOnItemClickListner(new ShelfAdapter.OnItemClickListner() {
             @Override
             public void onItemClick(ShelfEntity entity) {
 
 
                 Intent intent = new Intent(ShowShelfActivity.this, AddShelfActivity.class);
+
                 intent.putExtra(AddShelfActivity.EXTRA_SPOTID,entity.getSpotid());
                 intent.putExtra(AddShelfActivity.EXTRA_DESC,entity.getDesc());
                 intent.putExtra(AddShelfActivity.EXTRA_CATEGORY,entity.getCategory());

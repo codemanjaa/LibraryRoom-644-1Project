@@ -46,7 +46,6 @@ public class AddShelfActivity extends AppCompatActivity {
     private Button buttonAddSpot;
     private Spinner spinnerCategory;
     private String category;
-    private ShelfViewModel shelfViewModel;
 
 
     public AddShelfActivity() {
