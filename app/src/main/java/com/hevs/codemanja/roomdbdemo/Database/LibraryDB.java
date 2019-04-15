@@ -63,7 +63,6 @@ public abstract class LibraryDB extends RoomDatabase {
     private static class PopulateDbAsyncTask extends AsyncTask<Void,Void,Void>{
         private BookDao bookDao;
         private  ShelfDao shelfDao;
-       // private SpotDao spotDao;
 
 
         private PopulateDbAsyncTask(LibraryDB db){
@@ -103,41 +102,5 @@ public abstract class LibraryDB extends RoomDatabase {
     }
 
 
-
-/**
- private static LibraryDB buildDatabase(final Context appContext) {
- Log.i(TAG, "Database will be initialized.");
- return Room.databaseBuilder(appContext, LibraryDB.class, DATABASE_NAME)
- .addCallback(new Callback() {
-@Override
-public void onCreate(@NonNull SupportSQLiteDatabase db) {
-super.onCreate(db);
-Executors.newSingleThreadExecutor().execute(() -> {
-LibraryDB database = LibraryDB.getInstance(appContext);
-DatabaseInitializer.populateDatabase(database);
-// notify that the database was created and it's ready to be used
-database.setDatabaseCreated();
-});
-}
-}).build();
- }
-
- /**
- * Check whether the database already exists and expose it via {@link #getDatabaseCreated()}
- */
-    /**  private void updateDatabaseCreated(final Context context) {
-     if (context.getDatabasePath(DATABASE_NAME).exists()) {
-     Log.i(TAG, "Database initialized.");
-     setDatabaseCreated();
-     }
-     }
-
-     private void setDatabaseCreated()
-     isDatabaseCreated.postValue(true);
-
-
-     public LiveData<Boolean> getDatabaseCreated() {
-     return isDatabaseCreated;
-     } **/
 
 }

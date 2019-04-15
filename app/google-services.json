@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "635529894852",
+    "firebase_url": "https://librarymanager-601b6.firebaseio.com",
+    "project_id": "librarymanager-601b6",
+    "storage_bucket": "librarymanager-601b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635529894852:android:cd93eee23415366f",
+        "android_client_info": {
+          "package_name": "com.hevs.codemanja.roomdbdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635529894852-ijfp236rlt9i9adghqqi951mhrhbvtsf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hevs.codemanja.roomdbdemo",
+            "certificate_hash": "af2927df52c3d3ad84f9076e61e8f26d8830f8ad"
+          }
+        },
+        {
+          "client_id": "635529894852-ii6fir1dhr7v8gm5jm8u67d8vlq61dpu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6ZHk3lXopKPDMsLVHts4lKX5c6P-h4I0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635529894852-ii6fir1dhr7v8gm5jm8u67d8vlq61dpu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
