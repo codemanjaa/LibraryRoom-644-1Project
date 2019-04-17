@@ -31,7 +31,7 @@ import org.apache.log4j.chainsaw.Main;
 
 import java.util.ArrayList;
 import java.util.List;
-import static com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity.libraryDB;
+//import static com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity.libraryDB;
 
 
 
@@ -96,7 +96,7 @@ public class ShowBookActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-                bookViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()));
+               // bookViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()));
                 Toast.makeText(ShowBookActivity.this,"Book deleted",Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
@@ -108,7 +108,7 @@ public class ShowBookActivity extends AppCompatActivity {
                 Intent intent = new Intent(ShowBookActivity.this, AddBookActivity.class);
                 intent.putExtra(AddBookActivity.EXTRA_ID,entity.getBid());
                 intent.putExtra(AddBookActivity.EXTRA_TITLE,entity.getTitle());
-                intent.putExtra(AddBookActivity.EXTRA_CATEGORY,entity.getCategory());
+              //  intent.putExtra(AddBookActivity.EXTRA_CATEGORY,entity.getCategory());
                 intent.putExtra(AddBookActivity.EXTRA_SPOTID,entity.getF_spotid());
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
             }
@@ -218,8 +218,8 @@ public class ShowBookActivity extends AppCompatActivity {
             String category = data.getStringExtra(AddBookActivity.EXTRA_CATEGORY);
             String spotId = data.getStringExtra(AddBookActivity.EXTRA_SPOTID);
 
-            BookEntity bookEntity = new BookEntity(title,category,spotId);
-            bookViewModel.insert(bookEntity);
+            //BookEntity bookEntity = new BookEntity(title,category,spotId);
+            //bookViewModel.insert(bookEntity);
 
             Toast.makeText(this,"Book Saved", Toast.LENGTH_SHORT);
 
@@ -234,9 +234,9 @@ public class ShowBookActivity extends AppCompatActivity {
             String category = data.getStringExtra(AddBookActivity.EXTRA_CATEGORY);
             String spotId = data.getStringExtra(AddBookActivity.EXTRA_SPOTID);
 
-            BookEntity bookEntity = new BookEntity(title, category, spotId);
-            bookEntity.setBid(id);
-            bookViewModel.update(bookEntity);
+           // BookEntity bookEntity = new BookEntity(title, category, spotId);
+        //    bookEntity.setBid(id);
+          //  bookViewModel.update(bookEntity);
         }else {
             Toast.makeText(this,"Book not Saved", Toast.LENGTH_SHORT);
         }

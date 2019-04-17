@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.Database.repo.BookRepo;
+import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 
 
 import java.util.List;
@@ -22,23 +23,23 @@ public class BookViewModel extends AndroidViewModel {
 
     public BookViewModel(@NonNull Application application) {
         super(application);
-        repository = new BookRepo(application);
-        allBooks = repository.getAllBooks();
+       // repository = new BookRepo(application);
+       // allBooks = repository.getAllBooks();
     }
 
-    public void insert(BookEntity book) {
-        repository.insert(book);
+    public void insert(BookEntity book , OnAsyncEventListener callback ) {
+        repository.insert(book, callback);
     }
 
-    public void update(BookEntity book){
-        repository.update(book);
+    public void update(BookEntity book , OnAsyncEventListener callback){
+        repository.update(book,callback);
     }
 
     public void deleteAllBooks(){
-        repository.deleteAllBooks();
+        //repository.deleteAllBooks();
     }
-    public void delete(BookEntity book){
-        repository.delete(book);
+    public void delete(BookEntity book , OnAsyncEventListener callback){
+        repository.delete(book, callback);
     }
 
     public LiveData<List<BookEntity>> getAllBooks(){

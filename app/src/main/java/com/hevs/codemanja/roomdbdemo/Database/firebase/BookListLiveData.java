@@ -1,4 +1,5 @@
 package com.hevs.codemanja.roomdbdemo.Database.firebase;
+
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -9,26 +10,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 
-public class BookLiveData extends LiveData<BookEntity> {
+import java.util.ArrayList;
+import java.util.List;
 
-    private static final String TAG = "BookLiveData";
+public class BookListLiveData extends LiveData<List<BookEntity>> {
+
+    private static final String TAG = "BookListLiveData";
 
     private final DatabaseReference reference;
-    private final String spot;
-    private final BookLiveData.MyValueEventListener listener = new BookLiveData.MyValueEventListener();
+    private final String  f_spotid;
+    private final MyValueEventListener listener = new MyValueEventListener();
 
-    public BookLiveData(DatabaseReference ref) {
+    public BookListLiveData(DatabaseReference ref, String  f_spotid) {
         reference = ref;
-        spot = ref.getParent().getParent().getKey();
+        this.f_spotid = f_spotid;
     }
 
-
+    @Override
     protected void onActive() {
         Log.d(TAG, "onActive");
         reference.addValueEventListener(listener);
     }
 
-
+    @Override
     protected void onInactive() {
         Log.d(TAG, "onInactive");
     }
@@ -36,10 +40,7 @@ public class BookLiveData extends LiveData<BookEntity> {
     private class MyValueEventListener implements ValueEventListener {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            BookEntity entity = dataSnapshot.getValue(BookEntity.class);
-            entity.setBid(dataSnapshot.getKey());
-            entity.setF_spotid(spot);
-            setValue(entity);
+            setValue(toBooks(dataSnapshot));
         }
 
         @Override
@@ -47,4 +48,21 @@ public class BookLiveData extends LiveData<BookEntity> {
             Log.e(TAG, "Can't listen to query " + reference, databaseError.toException());
         }
     }
+
+    private List<BookEntity> toBooks(DataSnapshot snapshot) {
+        List<BookEntity> books = new ArrayList<>();
+        for (DataSnapshot childSnapshot : snapshot.getChildren()) {
+            BookEntity entity = childSnapshot.getValue(BookEntity.class);
+            entity.setBid(childSnapshot.getKey());
+            entity.setF_spotid(f_spotid);
+            books.add(entity);
+        }
+        return books;
+    }
+
+
+
+
+
+
 }

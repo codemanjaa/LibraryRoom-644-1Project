@@ -44,7 +44,7 @@ public class DeleteBookActivity extends AppCompatActivity {
 
         //int bookId = book.getBid();
         String title = book.getTitle();
-        String category = book.getCategory();
+//        String category = book.getCategory();
         String spotId = book.getF_spotid();
 
 
@@ -60,7 +60,7 @@ public class DeleteBookActivity extends AppCompatActivity {
                 String title = editTextTitle.getText().toString();
 
 
-               MainActivity.libraryDB.bookDao().delete(book);
+//               MainActivity.libraryDB.bookDao().delete(book);
 
                 /*
 

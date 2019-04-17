@@ -23,6 +23,7 @@ import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.ui.Book.AddBookActivity;
+import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 import com.hevs.codemanja.roomdbdemo.viewmodel.BookViewModel;
 import com.hevs.codemanja.roomdbdemo.viewmodel.ShelfViewModel;
 
@@ -71,6 +72,8 @@ public class ShowShelfActivity extends AppCompatActivity {
 
 
         shelfViewModel = ViewModelProviders.of(this).get(ShelfViewModel.class);
+
+       /* need to stay
         shelfViewModel.getAllSpots().observe(this, new Observer<List<ShelfEntity>>() {
             @Override
             public void onChanged(@Nullable List<ShelfEntity> bookEntities) {
@@ -78,7 +81,7 @@ public class ShowShelfActivity extends AppCompatActivity {
                adapter.submitList(bookEntities);
             }
         });
-
+*/
         // deleting an item
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -90,7 +93,7 @@ public class ShowShelfActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-                shelfViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()));
+                //shelfViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()));
                 Toast.makeText(ShowShelfActivity.this,"Shelf deleted",Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
@@ -143,7 +146,18 @@ public class ShowShelfActivity extends AppCompatActivity {
             String spotId = data.getStringExtra(AddShelfActivity.EXTRA_SPOTID);
 
             ShelfEntity shelfEntity = new ShelfEntity(spotId,category,desc);
-            shelfViewModel.insert(shelfEntity);
+            shelfViewModel = ViewModelProviders.of(this).get(ShelfViewModel.class);
+            shelfViewModel.insert(shelfEntity, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+
+                }
+            });
 
             Toast.makeText(this,"Shelf Saved", Toast.LENGTH_SHORT);
 
@@ -163,7 +177,17 @@ public class ShowShelfActivity extends AppCompatActivity {
 
             ShelfEntity shelfEntity = new ShelfEntity(spotId, desc, category);
 
-            shelfViewModel.update(shelfEntity);
+            shelfViewModel.update(shelfEntity, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+
+                }
+            });
         }else {
             Toast.makeText(this,"Book not Saved", Toast.LENGTH_SHORT);
         }

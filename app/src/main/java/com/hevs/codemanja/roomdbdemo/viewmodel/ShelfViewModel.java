@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.Database.repo.ShelfRepo;
+import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 
 import java.util.List;
 
@@ -23,31 +24,27 @@ public class ShelfViewModel extends AndroidViewModel {
 
 
 
-
-
-
-
     public ShelfViewModel(Application application){
         super(application);
 
-        repository = new ShelfRepo(application);
-        allSpots = repository.getAllSpots();
+      // repository = new ShelfRepo(application);
+      //  allSpots = repository.getAllSpots();
 
     }
    // public ShelfViewModel(@NonNull Application application) {
 
   //  }
 
-    public void insert(ShelfEntity shelf) {
-        repository.insert(shelf);
+    public void insert(ShelfEntity shelf, OnAsyncEventListener callback ) {
+       repository.insert(shelf , callback);
     }
 
-    public void update(ShelfEntity shelf){
-        repository.update(shelf);
+    public void update(ShelfEntity shelf , OnAsyncEventListener callback ){
+        repository.update(shelf, callback);
     }
 
-    public void delete(ShelfEntity shelf){
-        repository.delete(shelf);
+    public void delete(ShelfEntity shelf, OnAsyncEventListener callback ){
+        repository.delete(shelf , callback);
     }
 
     public LiveData<List<ShelfEntity>> getAllSpots(){

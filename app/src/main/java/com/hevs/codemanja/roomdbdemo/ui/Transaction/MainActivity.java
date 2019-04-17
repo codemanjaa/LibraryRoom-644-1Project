@@ -15,7 +15,7 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
+
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.fragments.About;
 import com.hevs.codemanja.roomdbdemo.ui.Book.AddBookActivity;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     // Database operation reference
 
-    public static LibraryDB libraryDB;
+
 
 
     @Override

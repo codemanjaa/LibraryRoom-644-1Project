@@ -8,15 +8,17 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
+import com.google.firebase.database.Exclude;
 
-@Entity(tableName = "ShelfEntity")
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class ShelfEntity implements Parcelable {
 
-    @PrimaryKey
-            @NonNull
-    String spotid;
-    String desc;
-    String category;
+    private String spotid;
+    private String category;
+    private String desc;
 
 
     public ShelfEntity(){
@@ -30,6 +32,7 @@ public class ShelfEntity implements Parcelable {
     }
 
 
+    @Exclude
     public String getSpotid() {
         return spotid;
     }
@@ -45,6 +48,7 @@ public class ShelfEntity implements Parcelable {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
 
     public void setCategory(String category){this.category = category;}
 
@@ -76,7 +80,6 @@ public class ShelfEntity implements Parcelable {
     }
 
 
-
     public static final Creator<ShelfEntity> CREATOR = new Creator<ShelfEntity>() {
         @Override
         public ShelfEntity createFromParcel(Parcel in) {
@@ -88,6 +91,15 @@ public class ShelfEntity implements Parcelable {
             return new ShelfEntity[size];
         }
     };
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("Category", category);
+        result.put("Description", desc);
+
+        return result;
+    }
 
 
 

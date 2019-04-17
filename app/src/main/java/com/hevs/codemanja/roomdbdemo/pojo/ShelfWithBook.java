@@ -8,12 +8,11 @@ import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 
 import java.util.List;
 
-public class ShefWithBook {
+public class ShelfWithBook {
 
-    @Embedded
-    public ShelfEntity shelf;
 
-    @Relation(parentColumn = "spotid", entityColumn = "f_spotid", entity = BookEntity.class)
-    public List<BookEntity> book;
+        public ShelfEntity spot;
+        public List<BookEntity> books;
+
 
 }

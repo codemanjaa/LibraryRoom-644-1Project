@@ -36,7 +36,7 @@ private OnItemClickListner listner;
         @Override
         public boolean areContentsTheSame(@NonNull BookEntity entity, @NonNull BookEntity t1) {
             return entity.getTitle().equals(t1.getTitle()) &&
-                    entity.getCategory().equals(t1.getCategory()) &&
+                    //entity.getCategory().equals(t1.getCategory()) &&
                     entity.getF_spotid().equals(t1.getF_spotid());
         }
     };
@@ -53,9 +53,9 @@ private OnItemClickListner listner;
 
         BookEntity currenbooks = getItem(i);
         bookHolder.textView.setText(currenbooks.getTitle());
-        bookHolder.textViewCategory.setText(currenbooks.getCategory());
+        //bookHolder.textViewCategory.setText(currenbooks.getCategory());
         bookHolder.textViewSpot.setText(currenbooks.getF_spotid());
-        bookHolder.imageView.setImageResource(currenbooks.getImage());
+        //bookHolder.imageView.setImageResource(currenbooks.getImage());
 
     }
 

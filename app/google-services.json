@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "635529894852-57c73dpv3um66bpki6v9irhm373i76hm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hevs.codemanja.roomdbdemo",
+            "certificate_hash": "84eadb3af0f1236adec2cda3a4569039f911b65b"
+          }
+        },
+        {
           "client_id": "635529894852-ii6fir1dhr7v8gm5jm8u67d8vlq61dpu.apps.googleusercontent.com",
           "client_type": 3
         }

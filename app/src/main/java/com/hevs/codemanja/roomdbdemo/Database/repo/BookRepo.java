@@ -4,34 +4,74 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import com.hevs.codemanja.roomdbdemo.Database.LibraryDB;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hevs.codemanja.roomdbdemo.Database.dao.BookDao;
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
+import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 
 import java.util.List;
 
 public class BookRepo {
 
-    private BookDao bookDao;
     private LiveData<List<BookEntity>> allBooks;
 
 
-    public BookRepo(Application application){
-        LibraryDB database = LibraryDB.getInstance(application);
-        bookDao = database.bookDao();
-        allBooks = bookDao.getAllBooks();
+
+    public void insert(final BookEntity book, final OnAsyncEventListener callback){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("spots")
+                .child(book.getF_spotid())
+                .child("book");
+        String key = reference.push().getKey();
+        FirebaseDatabase.getInstance()
+                .getReference("spots")
+                .child(book.getF_spotid())
+                .child("book")
+                .child(key)
+                .setValue(book, (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
+
     }
 
-    public void insert(BookEntity book){
-        new InsertBookAsyncTask(bookDao).execute(book);
-    }
+    public void update(final BookEntity book, final OnAsyncEventListener callback){
+        FirebaseDatabase.getInstance()
+                .getReference("spots")
+                .child(book.getF_spotid())
+                .child("book")
+                .child(book.getBid())
+                .updateChildren(book.toMap(), (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
 
-    public void update(BookEntity book){
-        new UpdateBookAsyncTask(bookDao).execute(book);
-
     }
-    public void delete(BookEntity book){
-        new DeleteBookAsyncTask(bookDao).execute(book);
+    public void delete(final BookEntity book, final OnAsyncEventListener callback){
+
+        FirebaseDatabase.getInstance()
+                .getReference("spots")
+                .child(book.getF_spotid())
+                .child("book")
+                .child(book.getBid())
+                .removeValue((databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
+
+
+
     }
 
     public LiveData<List<BookEntity>> getAllBooks(){
@@ -39,64 +79,12 @@ public class BookRepo {
     }
 
 
-   public void deleteAllBooks(){
+   /* public void deleteAllBooks(){
         new DeleteAllBooksAsyncTask(bookDao).execute();
    }
+*/
 
 
-    private static class InsertBookAsyncTask extends AsyncTask<BookEntity,Void,Void>{
-        private BookDao bookDao;
-
-        private InsertBookAsyncTask(BookDao bookDao){
-            this.bookDao = bookDao;
-        }
-        @Override
-        protected Void doInBackground(BookEntity... bookEntities) {
-            bookDao.insert(bookEntities[0]);
-            return null;
-        }
-    }
-
-    private static class UpdateBookAsyncTask extends AsyncTask<BookEntity,Void,Void>{
-        private BookDao bookDao;
-
-        private UpdateBookAsyncTask(BookDao bookDao){
-            this.bookDao = bookDao;
-        }
-        @Override
-        protected Void doInBackground(BookEntity... bookEntities) {
-            bookDao.update(bookEntities[0]);
-            return null;
-        }
-    }
-
-    private static class DeleteAllBooksAsyncTask extends AsyncTask<Void,Void,Void>{
-        private BookDao bookDao;
-
-        private DeleteAllBooksAsyncTask(BookDao bookDao){
-            this.bookDao = bookDao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            bookDao.deleteAll();
-            return null;
-        }
-    }
-
-
-    private static class DeleteBookAsyncTask extends AsyncTask<BookEntity,Void,Void>{
-        private BookDao bookDao;
-
-        private DeleteBookAsyncTask(BookDao bookDao){
-            this.bookDao = bookDao;
-        }
-        @Override
-        protected Void doInBackground(BookEntity... bookEntities) {
-            bookDao.delete(bookEntities[0]);
-            return null;
-        }
-    }
 
 
  /*

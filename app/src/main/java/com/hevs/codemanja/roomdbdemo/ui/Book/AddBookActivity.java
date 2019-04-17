@@ -286,7 +286,7 @@ public class AddBookActivity extends AppCompatActivity {
             return;
         }
 
-        BookEntity bookEntity = new BookEntity(title, catageory, spotId);
+//        BookEntity bookEntity = new BookEntity(title, catageory, spotId);
 
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE,title);

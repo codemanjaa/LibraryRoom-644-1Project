@@ -8,61 +8,38 @@ import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
+public class BookEntity{
 
-@Entity(tableName = "BookEntity",
-        foreignKeys =
-        @ForeignKey(
-                entity = ShelfEntity.class,
-        parentColumns = "spotid",
-        childColumns = "f_spotid",
-        onDelete = ForeignKey.CASCADE
-),
-        indices = {
-        @Index(
-                value = {"f_spotid"}
-)}
-)
-public class BookEntity implements Parcelable{
-
-    @PrimaryKey(autoGenerate = true)
-    private int bid;
+    private String bid;
     private String title;
-    private String category;
+    private String image;
     private String f_spotid;
 
 
-
-    @Ignore
-    private int image;
 
 
     public BookEntity(){
 
     }
 
-    public BookEntity( String title, String category, String f_spotid) {
-
-        this.title = title;
-        this.category = category;
-        this.f_spotid = f_spotid;
-
-    }
 
 
-
-
-    public int getBid() {
+    @Exclude
+    public String getBid() {
         return bid;
     }
-    public void setBid(int bid) {
+    public void setBid(String bid) {
         this.bid = bid;
     }
 
-    public int getImage(){ return image;}
-    public void setImage(int image){this.image = image;}
-
+    public String getImage(){ return image;}
+    public void setImage(String image){this.image = image;}
 
     public String getTitle() {
         return title;
@@ -71,13 +48,9 @@ public class BookEntity implements Parcelable{
         this.title = title;
     }
 
-    public String getCategory() {
-        return category;
-    }
-    public void setCategory(String category) {
-        this.category = category;
-    }
 
+
+    @Exclude
     public String getF_spotid() {
         return f_spotid;
     }
@@ -87,7 +60,7 @@ public class BookEntity implements Parcelable{
     }
 
 
-    @Override
+
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
@@ -102,41 +75,16 @@ public class BookEntity implements Parcelable{
     }
 
 
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("title", title);
+        result.put("image", image);
 
-    public BookEntity(Parcel in) {
-      //  bid = in.readLong();
-        title = in.readString();
-        category = in.readString();
-        f_spotid = in.readString();
-        // image = in.readInt();
+        return result;
     }
 
-    public static final Parcelable.Creator<BookEntity> CREATOR = new Parcelable.Creator<BookEntity>() {
-        @Override
-        public BookEntity createFromParcel(Parcel in) {
-            return new BookEntity(in);
-        }
 
-        @Override
-        public BookEntity[] newArray(int size) {
-            return new BookEntity[size];
-        }
-    };
-
-
-    @Override
-    public int describeContents() {
-        return hashCode();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(bid);
-        dest.writeString(title);
-        dest.writeString(category);
-        dest.writeString(f_spotid);
-        // dest.writeInt(image);
-    }
 
 
 }
