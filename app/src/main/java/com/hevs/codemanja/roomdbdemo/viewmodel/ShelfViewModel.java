@@ -4,14 +4,13 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
 
+import com.google.firebase.database.DataSnapshot;
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.Database.repo.ShelfRepo;
 import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 
 import java.util.List;
-
 
 
 public class ShelfViewModel extends AndroidViewModel {
@@ -20,15 +19,26 @@ public class ShelfViewModel extends AndroidViewModel {
     private LiveData<List<ShelfEntity>> allSpots;
     private LiveData<List<String>> allCategorySpots;
 
+    private LiveData<ShelfEntity> spots;
+
     private MutableLiveData<String> spotId;
+   private  static LiveData<DataSnapshot> liveData;
+
+
+
+
 
 
 
     public ShelfViewModel(Application application){
         super(application);
+        repository = new ShelfRepo();
+        liveData = repository.getDataSnapshotShelfLiveData();
 
-      // repository = new ShelfRepo(application);
+      //repository = new ShelfRepo(application);
       //  allSpots = repository.getAllSpots();
+
+
 
     }
    // public ShelfViewModel(@NonNull Application application) {
@@ -52,6 +62,16 @@ public class ShelfViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<String>> getAllCategorySpots(){return allCategorySpots;}
+
+    public LiveData<ShelfEntity> spotsList(){
+        spots = repository.getSpot();
+        return spots;}
+
+    public LiveData<DataSnapshot> getDatasnapshotShelfLiveData(){
+        return liveData;
+    }
+
+
 
 
 }

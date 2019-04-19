@@ -3,15 +3,11 @@ package com.hevs.codemanja.roomdbdemo.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MediatorLiveData;
-import android.arch.lifecycle.ViewModelProvider;
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.Database.repo.BookRepo;
 import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
-
 
 import java.util.List;
 

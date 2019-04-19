@@ -1,12 +1,9 @@
 package com.hevs.codemanja.roomdbdemo.Database.repo;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.os.AsyncTask;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.hevs.codemanja.roomdbdemo.Database.dao.BookDao;
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 

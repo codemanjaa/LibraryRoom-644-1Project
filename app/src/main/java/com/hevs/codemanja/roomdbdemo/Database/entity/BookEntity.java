@@ -1,12 +1,6 @@
 package com.hevs.codemanja.roomdbdemo.Database.entity;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
-import android.os.Parcel;
-import android.os.Parcelable;
+
 
 import com.google.firebase.database.Exclude;
 

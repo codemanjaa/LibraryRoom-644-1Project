@@ -1,9 +1,6 @@
 package com.hevs.codemanja.roomdbdemo.Database.entity;
 
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -32,12 +29,12 @@ public class ShelfEntity implements Parcelable {
     }
 
 
-    @Exclude
+
     public String getSpotid() {
         return spotid;
     }
 
-    public void setSpotid(@NonNull String spotid) {
+    public void  setSpotid(@NonNull String spotid) {
         this.spotid = spotid;
     }
 

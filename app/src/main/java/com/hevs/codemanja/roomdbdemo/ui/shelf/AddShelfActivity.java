@@ -3,9 +3,9 @@ package com.hevs.codemanja.roomdbdemo.ui.shelf;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,9 +17,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
 
 import java.util.ArrayList;
@@ -50,9 +47,6 @@ public class AddShelfActivity extends AppCompatActivity {
 
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,13 +58,13 @@ public class AddShelfActivity extends AppCompatActivity {
         spinnerCategory = findViewById(R.id.spinnerCategory);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),
-                R.array.category_array, android.R.layout.simple_spinner_item);
+                R.array.category_array,R.layout.spinner_item);
 
         adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
         spinnerCategory.setAdapter(adapter);
 
 
-         buttonAddSpot.setEnabled(false);
+        buttonAddSpot.setEnabled(false);
         editTextSpotId.setEnabled(true);
         editTextCategory.setVisibility(View.INVISIBLE);
 
@@ -249,22 +243,13 @@ public class AddShelfActivity extends AppCompatActivity {
                 String spotId = editTextSpotId.getText().toString();
 
 
-           /*
-            if(title.trim().isEmpty()|| catageory.trim().isEmpty()){
-                Toast.makeText(this,"please enter values",Toast.LENGTH_SHORT).show();
-                return;
-            }
-            */
+
 
                 Intent data = new Intent();
                 data.putExtra(EXTRA_DESC, desc);
                 data.putExtra(EXTRA_CATEGORY, category);
                 data.putExtra(EXTRA_SPOTID, spotId);
-/*
-            int id = getIntent().getIntExtra(EXTRA_ID, -1);
-            if(id != -1){
-                data.putExtra(EXTRA_ID, id);
-            }
+
 
 /*
                 FirebaseDatabase database = FirebaseDatabase.getInstance();

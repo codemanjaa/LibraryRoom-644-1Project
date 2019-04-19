@@ -53,7 +53,7 @@ public class ShelfBookListLiveData extends LiveData<List<ShelfWithBook>> {
     }
 
     private List<ShelfWithBook> toShelfWithBookList(DataSnapshot snapshot) {
-        List< ShelfWithBook> shelfWithBookList = new ArrayList<>();
+        List<ShelfWithBook> shelfWithBookList = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             if (!childSnapshot.getKey().equals(f_spotid)) {
                 ShelfWithBook shelfWithBook = new ShelfWithBook();

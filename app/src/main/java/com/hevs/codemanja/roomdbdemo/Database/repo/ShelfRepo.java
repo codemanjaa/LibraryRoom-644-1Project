@@ -1,14 +1,13 @@
 package com.hevs.codemanja.roomdbdemo.Database.repo;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
-import android.os.AsyncTask;
-import android.util.Log;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.hevs.codemanja.roomdbdemo.Database.dao.ShelfDao;
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
+import com.hevs.codemanja.roomdbdemo.Database.firebase.FirebaseQueryLiveData;
+import com.hevs.codemanja.roomdbdemo.Database.firebase.ShelfBookListLiveData;
 import com.hevs.codemanja.roomdbdemo.Database.firebase.ShelfLiveData;
 import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 
@@ -19,12 +18,14 @@ public class ShelfRepo {
 
     private LiveData<List<ShelfEntity>> allShelf;
 
+    private static final DatabaseReference SPOT_REF = FirebaseDatabase.getInstance().getReference("spots");
+    private final FirebaseQueryLiveData liveData = new FirebaseQueryLiveData(SPOT_REF);
 
 
-    public LiveData<ShelfEntity> getSpot(final String spotId) {
+    public LiveData<ShelfEntity> getSpot() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("spots")
-                .child(spotId);
+                ;
         return new ShelfLiveData(reference);
     }
 
@@ -87,9 +88,28 @@ public class ShelfRepo {
 
 
     }
-    public LiveData<List<ShelfEntity>> getAllSpots(){
-        return allShelf;
+
+
+
+
+    public ShelfLiveData getShelfSpots(){
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("spots");
+        return new ShelfLiveData(reference);
+
     }
+
+    public ShelfBookListLiveData getAllSpots(){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("spots");
+
+    String spotId = reference.child("spots").getKey();
+        return new ShelfBookListLiveData(reference, spotId);
+    }
+
+
+
    // test
     public LiveData<List<ShelfEntity>> getCategorySpot(String category){
 
@@ -97,6 +117,9 @@ public class ShelfRepo {
     }
 
 
+    public LiveData<DataSnapshot> getDataSnapshotShelfLiveData(){
+        return liveData;
+    }
 
 
 

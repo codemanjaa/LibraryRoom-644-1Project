@@ -4,7 +4,6 @@ package com.hevs.codemanja.roomdbdemo.ui.shelf;
 
 
 import android.app.AlertDialog;
-import android.arch.lifecycle.LiveData;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,10 +21,8 @@ import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
-import com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity;
 import com.hevs.codemanja.roomdbdemo.viewmodel.ShelfViewModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -84,10 +81,15 @@ public class Add_Shelf_Fragment extends Fragment {
         buttonAddSpot = view.findViewById(R.id.buttonAddSpot);
         spinnerCategory = view.findViewById(R.id.spinnerCategory);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.category_array, android.R.layout.simple_spinner_item);
 
-        adapter.setDropDownViewResource(android.R.layout.select_dialog_item);
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.category_array, R.layout.spinner_item);
+      // adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
+
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+          //      R.array.category_array, R.layout.spinner_item);
+
+        adapter.setDropDownViewResource(R.layout.spinner_item);
         spinnerCategory.setAdapter(adapter);
 
 
@@ -99,8 +101,11 @@ public class Add_Shelf_Fragment extends Fragment {
         //Generate the Spot ID
 
 
+
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 category = parent.getItemAtPosition(position).toString().toUpperCase();
                 String spot = category.substring(0, 1); //this is your selected item
                 String query = spot + "%";
