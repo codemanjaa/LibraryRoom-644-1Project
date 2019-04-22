@@ -1,6 +1,7 @@
 package com.hevs.codemanja.roomdbdemo.Database.repo;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -19,23 +20,16 @@ public class ShelfRepo {
     private LiveData<List<ShelfEntity>> allShelf;
 
     private static final DatabaseReference SPOT_REF = FirebaseDatabase.getInstance().getReference("spots");
-    private final FirebaseQueryLiveData liveData = new FirebaseQueryLiveData(SPOT_REF);
+    private  FirebaseQueryLiveData liveData;
 
 
     public LiveData<ShelfEntity> getSpot() {
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("spots")
-                ;
+                .getReference("spots");
         return new ShelfLiveData(reference);
     }
 
-    /*
-    public LiveData<List<ClientWithAccounts>> getOtherClientsWithAccounts(final String owner) {
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("clients");
-        return new ClientAccountsListLiveData(reference, owner);
-    }
-*/
+
 
     public void insert(final ShelfEntity shelf, final OnAsyncEventListener callback){
 
@@ -50,6 +44,7 @@ public class ShelfRepo {
                     if (databaseError != null) {
                         callback.onFailure(databaseError.toException());
                     } else {
+
                         callback.onSuccess();
                     }
                 });
@@ -92,6 +87,7 @@ public class ShelfRepo {
 
 
 
+
     public ShelfLiveData getShelfSpots(){
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("spots");
@@ -118,7 +114,22 @@ public class ShelfRepo {
 
 
     public LiveData<DataSnapshot> getDataSnapshotShelfLiveData(){
+        liveData = new FirebaseQueryLiveData(SPOT_REF);
         return liveData;
+    }
+
+    public String getSpotId(){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance()
+                .getReference("spots");
+        String id = reference.child("spots").push().getKey();
+
+        FirebaseDatabase.getInstance()
+                .getReference("spots")
+                .child(id);
+
+        return id;
+
     }
 
 
