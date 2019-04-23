@@ -1,5 +1,6 @@
 package com.hevs.codemanja.roomdbdemo.ui.Book;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -21,10 +22,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
 import com.hevs.codemanja.roomdbdemo.Adapter.BookAdapter;
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
+import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity;
+import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 import com.hevs.codemanja.roomdbdemo.viewmodel.BookViewModel;
 
 import org.apache.log4j.chainsaw.Main;
@@ -77,13 +82,46 @@ public class ShowBookActivity extends AppCompatActivity {
 
 
         bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
-        bookViewModel.getAllBooks().observe(this, new Observer<List<BookEntity>>() {
+     /*   bookViewModel.getAllBooks().observe(this, new Observer<List<BookEntity>>() {
             @Override
             public void onChanged(@Nullable List<BookEntity> bookEntities) {
                 // update Recyclerview
                adapter.submitList(bookEntities);
             }
+        });*/
+
+        LiveData<DataSnapshot> liveData = bookViewModel.getDatasnapshotShelfLiveData();
+
+
+        liveData.observe(this, new Observer<DataSnapshot>() {
+            @Override
+            public void onChanged(@Nullable DataSnapshot dataSnapshot) {
+                bookList = new ArrayList<BookEntity>();
+                if(dataSnapshot != null) {
+
+                    System.out.println(" Yes........."+dataSnapshot);
+
+                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                        BookEntity book = childSnapshot.getValue(BookEntity.class);
+                        book.setBid(childSnapshot.getKey());
+
+                        bookList.add(book);
+                    }
+
+                    adapter.submitList(bookList);
+
+                    System.out.println("Object Found");
+                    String desc = dataSnapshot.child("desc").getValue(String.class);
+                    String category = dataSnapshot.child("category").getValue(String.class);
+
+                    System.out.println("Test begins...");
+                    System.out.println(desc);
+
+                }
+            }
         });
+
+
 
         // deleting an item
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -218,8 +256,20 @@ public class ShowBookActivity extends AppCompatActivity {
             String category = data.getStringExtra(AddBookActivity.EXTRA_CATEGORY);
             String spotId = data.getStringExtra(AddBookActivity.EXTRA_SPOTID);
 
-            //BookEntity bookEntity = new BookEntity(title,category,spotId);
-            //bookViewModel.insert(bookEntity);
+            BookEntity bookEntity = new BookEntity();
+            bookEntity.setTitle(title);
+            bookEntity.setImage(category);
+            bookViewModel.insert(bookEntity, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+
+                }
+            });
 
             Toast.makeText(this,"Book Saved", Toast.LENGTH_SHORT);
 

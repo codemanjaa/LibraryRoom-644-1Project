@@ -247,7 +247,7 @@ public class AddShelfActivity extends AppCompatActivity {
 
                 Intent data = new Intent();
                 data.putExtra(EXTRA_DESC, desc);
-                data.putExtra(EXTRA_CATEGORY, category);
+               // data.putExtra(EXTRA_CATEGORY, category);
                 data.putExtra(EXTRA_SPOTID, spotId);
 
 

@@ -22,10 +22,10 @@ public class ShelfRepo {
     private final FirebaseQueryLiveData liveData = new FirebaseQueryLiveData(SPOT_REF);
 
 
-    public LiveData<ShelfEntity> getSpot() {
+    public LiveData<ShelfEntity> getSpot(final String spotId) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("spots")
-                ;
+                .child(spotId);
         return new ShelfLiveData(reference);
     }
 
@@ -53,7 +53,6 @@ public class ShelfRepo {
                         callback.onSuccess();
                     }
                 });
-
 
     }
 

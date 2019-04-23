@@ -72,21 +72,23 @@ public class ShowShelfActivity extends AppCompatActivity {
 
 
         shelfViewModel = ViewModelProviders.of(this).get(ShelfViewModel.class);
+
         LiveData<DataSnapshot> liveData = shelfViewModel.getDatasnapshotShelfLiveData();
 
         System.out.println("This is a live data "+liveData);
-        shelfList = new ArrayList<ShelfEntity>();
+
 
         liveData.observe(this, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(@Nullable DataSnapshot dataSnapshot) {
+                shelfList = new ArrayList<ShelfEntity>();
                 if(dataSnapshot != null) {
 
                     System.out.println(" Yes........."+dataSnapshot);
 
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                         ShelfEntity shelf = childSnapshot.getValue(ShelfEntity.class);
-                        //shelf.setSpotid(childSnapshot.getKey());
+                        shelf.setSpotid(childSnapshot.getKey());
                         System.out.println(shelf.getSpotid());
                         System.out.println(shelf.getDesc());
                         System.out.println(shelf.getCategory());
@@ -127,7 +129,17 @@ public class ShowShelfActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-                //shelfViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()));
+                shelfViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+
+                    }
+                });
                 Toast.makeText(ShowShelfActivity.this,"Shelf deleted",Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);

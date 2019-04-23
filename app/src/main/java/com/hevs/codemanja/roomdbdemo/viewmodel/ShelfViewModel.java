@@ -22,7 +22,7 @@ public class ShelfViewModel extends AndroidViewModel {
     private LiveData<ShelfEntity> spots;
 
     private MutableLiveData<String> spotId;
-   private  static LiveData<DataSnapshot> liveData;
+    private  static LiveData<DataSnapshot> liveData;
 
 
 
@@ -34,6 +34,7 @@ public class ShelfViewModel extends AndroidViewModel {
         super(application);
         repository = new ShelfRepo();
         liveData = repository.getDataSnapshotShelfLiveData();
+
 
       //repository = new ShelfRepo(application);
       //  allSpots = repository.getAllSpots();
@@ -64,7 +65,7 @@ public class ShelfViewModel extends AndroidViewModel {
     public LiveData<List<String>> getAllCategorySpots(){return allCategorySpots;}
 
     public LiveData<ShelfEntity> spotsList(){
-        spots = repository.getSpot();
+       // spots = repository.getSpot();
         return spots;}
 
     public LiveData<DataSnapshot> getDatasnapshotShelfLiveData(){

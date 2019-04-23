@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
+import com.google.firebase.database.DataSnapshot;
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.Database.repo.BookRepo;
 import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
@@ -15,11 +16,12 @@ public class BookViewModel extends AndroidViewModel {
 
    private BookRepo repository;
    private LiveData<List<BookEntity>> allBooks;
-
+    private  static LiveData<DataSnapshot> liveData;
 
     public BookViewModel(@NonNull Application application) {
         super(application);
-       // repository = new BookRepo(application);
+        repository = new BookRepo();
+        liveData = repository.getDataSnapshotShelfLiveData();
        // allBooks = repository.getAllBooks();
     }
 
@@ -42,6 +44,9 @@ public class BookViewModel extends AndroidViewModel {
         return allBooks;
     }
 
+    public LiveData<DataSnapshot> getDatasnapshotShelfLiveData(){
+        return liveData;
+    }
 
 
     }
