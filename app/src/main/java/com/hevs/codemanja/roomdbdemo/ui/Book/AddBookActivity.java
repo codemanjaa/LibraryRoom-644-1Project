@@ -8,6 +8,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
@@ -30,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
@@ -61,6 +63,7 @@ public class AddBookActivity extends AppCompatActivity {
 
 
     private EditText editTextG, editTextTitle, editTextSpotId;
+    private TextView textViewG;
     private Button buttonAdd;
     private ImageButton imageButton;
     ImageView imageView;
@@ -94,7 +97,7 @@ public class AddBookActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextSpotId = findViewById(R.id.editTextSpotId);
-       // editTextG = findViewById(R.id.textViewG);
+        textViewG = findViewById(R.id.textViewG);
         spinnerCategory = findViewById(R.id.spinnerCategory);
         imageButton = findViewById(R.id.imageView4);
 
@@ -120,6 +123,9 @@ public class AddBookActivity extends AppCompatActivity {
             //editTextG.setText(intent.getStringExtra(EXTRA_CATEGORY));
             editTextSpotId.setText(intent.getStringExtra(EXTRA_SPOTID));
             buttonAdd.setText("Update Book");
+            editTextSpotId.setEnabled(false);
+            textViewG.setTextColor(Color.RED);
+            textViewG.setText("Spot Modification Not Allowed");
 
 
         }else {

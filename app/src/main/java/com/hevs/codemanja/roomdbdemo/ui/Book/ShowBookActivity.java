@@ -32,6 +32,7 @@ import com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity;
 import com.hevs.codemanja.roomdbdemo.ui.shelf.ShowShelfActivity;
 import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 import com.hevs.codemanja.roomdbdemo.viewmodel.BookViewModel;
+import com.hevs.codemanja.roomdbdemo.viewmodel.ShelfViewModel;
 
 import org.apache.log4j.chainsaw.Main;
 
@@ -45,12 +46,19 @@ public class ShowBookActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
     private BookViewModel bookViewModel;
+
+    private ShelfViewModel shelfViewModel;
+    private LiveData<DataSnapshot> shelfLiveData;
+
+
     private LiveData<DataSnapshot> liveData;
+
+
     //Button buttonEdit;
     Button buttonUpdate;
     Button buttonDelete;
     BookEntity bookEntity;
-
+    List<String> spots;
 
    static List<BookEntity> bookList;
 
@@ -93,26 +101,36 @@ public class ShowBookActivity extends AppCompatActivity {
             }
         });*/
 
+
+        shelfViewModel = ViewModelProviders.of(this).get(ShelfViewModel.class);
+
+
         liveData = bookViewModel.getDatasnapshotShelfLiveData();
 
         LiveData<DataSnapshot> liveData = bookViewModel.getDatasnapshotShelfLiveData();
+
+
+
 
 
         liveData.observe(this, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(@Nullable DataSnapshot dataSnapshot) {
                 bookList = new ArrayList<BookEntity>();
+
+                spots = new ArrayList<String>();
+
                 if(dataSnapshot != null) {
 
                     //System.out.println(" Yes........."+dataSnapshot);
 
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                       // ShelfEntity shelf = childSnapshot.getValue(ShelfEntity.class);
+                       ShelfEntity shelf = childSnapshot.getValue(ShelfEntity.class);
 
                         //BookEntity book = childSnapshot.getValue(BookEntity.class);
 
 
- // display book details on  recycleview
+                        // display book details on  recycleview
                         if(childSnapshot.hasChild("book")){
 
                             BookEntity book = childSnapshot.child("book").getValue(BookEntity.class);
@@ -127,6 +145,13 @@ public class ShowBookActivity extends AppCompatActivity {
                             System.out.println("child    "+childSnapshot.getKey()+ " ------>"+book.getTitle());
                             bookList.add(book);
                         }
+                        else{
+                            String spotid = childSnapshot.child("spotid").getValue(String.class);
+                            spots.add(spotid);
+
+
+
+                        }
 
 
 
@@ -140,11 +165,18 @@ public class ShowBookActivity extends AppCompatActivity {
                     String category = dataSnapshot.child("category").getValue(String.class);
 
                     System.out.println("Test begins...");
-                    System.out.println(desc);
+                    System.out.println(spots.indexOf(0));
 
                 }
             }
         });
+
+
+
+
+
+
+
 
 
 

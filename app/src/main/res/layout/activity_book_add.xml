@@ -56,6 +56,8 @@
             android:inputType="textPersonName"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="34dp" />
 
@@ -99,6 +101,8 @@
             android:selectAllOnFocus="false"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold|italic"
             tools:layout_editor_absoluteX="10dp"
             tools:layout_editor_absoluteY="129dp" />
 
