@@ -119,6 +119,7 @@ public class AddBookActivity extends AppCompatActivity {
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             //editTextG.setText(intent.getStringExtra(EXTRA_CATEGORY));
             editTextSpotId.setText(intent.getStringExtra(EXTRA_SPOTID));
+            buttonAdd.setText("Update Book");
 
 
         }else {
@@ -134,10 +135,6 @@ public class AddBookActivity extends AppCompatActivity {
             }
 
         });
-
-
-
-
 
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextSpotId = findViewById(R.id.editTextSpotId);
@@ -155,7 +152,7 @@ public class AddBookActivity extends AppCompatActivity {
         spinnerCategory.setAdapter(adapter);
 
 
-       buttonAdd.setEnabled(false);
+        buttonAdd.setEnabled(false);
 
         spinnerLocation.setAdapter(adapter);
         spinnerLocation.setVisibility(View.INVISIBLE);
@@ -177,10 +174,29 @@ public class AddBookActivity extends AppCompatActivity {
         });
 
 
+        editTextTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                buttonAdd.setEnabled(true);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         editTextSpotId.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
 
             }
 
