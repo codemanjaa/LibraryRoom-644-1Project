@@ -2,9 +2,12 @@ package com.hevs.codemanja.roomdbdemo.Database.repo;
 
 import android.arch.lifecycle.LiveData;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
+import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
+import com.hevs.codemanja.roomdbdemo.Database.firebase.FirebaseQueryLiveData;
 import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 
 import java.util.List;
@@ -12,14 +15,18 @@ import java.util.List;
 public class BookRepo {
 
     private LiveData<List<BookEntity>> allBooks;
+    private static final DatabaseReference SPOT_REF = FirebaseDatabase.getInstance().getReference("spots");
+    private final FirebaseQueryLiveData liveData = new FirebaseQueryLiveData(SPOT_REF);
+
 
 
 
     public void insert(final BookEntity book, final OnAsyncEventListener callback){
 
+        ShelfEntity entity = new ShelfEntity();
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("spots")
-                .child(book.getF_spotid())
+                .child(entity.getSpotid())
                 .child("book");
         String key = reference.push().getKey();
         FirebaseDatabase.getInstance()
@@ -75,6 +82,9 @@ public class BookRepo {
          return allBooks;
     }
 
+    public LiveData<DataSnapshot> getDataSnapshotShelfLiveData(){
+        return liveData;
+    }
 
    /* public void deleteAllBooks(){
         new DeleteAllBooksAsyncTask(bookDao).execute();

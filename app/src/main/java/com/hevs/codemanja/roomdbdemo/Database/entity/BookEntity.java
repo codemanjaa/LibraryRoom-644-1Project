@@ -12,7 +12,7 @@ public class BookEntity{
 
     private String bid;
     private String title;
-    private String image;
+    private String url;
     private String f_spotid;
 
 
@@ -32,8 +32,8 @@ public class BookEntity{
         this.bid = bid;
     }
 
-    public String getImage(){ return image;}
-    public void setImage(String image){this.image = image;}
+    public String getUrl(){ return url;}
+    public void setImage(String url){this.url = url;}
 
     public String getTitle() {
         return title;
@@ -73,7 +73,7 @@ public class BookEntity{
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("title", title);
-        result.put("image", image);
+        result.put("image", url);
 
         return result;
     }

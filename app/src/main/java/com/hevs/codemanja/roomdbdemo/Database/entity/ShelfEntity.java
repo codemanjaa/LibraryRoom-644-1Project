@@ -18,6 +18,7 @@ public class ShelfEntity implements Parcelable {
     private String desc;
 
 
+
     public ShelfEntity(){
 
     }
@@ -26,6 +27,7 @@ public class ShelfEntity implements Parcelable {
         this.spotid = spotid;
         this.desc = desc;
         this.category = category;
+
     }
 
 
@@ -45,6 +47,7 @@ public class ShelfEntity implements Parcelable {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
 
 
     public void setCategory(String category){this.category = category;}
@@ -94,6 +97,7 @@ public class ShelfEntity implements Parcelable {
         HashMap<String, Object> result = new HashMap<>();
         result.put("Category", category);
         result.put("Description", desc);
+
 
         return result;
     }
