@@ -117,7 +117,7 @@ public class AddBookActivity extends AppCompatActivity {
         if(intent.hasExtra(EXTRA_ID)){
             setTitle("Edit Book");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-         //   editTextG.setText(intent.getStringExtra(EXTRA_CATEGORY));
+            //editTextG.setText(intent.getStringExtra(EXTRA_CATEGORY));
             editTextSpotId.setText(intent.getStringExtra(EXTRA_SPOTID));
 
 
@@ -187,11 +187,9 @@ public class AddBookActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-
-                   if(editTextSpotId.getText().toString().length() >1){
+                  if(editTextSpotId.getText().toString().length() >=3){
                       buttonAdd.setEnabled(true);
                  }
-
 
             }
 

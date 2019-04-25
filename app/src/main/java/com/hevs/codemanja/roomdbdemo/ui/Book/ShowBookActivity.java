@@ -29,6 +29,7 @@ import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.ui.Transaction.MainActivity;
+import com.hevs.codemanja.roomdbdemo.ui.shelf.ShowShelfActivity;
 import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 import com.hevs.codemanja.roomdbdemo.viewmodel.BookViewModel;
 
@@ -44,12 +45,14 @@ public class ShowBookActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
     private BookViewModel bookViewModel;
+    private LiveData<DataSnapshot> liveData;
     //Button buttonEdit;
     Button buttonUpdate;
     Button buttonDelete;
+    BookEntity bookEntity;
 
 
-    List<BookEntity> bookList;
+   static List<BookEntity> bookList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,8 @@ public class ShowBookActivity extends AppCompatActivity {
             }
         });*/
 
+        liveData = bookViewModel.getDatasnapshotShelfLiveData();
+
         LiveData<DataSnapshot> liveData = bookViewModel.getDatasnapshotShelfLiveData();
 
 
@@ -99,13 +104,33 @@ public class ShowBookActivity extends AppCompatActivity {
                 bookList = new ArrayList<BookEntity>();
                 if(dataSnapshot != null) {
 
-                    System.out.println(" Yes........."+dataSnapshot);
+                    //System.out.println(" Yes........."+dataSnapshot);
 
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                        BookEntity book = childSnapshot.getValue(BookEntity.class);
-                        book.setBid(childSnapshot.getKey());
+                       // ShelfEntity shelf = childSnapshot.getValue(ShelfEntity.class);
 
-                        bookList.add(book);
+                        //BookEntity book = childSnapshot.getValue(BookEntity.class);
+
+
+ // display book details on  recycleview
+                        if(childSnapshot.hasChild("book")){
+
+                            BookEntity book = childSnapshot.child("book").getValue(BookEntity.class);
+                            //book.setBid(childSnapshot.getKey());
+                            String title = childSnapshot.child("book").child("title").getValue(String.class);
+                            System.out.println(title);
+                            String spot = childSnapshot.child("spotid").getValue(String.class);
+                            book.setTitle(title);
+                            book.setF_spotid(spot);
+                            book.getTitle();
+
+                            System.out.println("child    "+childSnapshot.getKey()+ " ------>"+book.getTitle());
+                            bookList.add(book);
+                        }
+
+
+
+
                     }
 
                     adapter.submitList(bookList);
@@ -134,7 +159,17 @@ public class ShowBookActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-               // bookViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()));
+                bookViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+
+                    }
+                });
                 Toast.makeText(ShowBookActivity.this,"Book deleted",Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
@@ -149,6 +184,7 @@ public class ShowBookActivity extends AppCompatActivity {
               //  intent.putExtra(AddBookActivity.EXTRA_CATEGORY,entity.getCategory());
                 intent.putExtra(AddBookActivity.EXTRA_SPOTID,entity.getF_spotid());
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
+
             }
         });
 
@@ -253,16 +289,23 @@ public class ShowBookActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_NOTE_REQUEST && resultCode == RESULT_OK){
             String title = data.getStringExtra(AddBookActivity.EXTRA_TITLE);
-            String category = data.getStringExtra(AddBookActivity.EXTRA_CATEGORY);
+            String url = data.getStringExtra(AddBookActivity.EXTRA_CATEGORY);
             String spotId = data.getStringExtra(AddBookActivity.EXTRA_SPOTID);
 
             BookEntity bookEntity = new BookEntity();
+
+            //ShowShelfActivity showShelfActivity = new ShowShelfActivity();
+            //ShelfEntity shelfEntity = showShelfActivity.getShelfEntity();
+
             bookEntity.setTitle(title);
-            bookEntity.setImage(category);
+            bookEntity.setImage(url);
+            bookEntity.setF_spotid(spotId);
+
+            bookViewModel = ViewModelProviders.of(this).get(BookViewModel.class);
             bookViewModel.insert(bookEntity, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
-
+                    bookViewModel.getDatasnapshotShelfLiveData();
                 }
 
                 @Override
@@ -281,12 +324,25 @@ public class ShowBookActivity extends AppCompatActivity {
                  return;
              }
             String title = data.getStringExtra(AddBookActivity.EXTRA_TITLE);
-            String category = data.getStringExtra(AddBookActivity.EXTRA_CATEGORY);
+            String url = data.getStringExtra(AddBookActivity.EXTRA_CATEGORY);
             String spotId = data.getStringExtra(AddBookActivity.EXTRA_SPOTID);
 
-           // BookEntity bookEntity = new BookEntity(title, category, spotId);
-        //    bookEntity.setBid(id);
-          //  bookViewModel.update(bookEntity);
+            BookEntity bookEntity = new BookEntity();
+            bookEntity.setTitle(title);
+            bookEntity.setImage(url);
+            bookEntity.setF_spotid(spotId);
+           // bookEntity.setBid(id);
+            bookViewModel.update(bookEntity, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+
+                }
+            });
         }else {
             Toast.makeText(this,"Book not Saved", Toast.LENGTH_SHORT);
         }

@@ -21,19 +21,20 @@ public class BookRepo {
 
 
 
-    public void insert(final BookEntity book, final OnAsyncEventListener callback){
+    public void insert(final BookEntity book,final OnAsyncEventListener callback){
 
-        ShelfEntity entity = new ShelfEntity();
+        //ShelfEntity entity = new ShelfEntity();
+        //book.setF_spotid(shelf.getSpotid());
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("spots")
-                .child(entity.getSpotid())
+                .child(book.getF_spotid())
                 .child("book");
-        String key = reference.push().getKey();
+        //String key = reference.push().getKey();
         FirebaseDatabase.getInstance()
                 .getReference("spots")
                 .child(book.getF_spotid())
                 .child("book")
-                .child(key)
+                //.child(key)
                 .setValue(book, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
                         callback.onFailure(databaseError.toException());
@@ -49,7 +50,7 @@ public class BookRepo {
                 .getReference("spots")
                 .child(book.getF_spotid())
                 .child("book")
-                .child(book.getBid())
+                //.child(book.getBid())
                 .updateChildren(book.toMap(), (databaseError, databaseReference) -> {
                     if (databaseError != null) {
                         callback.onFailure(databaseError.toException());
@@ -61,11 +62,13 @@ public class BookRepo {
     }
     public void delete(final BookEntity book, final OnAsyncEventListener callback){
 
+     // System.out.println(book.getF_spotid());
         FirebaseDatabase.getInstance()
                 .getReference("spots")
                 .child(book.getF_spotid())
+               // .child(book.getF_spotid())
                 .child("book")
-                .child(book.getBid())
+                //.child(book.getBid())
                 .removeValue((databaseError, databaseReference) -> {
                     if (databaseError != null) {
                         callback.onFailure(databaseError.toException());

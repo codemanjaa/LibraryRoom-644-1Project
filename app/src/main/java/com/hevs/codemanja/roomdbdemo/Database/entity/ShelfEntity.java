@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class ShelfEntity implements Parcelable {
 
+    private String fibid;
     private String spotid;
     private String category;
     private String desc;
@@ -23,7 +24,7 @@ public class ShelfEntity implements Parcelable {
 
     }
 
-    public ShelfEntity(@NonNull String spotid, String desc, String category ){
+    public ShelfEntity(@NonNull  String spotid, String desc, String category ){
         this.spotid = spotid;
         this.desc = desc;
         this.category = category;
@@ -31,6 +32,13 @@ public class ShelfEntity implements Parcelable {
     }
 
 
+    public String getFibid() {
+        return fibid;
+    }
+
+    public void setFibid(String fibid) {
+        this.fibid = fibid;
+    }
 
     public String getSpotid() {
         return spotid;
@@ -96,6 +104,7 @@ public class ShelfEntity implements Parcelable {
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("Category", category);
+        result.put("Spotid", spotid);
         result.put("Description", desc);
 
 

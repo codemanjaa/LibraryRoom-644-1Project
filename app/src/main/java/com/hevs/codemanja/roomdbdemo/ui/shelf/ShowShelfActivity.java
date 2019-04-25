@@ -1,6 +1,7 @@
 package com.hevs.codemanja.roomdbdemo.ui.shelf;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -19,7 +20,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.hevs.codemanja.roomdbdemo.Adapter.ShelfAdapter;
+import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
 import com.hevs.codemanja.roomdbdemo.ui.Book.AddBookActivity;
@@ -27,19 +31,31 @@ import com.hevs.codemanja.roomdbdemo.util.OnAsyncEventListener;
 import com.hevs.codemanja.roomdbdemo.viewmodel.ShelfViewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ShowShelfActivity extends AppCompatActivity {
     public static final int ADD_NOTE_REQUEST = 1;
     public static final int EDIT_NOTE_REQUEST = 2;
     private ShelfViewModel shelfViewModel;
+    private LiveData<DataSnapshot> liveData;
+    private ShelfEntity shelfEntity;
     //Button buttonEdit;
     Button buttonUpdate;
     Button buttonDelete;
 
+    public ShelfEntity getShelfEntity() {
+        return shelfEntity;
+    }
+
+    public void setShelfEntity(ShelfEntity shelfEntity) {
+        this.shelfEntity = shelfEntity;
+    }
 
     static List<ShelfEntity> shelfList;
+    static List<BookEntity> bookList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +63,7 @@ public class ShowShelfActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shelf_show);
 
 
-       // my_child_toolbar is defined in the layout file
+        // my_child_toolbar is defined in the layout file
         Toolbar toolbar =
                 (Toolbar) findViewById(R.id.storage_toolbar);
         setSupportActionBar(toolbar);
@@ -73,9 +89,23 @@ public class ShowShelfActivity extends AppCompatActivity {
 
         shelfViewModel = ViewModelProviders.of(this).get(ShelfViewModel.class);
 
+        liveData = shelfViewModel.getDatasnapshotShelfLiveData();
+        String spotids[] = shelfViewModel.getSpotsId();
+
+        System.out.println(spotids.length);
+
+        System.out.println("This is a live data "+liveData);
+        shelfList = new ArrayList<ShelfEntity>();
+        bookList = new ArrayList<BookEntity>();
+
+
+
+
+
         LiveData<DataSnapshot> liveData = shelfViewModel.getDatasnapshotShelfLiveData();
 
         System.out.println("This is a live data "+liveData);
+
 
 
         liveData.observe(this, new Observer<DataSnapshot>() {
@@ -88,21 +118,50 @@ public class ShowShelfActivity extends AppCompatActivity {
 
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                         ShelfEntity shelf = childSnapshot.getValue(ShelfEntity.class);
+
+
+                        System.out.println("child    "+childSnapshot);
+
+                        // Spots which has book
+                        if(childSnapshot.hasChild("book")){
+                            BookEntity book = childSnapshot.child("book").getValue(BookEntity.class);
+                            book.getTitle();
+
+                            System.out.println("child    "+childSnapshot.getKey()+ " ------>"+book.getTitle());
+
+                        }
+
+                        //shelf.setSpotid(childSnapshot.getKey());
+
                         shelf.setSpotid(childSnapshot.getKey());
+                        String isbn;
+
+                        //shelf.setSpotid(childSnapshot.getKey());
+                        if(dataSnapshot.hasChild("spotid")){
+                            isbn = dataSnapshot.child("spotid").getValue(String.class);
+                            System.out.println(isbn);
+
+                        }
+
+
+
+
                         System.out.println(shelf.getSpotid());
                         System.out.println(shelf.getDesc());
                         System.out.println(shelf.getCategory());
+                        System.out.println();
                         shelfList.add(shelf);
                     }
 
                     adapter.submitList(shelfList);
 
-                        System.out.println("Object Found");
-                        String desc = dataSnapshot.child("desc").getValue(String.class);
-                        String category = dataSnapshot.child("category").getValue(String.class);
+                    System.out.println("Object Found");
+                    String spotId = dataSnapshot.child("spotid").getValue(String.class);
+                    String desc = dataSnapshot.child("desc").getValue(String.class);
+                    String category = dataSnapshot.child("category").getValue(String.class);
 
-                        System.out.println("Test begins...");
-                        System.out.println(desc);
+                    System.out.println("Test begins...");
+                    System.out.println(desc);
 
                 }
             }
@@ -129,7 +188,11 @@ public class ShowShelfActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-                shelfViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
+
+
+                // shelfViewModel.delete(adapter.getBook(viewHolder.getAdapterPosition()));
+
+                shelfViewModel.delete(adapter.getshelf(viewHolder.getAdapterPosition()), new OnAsyncEventListener() {
                     @Override
                     public void onSuccess() {
 
@@ -140,6 +203,7 @@ public class ShowShelfActivity extends AppCompatActivity {
 
                     }
                 });
+
                 Toast.makeText(ShowShelfActivity.this,"Shelf deleted",Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
@@ -155,6 +219,8 @@ public class ShowShelfActivity extends AppCompatActivity {
                 intent.putExtra(AddShelfActivity.EXTRA_SPOTID,entity.getSpotid());
                 intent.putExtra(AddShelfActivity.EXTRA_DESC,entity.getDesc());
                 intent.putExtra(AddShelfActivity.EXTRA_CATEGORY,entity.getCategory());
+
+
                 startActivityForResult(intent, EDIT_NOTE_REQUEST);
             }
         });
@@ -164,10 +230,10 @@ public class ShowShelfActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                  //      .setAction("Action", null).show();
+                //      .setAction("Action", null).show();
 
                 // From the float button start the Addbook activity
-               // startActivity(new Intent(ShowBookActivity.this, AddBookActivity.class));
+                // startActivity(new Intent(ShowBookActivity.this, AddBookActivity.class));
 
                 Intent intent = new Intent(ShowShelfActivity.this,AddShelfActivity.class);
                 startActivityForResult(intent,ADD_NOTE_REQUEST);
@@ -195,10 +261,16 @@ public class ShowShelfActivity extends AppCompatActivity {
             shelfEntity.setDesc(desc);
             shelfEntity.setCategory(category);
             shelfEntity.setSpotid(spotId);
+           // this.shelfEntity = shelfEntity;
             shelfViewModel = ViewModelProviders.of(this).get(ShelfViewModel.class);
             shelfViewModel.insert(shelfEntity, new OnAsyncEventListener() {
+
                 @Override
                 public void onSuccess() {
+
+                    shelfViewModel.getDatasnapshotShelfLiveData();
+                    System.out.println("Shelf view model ok");
+
 
                 }
 
@@ -206,29 +278,36 @@ public class ShowShelfActivity extends AppCompatActivity {
                 public void onFailure(Exception e) {
 
                 }
+
             });
+
+            shelfViewModel.getDatasnapshotShelfLiveData();
 
             Toast.makeText(this,"Shelf Saved", Toast.LENGTH_SHORT);
 
         }else if (requestCode == EDIT_NOTE_REQUEST && resultCode == RESULT_OK) {
-             int id = data.getIntExtra(AddBookActivity.EXTRA_ID,-1);
+            int id = data.getIntExtra(AddBookActivity.EXTRA_ID,-1);
 
-             if(id == -1){
-                 Toast.makeText(this,"Book is not updated", Toast.LENGTH_SHORT);
-                 return;
-             }
+            if(id == -1){
+                Toast.makeText(this,"Book is not updated", Toast.LENGTH_SHORT);
+                return;
+            }
             String desc = data.getStringExtra(AddShelfActivity.EXTRA_DESC);
             String category = data.getStringExtra(AddShelfActivity.EXTRA_CATEGORY);
             String spotId = data.getStringExtra(AddShelfActivity.EXTRA_SPOTID);
 
-            System.out.println(""+spotId);
+            System.out.println(" "+spotId);
 
 
-            ShelfEntity shelfEntity = new ShelfEntity(spotId, desc, category);
+            ShelfEntity shelfEntity = new ShelfEntity();
+            shelfEntity.setSpotid(spotId);
+            shelfEntity.setCategory(category);
+            shelfEntity.setDesc(desc);
 
             shelfViewModel.update(shelfEntity, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
+
 
                 }
 

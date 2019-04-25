@@ -10,7 +10,8 @@ import java.util.Map;
 
 public class BookEntity{
 
-    private String bid;
+
+    private int bid;
     private String title;
     private String url;
     private String f_spotid;
@@ -24,11 +25,11 @@ public class BookEntity{
 
 
 
-    @Exclude
-    public String getBid() {
+@Exclude
+    public int getBid() {
         return bid;
     }
-    public void setBid(String bid) {
+    public void setBid(int bid) {
         this.bid = bid;
     }
 
@@ -43,12 +44,10 @@ public class BookEntity{
     }
 
 
-
-    @Exclude
+@Exclude
     public String getF_spotid() {
         return f_spotid;
     }
-
     public void setF_spotid(String f_spotid) {
         this.f_spotid = f_spotid;
     }
@@ -73,7 +72,8 @@ public class BookEntity{
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("title", title);
-        result.put("image", url);
+        result.put("url", url);
+        result.put("spotId", f_spotid);
 
         return result;
     }
