@@ -30,12 +30,14 @@ private OnItemClickListner listner;
     private  static final DiffUtil.ItemCallback<BookEntity> DIFF_CALLBACK = new DiffUtil.ItemCallback<BookEntity>() {
         @Override
         public boolean areItemsTheSame(@NonNull BookEntity entity, @NonNull BookEntity t1) {
-            return entity.getTitle() == t1.getTitle();
+            System.out.println(entity.getTitle());
+            System.out.println(t1.getTitle());
+            return entity.getF_spotid()== t1.getF_spotid();
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull BookEntity entity, @NonNull BookEntity t1) {
-            return entity.getTitle().equals(t1.getTitle()) &&
+            return
                     //entity.getCategory().equals(t1.getCategory()) &&
                     entity.getF_spotid().equals(t1.getF_spotid());
         }

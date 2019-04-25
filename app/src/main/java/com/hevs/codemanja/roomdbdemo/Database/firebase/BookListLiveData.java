@@ -53,7 +53,7 @@ public class BookListLiveData extends LiveData<List<BookEntity>> {
         List<BookEntity> books = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             BookEntity entity = childSnapshot.getValue(BookEntity.class);
-            entity.setBid(childSnapshot.getKey());
+            //entity.setBid(childSnapshot.getKey());
             entity.setF_spotid(f_spotid);
             books.add(entity);
         }

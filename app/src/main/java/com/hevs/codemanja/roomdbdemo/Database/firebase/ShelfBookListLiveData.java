@@ -71,7 +71,7 @@ public class ShelfBookListLiveData extends LiveData<List<ShelfWithBook>> {
         List<BookEntity> books = new ArrayList<>();
         for (DataSnapshot childSnapshot : snapshot.getChildren()) {
             BookEntity entity = childSnapshot.getValue(BookEntity.class);
-            entity.setBid(childSnapshot.getKey());
+            //.setBid(childSnapshot.getKey());
             entity.setF_spotid(f_spotid);
             books.add(entity);
         }

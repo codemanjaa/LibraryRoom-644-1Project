@@ -16,9 +16,13 @@
 
         <TextView
             android:id="@+id/textViewTitle"
-            android:layout_width="217dp"
-            android:layout_height="38dp"
+            android:layout_width="232dp"
+            android:layout_height="64dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="49dp"
             android:layout_toRightOf="@id/imageView"
             android:text=" Title"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
@@ -27,35 +31,31 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/textViewSpot2"
+            android:layout_width="105dp"
+            android:layout_height="27dp"
+            android:layout_alignLeft="@id/textViewTitle"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="-116dp"
+            android:layout_marginTop="16dp"
+            android:text=" SPOT ID"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/textViewCategory"
-            android:layout_width="189dp"
-            android:layout_height="35dp"
+            android:layout_width="275dp"
+            android:layout_height="18dp"
             android:layout_below="@id/textViewTitle"
+            android:layout_alignParentBottom="true"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="13dp"
+            android:layout_marginBottom="0dp"
             android:layout_toRightOf="@id/imageView"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:textColor="@color/colorPrimary" />
-
-        <Button
-            android:id="@+id/buttonDelete"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textViewCategory"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="-33dp"
-            android:layout_marginEnd="23dp"
-            android:background="@android:drawable/ic_delete" />
-
-        <Button
-            android:id="@+id/buttonEdit"
-            android:layout_width="53dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textViewCategory"
-            android:layout_marginTop="-32dp"
-            android:layout_marginEnd="16dp"
-            android:layout_toStartOf="@+id/buttonDelete"
-            android:background="@drawable/edit" />
 
     </RelativeLayout>
 
