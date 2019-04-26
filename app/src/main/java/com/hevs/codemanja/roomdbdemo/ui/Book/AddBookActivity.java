@@ -5,12 +5,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.storage.StorageManager;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
@@ -23,6 +26,7 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +38,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.hevs.codemanja.roomdbdemo.Database.entity.BookEntity;
 import com.hevs.codemanja.roomdbdemo.Database.entity.ShelfEntity;
 import com.hevs.codemanja.roomdbdemo.R;
@@ -63,15 +73,21 @@ public class AddBookActivity extends AppCompatActivity {
 
 
     private EditText editTextG, editTextTitle, editTextSpotId;
-    private TextView textViewG;
     private Button buttonAdd;
     private ImageButton imageButton;
-    ImageView imageView;
+    private TextView textViewG;
     private Spinner spinnerCategory, spinnerLocation;
     private static String category;
     int requestCode;
     int resultCode;
     Intent imageReturnedIntent;
+    private  static final int PICK_IMAGE_REQUEST = 1;
+    private Button mButtonChooseImage;
+    private ImageView mImageView;
+
+    private Uri mImageUri;
+    private StorageReference mStorageRef;
+    private DatabaseReference mDatabaseRef;
 
 
 
@@ -99,9 +115,13 @@ public class AddBookActivity extends AppCompatActivity {
         editTextSpotId = findViewById(R.id.editTextSpotId);
         textViewG = findViewById(R.id.textViewG);
         spinnerCategory = findViewById(R.id.spinnerCategory);
-        imageButton = findViewById(R.id.imageView4);
-
+        mImageView = findViewById(R.id.imageView4);
+        mButtonChooseImage = findViewById(R.id.addimage);
         buttonAdd = findViewById(R.id.buttonAddBook);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+
 
         // my_child_toolbar is defined in the layout file
         Toolbar myChildToolbar =
@@ -142,6 +162,10 @@ public class AddBookActivity extends AppCompatActivity {
 
         });
 
+
+
+
+
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextSpotId = findViewById(R.id.editTextSpotId);
         buttonAdd = findViewById(R.id.buttonAddBook);
@@ -180,38 +204,19 @@ public class AddBookActivity extends AppCompatActivity {
         });
 
 
-        editTextTitle.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                buttonAdd.setEnabled(true);
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
 
         editTextSpotId.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                  if(editTextSpotId.getText().toString().length() >=3){
-                      buttonAdd.setEnabled(true);
-                 }
+                if(editTextSpotId.getText().toString().length() >=3){
+                    buttonAdd.setEnabled(true);
+                }
 
             }
 
@@ -238,20 +243,18 @@ public class AddBookActivity extends AppCompatActivity {
         });
 
 
-         imageButton.setOnClickListener(new View.OnClickListener() {
-             public static final int PICK_PHOTO_FOR_AVATAR = 3;
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                 intent.setType("image/*");
-                 startActivityForResult(intent, PICK_PHOTO_FOR_AVATAR);
-             }
-         });
+        mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                openFileChooser();;
+            }
+        });
 
 
 
-}
-    @Override
+    }
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) {
             return;
@@ -266,9 +269,13 @@ public class AddBookActivity extends AppCompatActivity {
 
             }
         }
+    }*/
+
+    private String getFileExtension(Uri uri){
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-
-
 
     private void saveBook() {
 
@@ -276,21 +283,57 @@ public class AddBookActivity extends AppCompatActivity {
         String spotId = editTextSpotId.getText().toString();
 
 
-            Intent data = new Intent();
-            data.putExtra(EXTRA_TITLE, title);
-            data.putExtra(EXTRA_CATEGORY, category);
-            data.putExtra(EXTRA_SPOTID, spotId);
+        if(mImageUri != null){
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()+"."+getFileExtension(mImageUri));
 
-            int id = getIntent().getIntExtra(EXTRA_ID, -1);
-            if (id != -1) {
-                data.putExtra(EXTRA_ID, id);
-            }
+            fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-            setResult(RESULT_OK, data);
-            finish();
+                            String url = taskSnapshot.getStorage().getDownloadUrl().toString();
+                            Intent data = new Intent();
+                            data.putExtra(EXTRA_TITLE, title);
+                            data.putExtra(EXTRA_CATEGORY, url);
+                            data.putExtra(EXTRA_SPOTID, spotId);
+
+                            int id = getIntent().getIntExtra(EXTRA_ID, -1);
+                            if (id != -1) {
+                                data.putExtra(EXTRA_ID, id);
+                            }
+
+                            setResult(RESULT_OK, data);
+                            finish();
+
+                        }
+                    });
+        }
 
 
 
+
+
+    }
+
+    private void openFileChooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null){
+            mImageUri = data.getData();
+
+            //Picasso.with(this).load(mImageUri).into(mImageView);
+            mImageView.setImageURI(mImageUri);
+
+        }
     }
 
 
@@ -321,5 +364,3 @@ public class AddBookActivity extends AppCompatActivity {
 
 
 }
-
-

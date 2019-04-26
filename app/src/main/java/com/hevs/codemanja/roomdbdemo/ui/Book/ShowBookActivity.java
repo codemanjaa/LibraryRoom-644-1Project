@@ -52,13 +52,13 @@ public class ShowBookActivity extends AppCompatActivity {
 
 
     private LiveData<DataSnapshot> liveData;
-
+    private  final List<String> spotList = new ArrayList<>();
 
     //Button buttonEdit;
     Button buttonUpdate;
     Button buttonDelete;
     BookEntity bookEntity;
-    List<String> spots;
+
 
    static List<BookEntity> bookList;
 
@@ -104,7 +104,6 @@ public class ShowBookActivity extends AppCompatActivity {
 
         shelfViewModel = ViewModelProviders.of(this).get(ShelfViewModel.class);
 
-
         liveData = bookViewModel.getDatasnapshotShelfLiveData();
 
         LiveData<DataSnapshot> liveData = bookViewModel.getDatasnapshotShelfLiveData();
@@ -118,7 +117,7 @@ public class ShowBookActivity extends AppCompatActivity {
             public void onChanged(@Nullable DataSnapshot dataSnapshot) {
                 bookList = new ArrayList<BookEntity>();
 
-                spots = new ArrayList<String>();
+
 
                 if(dataSnapshot != null) {
 
@@ -126,6 +125,10 @@ public class ShowBookActivity extends AppCompatActivity {
 
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                        ShelfEntity shelf = childSnapshot.getValue(ShelfEntity.class);
+                        String spotid = shelf.getSpotid();
+                        spotList.add(spotid);
+                        System.out.println("This is the "+spotid);
+
 
                         //BookEntity book = childSnapshot.getValue(BookEntity.class);
 
@@ -145,13 +148,6 @@ public class ShowBookActivity extends AppCompatActivity {
                             System.out.println("child    "+childSnapshot.getKey()+ " ------>"+book.getTitle());
                             bookList.add(book);
                         }
-                        else{
-                            String spotid = childSnapshot.child("spotid").getValue(String.class);
-                            spots.add(spotid);
-
-
-
-                        }
 
 
 
@@ -165,7 +161,7 @@ public class ShowBookActivity extends AppCompatActivity {
                     String category = dataSnapshot.child("category").getValue(String.class);
 
                     System.out.println("Test begins...");
-                    System.out.println(spots.indexOf(0));
+                    System.out.println("spot list "+spotList.indexOf(1));
 
                 }
             }
